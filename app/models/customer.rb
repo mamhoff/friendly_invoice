@@ -3,6 +3,8 @@ class Customer < ActiveRecord::Base
 
   extend ModelCsv
 
+  serialize :meta_attributes, JSON
+
   acts_as_paranoid
   has_many :invoices
   has_many :estimates
