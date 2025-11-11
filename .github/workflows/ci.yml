@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    services:
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: siwapp_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/siwapp_test
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5.7
+        bundler-cache: false
+
+    - name: Install Qt5 dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -qq libqt5webkit5-dev qt5-default
+
+    - name: Setup database configuration
+      run: cp config/database.yml.travis config/database.yml
+
+    - name: Install dependencies
+      run: |
+        gem install bundler -v '~> 2.0'
+        bundle install --jobs 4 --retry 3
+
+    - name: Setup database
+      run: |
+        bin/rails db:create
+        bin/rails db:schema:load
+
+    - name: Run tests
+      run: xvfb-run bin/rspec
+
+    - name: Upload screenshots on failure
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-screenshots
+        path: /tmp/*.png
+        if-no-files-found: ignore
