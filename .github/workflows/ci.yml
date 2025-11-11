@@ -31,15 +31,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Cache Qt5 packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          /var/cache/apt/archives
-        key: ${{ runner.os }}-qt5-${{ hashFiles('.github/workflows/ci.yml') }}
-        restore-keys: |
-          ${{ runner.os }}-qt5-
-
     - name: Install Qt5 dependencies
       run: |
         sudo apt-get update
