@@ -40,7 +40,7 @@ jobs:
     - name: Install Qt5 dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -qq libqt5webkit5-dev qt5-default
+        sudo apt-get install -qq libqt5webkit5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
 
     - name: Setup database configuration
       run: cp config/database.yml.travis config/database.yml
