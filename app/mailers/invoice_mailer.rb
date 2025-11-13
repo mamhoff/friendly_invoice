@@ -1,7 +1,4 @@
 class InvoiceMailer < ApplicationMailer
-  add_template_helper TemplatesHelper
-  add_template_helper ApplicationHelper
-
   def email_invoice(invoice)
     @invoice = invoice
 
