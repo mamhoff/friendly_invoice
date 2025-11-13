@@ -19,7 +19,9 @@
   .destroy-icon {
     color: $brand-danger;
 
-    @include hover-focus-active {
+    &:hover,
+    &:focus,
+    &:active {
       color: darken($brand-danger, 10%);
     }
 
@@ -42,7 +44,9 @@
       width: 100%;
       text-decoration: none;
 
-      @include hover-focus-active {
+      &:hover,
+      &:focus,
+      &:active {
         color: #fff;
         background-color: #d9534f;
         border-color: #d9534f;

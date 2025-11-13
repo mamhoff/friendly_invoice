@@ -19,6 +19,6 @@
             %td= series.first_number
             %td.text-center
               - if series.enabled
-                = material_icon.done.css_class('green')
+                = material_icon.shape(:done).css_class('green')
               - else
-                = material_icon.clear.css_class('red')
+                = material_icon.shape(:clear).css_class('red')

@@ -24,9 +24,9 @@
 #= require behave
 #= require select2
 #
-# Bootstrap 4
+# Bootstrap 5
 #
-#= require tether
+#= require popper
 #= require bootstrap
 #
 #= require_tree .

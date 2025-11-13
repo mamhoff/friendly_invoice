@@ -34,11 +34,11 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6.10
+          ruby-version: 2.7.8
           bundler-cache: true
 
       - name: Setup database configuration
-        run: cp config/database.yml.travis config/database.yml
+        run: cp config/database.yml.ci config/database.yml
 
       - name: Setup database
         run: |
