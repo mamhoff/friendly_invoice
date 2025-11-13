@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
   before_action :set_hooks_logs, only: [:hooks, :hooks_update]
-  force_ssl only: [:api_token], if: :is_production
+  before_action :force_ssl_redirect, only: [:api_token], if: :is_production
 
   # GET /settings/global
   def global
