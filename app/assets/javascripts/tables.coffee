@@ -51,12 +51,13 @@ jQuery(document).ready ($) ->
 
 
     # if there's anchor or page param, jump to the item
+    $firstItem = null
     if '#' in window.location.href
       $firstItem = $(document).find("[data-role='infinite-content'] >
       tr[data-itemid='#{window.location.href.split('#')[1]}']")
     if not ($firstItem and $firstItem.length) and window.location.search.match /page=/
       $firstItem = $(document).find("[data-role='infinite-content'] > tr").first()
-    if $firstItem
+    if $firstItem and $firstItem.length
       $(window).scrollTop $firstItem.offset().top - $firstItem.outerHeight()
 
 

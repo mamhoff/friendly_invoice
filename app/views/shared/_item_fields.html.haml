@@ -27,7 +27,7 @@
     = f.hidden_field :net_amount, {data: {role: 'net-amount'}}
 
   = link_to_remove_association f, {wrapper_class: 'js-item', class: 'destroy-icon'} do
-    = material_icon.delete
+    = material_icon.shape(:delete)
     %span Remove Line
 
   = f.hidden_field :id

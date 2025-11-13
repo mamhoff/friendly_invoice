@@ -199,6 +199,12 @@ jQuery(document).ready ($) ->
       $(this).closest('[data-role="taxes-selector"]').trigger('update')
     .find('[data-role="taxes-selector"]').trigger('update')
 
+  # Trigger amount recalculation when taxes change via select2
+  form.on 'select2:select select2:unselect', '[data-role="taxes-selector"]', ->
+    parent_form = $(this).closest('form[data-role="invoice"]')
+    controller = parent_form.data('controller')
+    set_amounts(controller, parent_form)
+
   #
   # Action Buttons
   #
