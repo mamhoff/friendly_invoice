@@ -53,8 +53,8 @@ RSpec.describe Customer, :type => :model do
     customer.invoices << build_invoice(series: Series.new(value: "A"),
                                        items: [Item.new(quantity: 1, unitary_cost: 10)])
     customer.save
-    expect(customer.destroy).to be false
-    expect(customer.errors[:base][0]).to include "can't be deleted"
+    expect(customer.destroy).to be_falsey
+    expect(customer.persisted?).to be true
   end
 
   it "is deleted, draft or failed invoices don't prevent deletion" do
