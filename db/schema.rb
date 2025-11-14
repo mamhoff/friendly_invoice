@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_104221) do
-
+ActiveRecord::Schema[7.0].define(version: 2025_11_14_114308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,9 +44,9 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.string "period_type", limit: 8
     t.date "starting_date"
     t.date "finishing_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.integer "print_template_id"
     t.jsonb "meta_attributes"
     t.boolean "failed", default: false
@@ -78,7 +77,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.string "contact_person", limit: 100
     t.text "invoicing_address"
     t.text "shipping_address"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.text "meta_attributes"
     t.boolean "active", default: true
     t.index ["deleted_at"], name: "index_customers_on_deleted_at"
@@ -92,7 +91,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.string "description", limit: 20000
     t.decimal "unitary_cost", precision: 53, scale: 15, default: "0.0", null: false
     t.integer "product_id"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.index ["common_id"], name: "common_id_idx"
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
     t.index ["description"], name: "desc_idx"
@@ -109,9 +108,9 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.date "date"
     t.decimal "amount", precision: 53, scale: 15
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.index ["deleted_at"], name: "index_payments_on_deleted_at"
     t.index ["invoice_id"], name: "invoice_id_idx"
   end
@@ -120,9 +119,9 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.string "reference", limit: 100, null: false
     t.text "description"
     t.decimal "price", precision: 53, scale: 15, default: "0.0", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
@@ -131,7 +130,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.string "value", limit: 255
     t.boolean "enabled", default: true
     t.boolean "default", default: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.integer "first_number", default: 1
     t.index ["deleted_at"], name: "index_series_on_deleted_at"
   end
@@ -141,8 +140,8 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.text "value"
     t.integer "thing_id"
     t.string "thing_type", limit: 30
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
@@ -153,7 +152,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.integer "tagger_id"
     t.string "tagger_type", limit: 255
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
   end
@@ -169,18 +168,18 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.decimal "value", precision: 53, scale: 2
     t.boolean "active", default: true
     t.boolean "default", default: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.index ["deleted_at"], name: "index_taxes_on_deleted_at"
   end
 
   create_table "templates", force: :cascade do |t|
     t.string "name", limit: 255
     t.text "template"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "models", limit: 200
     t.boolean "print_default", default: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.boolean "email_default", default: false
     t.string "subject", limit: 200
     t.index ["deleted_at"], name: "index_templates_on_deleted_at"
@@ -189,8 +188,8 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 255
     t.string "email", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "password_digest", limit: 255
     t.string "remember_digest", limit: 255
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -200,8 +199,8 @@ ActiveRecord::Schema.define(version: 2022_05_20_104221) do
     t.string "level", limit: 255, default: "info", null: false
     t.string "message", limit: 255
     t.string "event", limit: 255, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 # Use SCSS for stylesheets
 gem 'sassc', '~> 2.4.0'
 gem 'sass-rails'
@@ -62,7 +62,7 @@ group :test do
 end
 
 gem 'active_model_serializers'
-gem 'acts-as-taggable-on' # https://github.com/mbleigh/acts-as-taggable-on
+gem 'acts-as-taggable-on', '~> 10.0' # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails'
 gem 'bootsnap'
 gem 'bootstrap'

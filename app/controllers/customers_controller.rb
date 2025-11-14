@@ -78,6 +78,11 @@ class CustomersController < ApplicationController
       if @customer.destroy
         format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully destroyed.' }
       else
+        # In Rails 7.0, errors are cleared after throw(:abort) in callbacks
+        # We need to manually add the error back if it's not present
+        if @customer.errors.empty? && @customer.total > @customer.paid
+          @customer.errors.add(:base, "This customer can't be deleted because it has unpaid invoices")
+        end
         format.html { render :edit }
       end
     end
