@@ -30,7 +30,14 @@ feature 'Invoices:' do
       end
     end
 
-    click_on 'Add Line'
+    # Ensure all pending AJAX requests are complete before adding a new line
+    wait_for_ajax
+
+    # Use find to ensure the button is present and clickable, then trigger click
+    find('.add_fields', text: 'Add Line').click
+
+    # Wait for the new line to be added to the DOM (should have 2 .js-item elements now)
+    expect(page).to have_css('.js-item', count: 2)
 
     # Fill in the new item line created
     within(:xpath, '//*[@id="js-items-table"]/div[2]') do
