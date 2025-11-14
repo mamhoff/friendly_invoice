@@ -27,3 +27,4 @@ Gemfile.lock
 
 /public/assets
 /node_modules
+/vendor/bundle
