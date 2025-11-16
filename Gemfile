@@ -7,8 +7,6 @@ gem 'rails', '~> 7.1.0'
 # Use SCSS for stylesheets
 gem 'sassc', '~> 2.4.0'
 gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -19,8 +17,6 @@ gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
@@ -30,9 +26,6 @@ group :development, :test do
   gem 'byebug'
 
   gem 'listen'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 
   # To start toying with BDD
   gem 'rspec-rails'
@@ -70,7 +63,6 @@ gem 'bootstrap'
 gem 'cocoon'
 gem 'factory_bot_rails'
 gem 'faker'
-gem 'fastclick-rails'
 gem 'haml'
 gem 'jquery-ui-rails'
 gem 'js-routes'
