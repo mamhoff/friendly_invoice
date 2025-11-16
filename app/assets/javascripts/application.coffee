@@ -17,7 +17,6 @@
 #= require jquery-ui/widgets/autocomplete
 #= require waypoints/jquery.waypoints
 #= require waypoints/shortcuts/infinite
-#= require fastclick
 #= require d3
 #= require c3
 #= require autosize
@@ -38,8 +37,6 @@
 
 
 jQuery(document).ready ($) ->
-  new FastClick(document.body)
-
   $('.code-editor').each () ->
     editor = new Behave({textarea: this})
 
