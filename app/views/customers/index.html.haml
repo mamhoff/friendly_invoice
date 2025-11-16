@@ -6,17 +6,17 @@
         %tr
           %th.no-wrap=t("customer name")
           %th.no-wrap=t("identification")
-          %th.text-right=t("due")
-          %th.text-right=t("total")
-          %th.text-right
+          %th.text-end=t("due")
+          %th.text-end=t("total")
+          %th.text-end
       %tbody{data: {role: 'infinite-content'}}
         - @customers.each_with_index do |customer, i|
           %tr{data: {href: edit_customer_path(customer), itemid: customer.id, page_start: i.zero?, page: @customers.current_page}}
             %td.no-wrap
               =link_to customer.name, edit_customer_path(customer)
             %td.no-wrap= customer.identification
-            %td.text-right= customer.due > 0.0 ? display_money(customer.due) : ""
-            %td.text-right= display_money customer.total
+            %td.text-end= customer.due > 0.0 ? display_money(customer.due) : ""
+            %td.text-end= display_money customer.total
             %td.text-center{"data-no-href": ""}
               %a{class: "material-icons",
                  title: "See Invoices",

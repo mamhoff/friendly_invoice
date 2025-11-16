@@ -7,20 +7,20 @@
     %small.text-muted
       = "(#{@count} #{t("found")})"
 
-  %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
+  %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {bs_toggle: "collapse", bs_target: "#js-section-info"}}= display_money @gross
 
 #js-section-info.section-summary.collapse
   #js-invoices-chart.chart-height-sm
   %ul.list-group.list-unstyled
     %li
       total gross
-      %span.label.label-default.label-pill.float-right= display_money @gross
+      %span.badge.bg-secondary.rounded-pill.float-end= display_money @gross
     %li
       total net
-      %span.label.label-default.label-pill.float-right= display_money @net
+      %span.badge.bg-secondary.rounded-pill.float-end= display_money @net
     %li
       total tax
-      %span.label.label-default.label-pill.float-right= display_money @tax
+      %span.badge.bg-secondary.rounded-pill.float-end= display_money @tax
 
 = form_tag bulk_invoices_path, method: :post, id: 'js-list-form' do
   %input#bulk_action{'type'=>'hidden', 'name'=>'bulk_action', 'value'=>''}
@@ -35,15 +35,15 @@
             %th.no-wrap= sort_link(@search, :issue_date, t("date"))
             %th.text-center= sort_link(@search, :sent_by_email, t("sent"))
             %th.text-center= sort_link(@search, :status, t("status"))
-            %th.text-right=t("pending")
-            %th.text-right= sort_link(@search, :gross_amount, t("total"))
+            %th.text-end=t("pending")
+            %th.text-end= sort_link(@search, :gross_amount, t("total"))
         %tbody{data: {role: 'infinite-content'}}
           = render @invoices, current_page: @invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to t("delete"), '#', class: 'btn btn-danger float-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', action: 'delete', target: '#js-list-form'}
+  = link_to t("delete"), '#', class: 'btn btn-danger float-start', data: {confirm: 'are you sure?', role: 'submit-form', action: 'delete', target: '#js-list-form'}
   = link_to t("send email"), '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'send_email', target: '#js-list-form'}
   = link_to t("set paid"), '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'set_paid', target: '#js-list-form'}
   = link_to t("download pdf"), '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'pdf', target: '#js-list-form'}

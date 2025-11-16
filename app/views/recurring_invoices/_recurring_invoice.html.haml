@@ -15,4 +15,4 @@
       = material_icon.shape(:done).css_class('green')
     - else
       = material_icon.shape(:clear).css_class('red')
-  %td.text-right.no-wrap= display_money recurring_invoice.gross_amount, recurring_invoice.currency
+  %td.text-end.no-wrap= display_money recurring_invoice.gross_amount, recurring_invoice.currency

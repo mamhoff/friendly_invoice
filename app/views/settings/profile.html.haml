@@ -11,19 +11,19 @@
           %ul
             - @user.errors.full_messages.each do |message|
               %li= message
-      .form-group
+      .mb-3
         = f.label :name, "#{t("name")}:"
         = f.text_field :name, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :email, "#{t("email")}:"
         = f.text_field :email, class: 'form-control'
-      .form-group
+      .mb-3
         = label_tag :old_password, "#{t("old")} #{t("password")}:"
         = password_field_tag :old_password, nil, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :password, "#{t("new")} #{t("password")}:"
         = f.password_field :password, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :password_confirmation, "#{t("new")} #{t("password")} #{t("confirmation")}:"
         = f.password_field :password_confirmation, class: 'form-control'
 
