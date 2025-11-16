@@ -1,27 +1,27 @@
 .invoice-row.invoice-item.js-item
-  .invoice-col.invoice-col--description.form-group
+  .invoice-col.invoice-col--description.mb-3
     = f.label :description
     = f.text_area :description, class: "form-control", rows: 1, "data-role": "item-description"
 
-  .invoice-col.invoice-col--quantity.form-group
+  .invoice-col.invoice-col--quantity.mb-3
     = f.label :quantity
     = f.text_field :quantity, class: "form-control", "data-role": "quantity"
 
-  .invoice-col.invoice-col--amount.form-group
+  .invoice-col.invoice-col--amount.mb-3
     = f.label :unitary_cost
     = f.text_field :unitary_cost, class: "form-control", "data-role": "unitary-cost"
 
-  .invoice-col.invoice-col--discount.form-group
+  .invoice-col.invoice-col--discount.mb-3
     = f.label :discount
     = f.text_field :discount, class: "form-control", "data-role": "discount"
 
-  .invoice-col.invoice-col--taxes.form-group
+  .invoice-col.invoice-col--taxes.mb-3
     %label{"data-role": "taxes-selector-label"}
       =t("taxes")
       %span{data: {role: 'total'}}
     = f.collection_select :tax_ids, Tax.enabled, :id, :to_s, {}, {class: 'form-control c-select', multiple: true, "data-role": "taxes-selector"}
 
-  .invoice-col.invoice-col--total.form-group
+  .invoice-col.invoice-col--total.mb-3
     = f.label :net_amount
     %p.form-control-static.js-net-amount= f.object.net_amount
     = f.hidden_field :net_amount, {data: {role: 'net-amount'}}

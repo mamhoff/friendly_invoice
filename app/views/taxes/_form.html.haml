@@ -7,10 +7,10 @@
       %ul
         - @tax.errors.full_messages.each do |message|
           %li= message
-  .form-group
+  .mb-3
     = f.label :name
     = f.text_field :name, class: 'form-control'
-  .form-group
+  .mb-3
     = f.label :value
     = f.number_field :value, class: 'form-control'
   .checkbox

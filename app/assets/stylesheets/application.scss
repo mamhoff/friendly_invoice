@@ -12,7 +12,6 @@
  *
  *= require jquery-ui
  *= require select2
- *= require material_icons
  */
 
 // Settings
@@ -22,6 +21,7 @@
 @import "bootstrap";
 @import "jquery-ui/autocomplete";
 @import "c3";
+@import "material_icons_import";
 
 // Siwapp Stuff
 @import "mixins";

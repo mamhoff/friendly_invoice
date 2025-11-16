@@ -1,11 +1,11 @@
 .invoice-row.invoice-payment.js-payment
-  .invoice-col.form-group
+  .invoice-col.mb-3
     = f.label :date
     = f.date_field :date, class: 'form-control'
-  .invoice-col.invoice-col--description.form-group
+  .invoice-col.invoice-col--description.mb-3
     = f.label :notes
     = f.text_area :notes, class: "form-control", rows: 1
-  .invoice-col.invoice-col--amount.form-group
+  .invoice-col.invoice-col--amount.mb-3
     = f.label :amount
     = f.text_field :amount, class: 'form-control'
 

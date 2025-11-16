@@ -12,36 +12,36 @@
             - @global_settings.errors.full_messages.each do |message|
               %li= message
 
-      .form-group
+      .mb-3
         = f.label :company_name, "#{t("company")}:"
         = f.text_field :company_name, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :company_vat_id, "#{t("company")} vat id:"
         = f.text_field :company_vat_id, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :company_address, "#{t("company")} #{t("address")}:"
         = f.text_area :company_address, class: 'form-control autosize', rows: '3'
-      .form-group
+      .mb-3
         = f.label :company_phone, "#{t("company")} #{t("phone")}:"
         = f.text_field :company_phone, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :company_email, "#{t("company")} #{t("email")}:"
         = f.email_field :company_email, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :company_url, "#{t("company")} #{t("website")}:"
         = f.url_field :company_url, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :company_logo, "#{t("company")} #{t("logo")}:"
         = f.url_field :company_logo, class: 'form-control'
-      .form-group
+      .mb-3
         = f.label :currency, "#{t("currency")}:"
         = f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'}
 
-      .form-group
+      .mb-3
         = f.label :legal_terms, "#{t("legal terms")}:"
         = f.text_area :legal_terms, class: 'form-control autosize', rows: '3'
 
-      .form-group
+      .mb-3
         = f.label :days_to_due, "#{t("days to due")}:"
         = f.number_field :days_to_due, class: 'form-control'
 

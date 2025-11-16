@@ -11,7 +11,7 @@
           %ul
             - @hooks_settings.errors.full_messages.each do |message|
               %li= message
-      .form-group
+      .mb-3
         = f.label :event_invoice_generation_url, t(".url to post")
         = f.url_field :event_invoice_generation_url, class: 'form-control'
 .row

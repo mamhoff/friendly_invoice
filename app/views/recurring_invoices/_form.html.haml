@@ -31,27 +31,27 @@
 
         .row
           .col-sm-6
-            .form-group
+            .mb-3
               = f.label :starting_date
               = f.date_field :starting_date, class: 'form-control'
           .col-sm-6
-            .form-group
+            .mb-3
               = f.label :finishing_date
               = f.date_field :finishing_date, class: 'form-control'
 
         .row
           .col-sm-6
-            .form-group
+            .mb-3
               = f.label :period
               = f.number_field :period, class: 'form-control'
           .col-sm-6
-            .form-group
+            .mb-3
               = f.label :period_type
               = f.select :period_type, RecurringInvoice::PERIOD_TYPES, {}, {class: 'form-control c-select'}
 
         .row
           .col-sm-6
-            .form-group
+            .mb-3
               = f.label :max_occurrences
               = f.number_field :max_occurrences, class: 'form-control'
 
@@ -61,15 +61,15 @@
       .col-xs-12.col-xl-12
         .row
           .col-sm-4
-            .form-group
+            .mb-3
               = f.label :series
               = f.collection_select :series_id, Series.enabled, :id, :to_s, {}, {class: 'form-control c-select'}
           .col-sm-4
-            .form-group
+            .mb-3
               = f.label :days_to_due
               = f.number_field :days_to_due, class: 'form-control'
           .col-sm-4
-            .form-group
+            .mb-3
               = f.label :currency
               = f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'}
 

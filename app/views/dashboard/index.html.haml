@@ -13,8 +13,8 @@
           %th.no-wrap=t("date")
           %th.text-center=t("sent")
           %th.text-center=t("status")
-          %th.text-right=t("pending")
-          %th.text-right=t("total")
+          %th.text-end=t("pending")
+          %th.text-end=t("total")
       %tbody{data: {role: 'infinite-content'}}
         = render @objects, current_page: @objects.current_page
 
