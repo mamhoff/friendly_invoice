@@ -17,9 +17,12 @@ gem 'dartsass-rails'
 
 # Hotwire: Turbo + Stimulus for modern JavaScript
 gem 'hotwire-rails'
-gem 'turbo-rails'
-gem 'stimulus-rails'
 gem 'importmap-rails'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+
+gem 'c3-rails', '~> 0.4.18'
+gem 'd3-rails', '~> 3.5.0'
 
 # Use jquery as the JavaScript library (keeping temporarily for third-party libs)
 gem 'jquery-rails'
