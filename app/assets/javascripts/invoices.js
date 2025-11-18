@@ -9,7 +9,8 @@ jQuery(document).ready(($) => {
   if (window.location.pathname === Routes.invoices_path()) {
     // Chart
     let chartDisplayed = false;
-    $('#js-section-info').on('shown.bs.collapse', () => {
+    const sectionInfoElement = document.getElementById('js-section-info');
+    sectionInfoElement.addEventListener('shown.bs.collapse', () => {
       if (!chartDisplayed) {
         chartDisplayed = true;
         $.getJSON(Routes.chart_data_invoices_path({format: 'json'}) + window.location.search, (data) => {
