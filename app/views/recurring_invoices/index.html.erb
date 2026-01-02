@@ -1,14 +1,14 @@
+<h1>
+  <% if @customer %>
+    <%= "recurring invoices for #{@customer}" %>
+  <% else %>
+    <%= t("recurring invoices") %>
+  <% end %>
+  <small class="text-muted">
+    <%= "(#{@count} #{t("found")})" %>
+  </small>
+</h1>
 <div class="section-hd">
-  <h1>
-    <% if @customer %>
-      <%= "recurring invoices for #{@customer}" %>
-    <% else %>
-      <%= t("recurring invoices") %>
-    <% end %>
-    <small class="text-muted">
-      <%= "(#{@count} #{t("found")})" %>
-    </small>
-  </h1>
   <button class="btn dropdown-toggle section-hd__action" data-bs-target="#js-section-info" data-bs-toggle="collapse" id="js-section-info-button" type="button">
     <%= display_money @gross %>
   </button>
