@@ -1,0 +1,24 @@
+<table class="table">
+  <tr>
+    <th scope="row"> <%= t("subtotal") %>:</th>
+    <td>
+      <%= display_money invoice.net_amount, invoice.currency %>
+    </td>
+  </tr>
+  <% invoice.taxes.each do |tax, value| %>
+    <tr>
+      <th scope="row">
+        <%= tax.name %>
+      </th>
+      <td>
+        <%= display_money value, invoice.currency %>
+      </td>
+    </tr>
+  <% end %>
+  <tr class="amounts-total">
+    <th scope="row"><%= t("total") %>:</th>
+    <td>
+      <%= display_money invoice.gross_amount, invoice.currency %>
+    </td>
+  </tr>
+</table>
