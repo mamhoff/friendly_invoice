@@ -1,0 +1,32 @@
+<tr data-href="<%= invoice_path(invoice) %>" data-itemid="<%= invoice.id %>" data-page="<%= current_page %>" data-page_start="<%= invoice_counter.zero? %>">
+  <td class="table-select">
+    <%= check_box_tag "invoice_ids[]", invoice.id, false, {"data-role" => "select-row", "id" => "invoice_ids_#{invoice.id}"} %>
+  </td>
+  <td class="no-wrap">
+    <%= link_to invoice, invoice %>
+  </td>
+  <td class="no-wrap">
+    <%= invoice.name %>
+  </td>
+  <td class="no-wrap">
+    <%= invoice.issue_date %>
+  </td>
+  <td class="text-center">
+    <% if invoice.sent_by_email %>
+      <%= material_icon.shape(:done).css_class('green') %>
+    <% else %>
+      <%= material_icon.shape(:clear).css_class('red') %>
+    <% end %>
+  </td>
+  <td class="text-center">
+    <span class="status <%= invoice.get_status %>">
+      <%= invoice.get_status %>
+    </span>
+  </td>
+  <td class="text-end no-wrap">
+    <%= invoice.unpaid_amount > 0.0 ? display_money(invoice.unpaid_amount, invoice.currency) : "" %>
+  </td>
+  <td class="text-end no-wrap">
+    <%= display_money invoice.gross_amount, invoice.currency %>
+  </td>
+</tr>

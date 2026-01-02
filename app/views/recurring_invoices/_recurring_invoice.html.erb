@@ -1,0 +1,32 @@
+<tr data-href="<%= edit_recurring_invoice_path(recurring_invoice) %>" data-itemid="<%= recurring_invoice.id %>" data-page="<%= current_page %>" data-page_start="<%= recurring_invoice_counter.zero? %>">
+  <td class="table-select">
+    <%= check_box_tag "recurring_invoice_ids[]", recurring_invoice.id, false, {"data-role" => "select-row"} %>
+  </td>
+  <td>
+    <%= recurring_invoice.series.value if recurring_invoice.series %>
+  </td>
+  <td class="no-wrap">
+    <%= recurring_invoice %>
+  </td>
+  <td class="no-wrap">
+    <%= recurring_invoice.period %>
+    <%= recurring_invoice.period_type %>
+  </td>
+  <td class="text-center">
+    <% if recurring_invoice.enabled %>
+      <%= material_icon.shape(:done).css_class('green') %>
+    <% else %>
+      <%= material_icon.shape(:clear).css_class('red') %>
+    <% end %>
+  </td>
+  <td class="text-center">
+    <% if recurring_invoice.sent_by_email %>
+      <%= material_icon.shape(:done).css_class('green') %>
+    <% else %>
+      <%= material_icon.shape(:clear).css_class('red') %>
+    <% end %>
+  </td>
+  <td class="text-end no-wrap">
+    <%= display_money recurring_invoice.gross_amount, recurring_invoice.currency %>
+  </td>
+</tr>

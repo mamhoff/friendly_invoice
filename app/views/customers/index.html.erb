@@ -1,0 +1,50 @@
+<h1>
+  <%= t("customers") %>
+</h1>
+<div data-role="infinite-scroll">
+  <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="no-wrap">
+            <%= t("customer name") %>
+          </th>
+          <th class="no-wrap">
+            <%= t("identification") %>
+          </th>
+          <th class="text-end">
+            <%= t("due") %>
+          </th>
+          <th class="text-end">
+            <%= t("total") %>
+          </th>
+          <th class="text-end"></th>
+        </tr>
+      </thead>
+      <tbody data-role="infinite-content">
+        <% @customers.each_with_index do |customer, i| %>
+          <tr data-href="<%= edit_customer_path(customer) %>" data-itemid="<%= customer.id %>" data-page="<%= @customers.current_page %>" data-page_start="<%= i.zero? %>">
+            <td class="no-wrap">
+              <%= link_to customer.name, edit_customer_path(customer) %>
+            </td>
+            <td class="no-wrap">
+              <%= customer.identification %>
+            </td>
+            <td class="text-end">
+              <%= customer.due > 0.0 ? display_money(customer.due) : "" %>
+            </td>
+            <td class="text-end">
+              <%= display_money customer.total %>
+            </td>
+            <td class="text-center">
+              <a class="material-icons" href="<%= customer_invoices_path(customer.id) %>" title="See Invoices">list</a>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="content-loading hide" data-role="infinite-status">
+    <div class="spinner"></div>
+  </div>
+</div>

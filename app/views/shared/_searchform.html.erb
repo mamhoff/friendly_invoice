@@ -1,0 +1,38 @@
+<%= search_form_for @search, html: {class: "siwapp-search-form d-none d-lg-block", id: "js-search-form"} do |f| %>
+  <div class="siwapp-input-search">
+    <button class="btn btn-light material-icons" data-bs-target="#js-search-filters" data-bs-toggle="collapse" type="button">expand_more</button>
+    <%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search...', title: 'Search by Customer, Email or VAT ID' %>
+    <button class="btn btn-primary material-icons" type="submit">search</button>
+  </div>
+  <div class="siwapp-search-filters">
+    <div class="collapse siwapp-search-filters__content bg-light" id="js-search-filters">
+      <%= render 'searchform__filters', f: f %>
+      <!--/ In order to filter by meta_attributes
+      -->
+      <!--/ we do this out of ransack
+      -->
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= label_tag :tag_list, "tags" %>
+            <%= select_tag :tag_list, options_for_select(@tags, params[:tag_list]), {class: 'tags-selector', multiple: true, data: {role: 'tagging'}} %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= label_tag :meta %>
+            <%= text_field_tag :meta, "", class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-6 text-end">
+          <%= link_to t("export to csv"), '#', class: 'btn btn-primary', data: {role: 'csv-form'} %>
+          <button class="btn btn-primary float-end" type="submit">
+            <%= t("search") %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

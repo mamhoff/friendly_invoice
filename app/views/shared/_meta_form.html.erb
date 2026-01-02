@@ -1,0 +1,31 @@
+<div class="invoice-table" id="js-meta-table">
+  <% instance.meta.each do |key, value| %>
+    <div class="invoice-row js-meta">
+      <div class="invoice-col mb-3">
+        <%= text_field :key, "", value: key, class: 'form-control', placeholder: "Key" %>
+      </div>
+      <div class="invoice-col invoice-col--description mb-3">
+        <%= text_field :value, "", value: value, class: 'form-control', placeholder: "Value" %>
+      </div>
+      <a class="destroy-icon" data-role="remove-item" data-wrapper-class="js-meta" href="#">
+        <%= material_icon.shape(:delete) %>
+        <span>Remove Attribute</span>
+      </a>
+    </div>
+  <% end %>
+  <div class="invoice-row js-meta" data-role="new-item">
+    <div class="invoice-col mb-3">
+      <%= text_field :key, "", class: 'form-control', placeholder: "Key" %>
+    </div>
+    <div class="invoice-col invoice-col--description mb-3">
+      <%= text_field :value, "", class: 'form-control', placeholder: "Value" %>
+    </div>
+    <a class="destroy-icon" data-role="remove-item" data-wrapper-class="js-meta" href="#">
+      <%= material_icon.shape(:delete) %>
+      <span>Remove Attribute</span>
+    </a>
+  </div>
+</div>
+<div class="invoice-table-actions">
+  <%= link_to 'Add Attribute',"#", class: "btn btn-secondary", data: {"insertion-node": "#js-meta-table", role: "add-item"} %>
+</div>
