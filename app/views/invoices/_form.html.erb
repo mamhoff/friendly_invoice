@@ -102,7 +102,7 @@
     <%= render partial: 'shared/item_form', locals: {f: f, invoice: @invoice} %>
   </fieldset>
   <% unless @invoice.new_record? %>
-    <fieldset class="m-b-2" data-changes="amount">}
+    <fieldset class="m-b-2" data-changes="amount">
       <legend class="m-b-1">
         <%= t("payments") %>
       </legend>
