@@ -1,0 +1,19 @@
+<div class="invoice-row invoice-payment js-payment">
+  <div class="invoice-col mb-3">
+    <%= f.label :date %>
+    <%= f.date_field :date, class: 'form-control' %>
+  </div>
+  <div class="invoice-col invoice-col--description mb-3">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, class: "form-control", rows: 1 %>
+  </div>
+  <div class="invoice-col invoice-col--amount mb-3">
+    <%= f.label :amount %>
+    <%= f.text_field :amount, class: 'form-control' %>
+  </div>
+  <%= link_to_remove_association f, {wrapper_class: 'js-payment', class: 'destroy-icon'} do %>
+    <%= material_icon.shape(:delete) %>
+    <span>Remove Payment</span>
+  <% end %>
+  <%= f.hidden_field :id %>
+</div>
