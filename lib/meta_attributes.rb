@@ -1,28 +1,27 @@
 module MetaAttributes
-
   def get_meta(key)
-    if self.meta_attributes?
-      attributes = self.meta_attributes
+    if meta_attributes?
+      attributes = meta_attributes
       attributes[key]
     end
   end
 
   def set_meta(key, value)
-    if self.meta_attributes?
-      attributes = self.meta_attributes
+    attributes = if meta_attributes?
+      meta_attributes
     else
-      attributes = {}
+      {}
     end
     if key != ""
       attributes[key] = value
       # attributes = ActiveSupport::JSON.encode(attributes)
       self.meta_attributes = attributes
-      self.save
+      save
     end
   end
 
   def delete_meta(key)
-    attr_hash = self.meta
+    attr_hash = meta
     attr_hash.delete key
     set_meta_multi attr_hash
   end
@@ -35,14 +34,14 @@ module MetaAttributes
       end
     end
     self.meta_attributes = attributes
-    self.save
+    save
   end
 
-  def meta()
-    if self.meta_attributes?
-      return self.meta_attributes
+  def meta
+    if meta_attributes?
+      meta_attributes
     else
-      return {}
+      {}
     end
   end
 
@@ -54,7 +53,7 @@ module MetaAttributes
   module ClassMethods
     # Returns a list of unique meta_attributes keys in the whole
     # collection of objects
-    def meta_attributes_keys(results=self.all)
+    def meta_attributes_keys(results = all)
       keys = Set.new []
       results.each do |i|
         i.meta.keys.each do |key|
@@ -64,5 +63,4 @@ module MetaAttributes
       keys.to_a
     end
   end
-
 end

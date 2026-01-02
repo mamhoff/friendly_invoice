@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Invoices Search", type: :request do
-
   before do
     FactoryBot.create :token
     FactoryBot.create :user
@@ -13,9 +12,9 @@ RSpec.describe "Invoices Search", type: :request do
 
     FactoryBot.create(:invoice)
     FactoryBot.create(:invoice,
-        name: "Pete",
-        issue_date: "2016-01-06",
-        meta_attributes: {"mykey" => "myvalue"})
+      name: "Pete",
+      issue_date: "2016-01-06",
+      meta_attributes: {"mykey" => "myvalue"})
 
     FactoryBot.create(:template)
   end
@@ -59,13 +58,13 @@ RSpec.describe "Invoices Search", type: :request do
       expect(response.body).not_to match '"Pete"'
       expect(response.body).not_to match '"Test Customer"'
     end
-   end
+  end
 
-   describe "searches right by meta_attributes wiht meta param" do
-     it "gets the right one with key:value" do
+  describe "searches right by meta_attributes wiht meta param" do
+    it "gets the right one with key:value" do
       get api_v1_invoices_path, params: {meta: {mykey: "myvalue"}}, headers: @headers
       expect(response.body).to match '"Pete"'
       expect(response.body).not_to match '"Test Customer"'
-     end
-   end
+    end
+  end
 end

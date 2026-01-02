@@ -1,5 +1,4 @@
 class Api::V1::ItemsController < Api::V1::BaseController
-
   # GET /api/v1/invoices/:common_id/items
   def index
     common_id = params[:invoice_id] || params[:recurring_invoice_id]
@@ -42,25 +41,26 @@ class Api::V1::ItemsController < Api::V1::BaseController
   def destroy
     item = Item.find_by_id params[:id]
     if item
-        item.destroy
+      item.destroy
     end
-    render json: { message: "Content deleted" }, status: :no_content
+    render json: {message: "Content deleted"}, status: :no_content
   end
 
   private
+
   def item_params
-    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
 
   # check if there's a 'taxes' array with taxes names and adds them to item
   def add_id_taxes item, params
-    if params.has_key? :data and params[:data].has_key? :attributes and 
-      params[:data][:attributes].has_key? :tax_ids
-      
+    if params.has_key? :data and params[:data].has_key? :attributes and
+        params[:data][:attributes].has_key? :tax_ids
+
       params[:data][:attributes][:tax_ids].each do |tax_id|
         tax = Tax.find_by_id tax_id
         if tax and !item.taxes.exists? tax.id
-          item.taxes<< tax
+          item.taxes << tax
         end
       end
     end
@@ -68,8 +68,8 @@ class Api::V1::ItemsController < Api::V1::BaseController
 
   # check if there's a 'taxes' array with taxes names and adds them to item
   def add_human_taxes item, params
-    if params.has_key?(:data) and params[:data].has_key?(:attributes) and 
-      params[:data][:attributes].has_key?(:taxes)
+    if params.has_key?(:data) and params[:data].has_key?(:attributes) and
+        params[:data][:attributes].has_key?(:taxes)
 
       params[:data][:attributes][:taxes].each do |tax_name|
         tax = Tax.find_by_name tax_name
@@ -80,5 +80,4 @@ class Api::V1::ItemsController < Api::V1::BaseController
       end
     end
   end
-
 end

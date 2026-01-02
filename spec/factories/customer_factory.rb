@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :customer do
     name { "Test Customer" }
-    name_slug { "#{name.gsub(/^[^\w]+|[^\w]+$/i, '').gsub(/[^\w]+/i, '-').downcase}" }
+    name_slug { "#{name.gsub(/^[^\w]+|[^\w]+$/i, "").gsub(/[^\w]+/i, "-").downcase}" }
     identification { "12345" }
-    email  { "customer@example.com" }
+    email { "customer@example.com" }
 
     # WARNING: DON'T USE FOR TESTS!!!
     factory :demo_customer do
@@ -27,11 +27,11 @@ FactoryBot.define do
       "Widget Corp.",
       "Warehousing",
       "Demo Company",
-      "Smith & Co.",
+      "Smith & Co."
     ]
 
-    sequence(:name, 0)              { |n| n < customers.length ? customers[n] : "Customer #{n}" }
-    sequence(:identification, "A")  { |n| "1234#{n}" }
-    email                           { "info@#{name.gsub(/^[^\w]+|[^\w]+$/i, '').gsub(/[^\w]+/i, '-').downcase}.com" }
+    sequence(:name, 0) { |n| (n < customers.length) ? customers[n] : "Customer #{n}" }
+    sequence(:identification, "A") { |n| "1234#{n}" }
+    email { "info@#{name.gsub(/^[^\w]+|[^\w]+$/i, "").gsub(/[^\w]+/i, "-").downcase}.com" }
   end
 end

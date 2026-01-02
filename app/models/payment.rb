@@ -7,11 +7,11 @@ class Payment < ActiveRecord::Base
   validates :amount, presence: true, numericality: true
 
   before_save do
-    self.amount = self.amount.round self.invoice.currency_precision
+    self.amount = amount.round invoice.currency_precision
   end
 
   after_save do
-  	invoice.save
+    invoice.save
   end
 
   after_destroy do
@@ -20,7 +20,7 @@ class Payment < ActiveRecord::Base
 
   def to_jbuilder
     Jbuilder.new do |json|
-      json.(self, :date, :amount, :notes)
+      json.call(self, :date, :amount, :notes)
     end
   end
 end

@@ -3,10 +3,9 @@ class ItemSerializer < ActiveModel::Serializer
   belongs_to :common
   has_many :taxes, links: {self: true, related: true}
   link(:self) { api_v1_item_path(object.id) }
-  link(:taxes){ api_v1_item_taxes_path(item_id: object.id) }
+  link(:taxes) { api_v1_item_taxes_path(item_id: object.id) }
 
   def tax_ids
-     object.taxes.map {|t| t.id}
+    object.taxes.map { |t| t.id }
   end
-
 end

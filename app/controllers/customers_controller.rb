@@ -11,18 +11,18 @@ class CustomersController < ApplicationController
     # To redirect to the index with the current search params
     set_redirect_address(request.original_fullpath, "customers")
     @search = Customer.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = "id desc" if @search.sorts.empty?
     @customers = @search.result
     @customers = @customers.tagged_with(params[:tag_list]) if params[:tag_list].present?
 
     respond_to do |format|
       format.html do
         @customers = @customers.paginate(page: params[:page],
-                                         per_page: 20)
-        render :index, layout: 'infinite-scrolling'
+          per_page: 20)
+        render :index, layout: "infinite-scrolling"
       end
       format.csv do
-        set_csv_headers('customers.csv')
+        set_csv_headers("customers.csv")
         self.response_body = Customer.csv @customers
       end
     end
@@ -50,7 +50,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully created.' }
+        format.html { redirect_to redirect_address("customers"), notice: "Customer was successfully created." }
       else
         format.html { render :new }
       end
@@ -64,7 +64,7 @@ class CustomersController < ApplicationController
       if @customer.update(customer_params)
         set_meta @customer
         # Redirect to index
-        format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully updated.' }
+        format.html { redirect_to redirect_address("customers"), notice: "Customer was successfully updated." }
       else
         format.html { render :edit }
       end
@@ -76,7 +76,7 @@ class CustomersController < ApplicationController
   def destroy
     respond_to do |format|
       if @customer.destroy
-        format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully destroyed.' }
+        format.html { redirect_to redirect_address("customers"), notice: "Customer was successfully destroyed." }
       else
         # In Rails 7.0, errors are cleared after throw(:abort) in callbacks
         # We need to manually add the error back if it's not present
@@ -98,18 +98,19 @@ class CustomersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer
-      @customer = Customer.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def customer_params
-      params.require(:customer).permit(:name, :identification, :email, :contact_person,
-                                       :invoicing_address, :shipping_address, :active, tag_list: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
 
-    def set_tags
-      @tags = tags_for('Customer')
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def customer_params
+    params.require(:customer).permit(:name, :identification, :email, :contact_person,
+      :invoicing_address, :shipping_address, :active, tag_list: [])
+  end
+
+  def set_tags
+    @tags = tags_for("Customer")
+  end
 end

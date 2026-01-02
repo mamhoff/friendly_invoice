@@ -2,13 +2,13 @@ class Invoice < Common
   # Relations
   belongs_to :recurring_invoice, optional: true
   has_many :payments, dependent: :destroy
-  accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :payments, reject_if: :all_blank, allow_destroy: true
 
   # Validation
   validates :issue_date, presence: true
-  validates :number, numericality: { only_integer: true,
-    allow_nil: true }
-  validates_uniqueness_of :number,  scope: :series, conditions: -> { where.not(draft: true) }
+  validates :number, numericality: {only_integer: true,
+                                    allow_nil: true}
+  validates_uniqueness_of :number, scope: :series, conditions: -> { where.not(draft: true) }
 
   # Events
   around_save :assign_invoice_number
@@ -38,13 +38,13 @@ class Invoice < Common
   }
 
   # Invoices belonging to certain recurring_invoice
-  scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
+  scope :belonging_to, ->(r_id) { where recurring_invoice_id: r_id }
 
   def init
     begin
       # Set defaults
-      unless self.id
-        self.issue_date ||= Date.current()
+      unless id
+        self.issue_date ||= Date.current
         self.due_date ||= self.issue_date + Integer(Settings.days_to_due).days
       end
     # Using scope.select also triggers this init method
@@ -64,7 +64,7 @@ class Invoice < Common
 
   def paranoia_destroy_attributes
     {
-      deleted_number: self.number,
+      deleted_number: number,
       deleted_at: current_time_from_proper_timezone,
       number: nil
     }
@@ -72,14 +72,14 @@ class Invoice < Common
 
   def to_jbuilder
     Jbuilder.new do |json|
-      json.(self, *(serializable_attribute_names))
+      json.call(self, *serializable_attribute_names)
       json.series_number to_s
       json.status get_status
       if customer
         json.customer customer.to_jbuilder
       end
       json.items items.collect { |item| item.to_jbuilder.attributes! }
-      json.payments payments.collect {|payment| payment.to_jbuilder.attributes!}
+      json.payments payments.collect { |payment| payment.to_jbuilder.attributes! }
     end
   end
 
@@ -92,7 +92,7 @@ class Invoice < Common
   #
   # Returns a string.
   def to_s
-    label = draft ? '[draft]' : number
+    label = draft ? "[draft]" : number
     "#{series.value}#{label}"
   end
 
@@ -129,7 +129,7 @@ class Invoice < Common
   # invoice status.
   #
   def set_paid
-    if not draft and (unpaid_amount > 0 and not paid)
+    if !draft and (unpaid_amount > 0 and !paid)
       payments << Payment.new(date: Date.current, amount: unpaid_amount)
       check_paid
       true
@@ -143,7 +143,7 @@ class Invoice < Common
   #
   def set_paid!
     if set_paid
-      self.save
+      save
       true
     else
       false
@@ -160,7 +160,7 @@ class Invoice < Common
       self.paid_amount += payment.amount
     end
 
-    if self.paid_amount - self.gross_amount >= 0
+    if self.paid_amount - gross_amount >= 0
       self.paid = true
     end
   end
@@ -169,9 +169,9 @@ class Invoice < Common
   # paid_amount fields
   #
   def update_paid
-    self.check_paid
+    check_paid
     # Use update_columns to skip more callbacks
-    self.update_columns(paid: self.paid, paid_amount: self.paid_amount)
+    update_columns(paid: paid, paid_amount: self.paid_amount)
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -179,7 +179,7 @@ class Invoice < Common
   # Returns nothing.
   def set_amounts
     super
-    self.check_paid
+    check_paid
     paid_amount_will_change!
     nil
   end
@@ -189,20 +189,20 @@ class Invoice < Common
     # There is a deliver_later method which we could use
     InvoiceMailer.email_invoice(self).deliver_now
     self.sent_by_email = true
-    self.save
+    save
   end
 
   # Returns the pdf file
   def pdf(html)
     WickedPdf.new.pdf_from_string(html,
-      margin: {:top => "20mm", :bottom => 0, :left => 0, :right => 0})
+      margin: {top: "20mm", bottom: 0, left: 0, right: 0})
   end
 
   # Duplicate invoice and its items
   def duplicate
-    new_invoice = Invoice.create(self.attributes.except!('id', 'number', 'issue_date', 'sent_by_email', 'paid_amount'))
-    self.items.each do |item|
-      i = Item.create(item.attributes.except!('id'))
+    new_invoice = Invoice.create(attributes.except!("id", "number", "issue_date", "sent_by_email", "paid_amount"))
+    items.each do |item|
+      i = Item.create(item.attributes.except!("id"))
       new_invoice.items << i
       i.taxes << item.taxes
     end
@@ -212,47 +212,47 @@ class Invoice < Common
 
   protected
 
-    # Declare searchable attributes
-    def self.ransackable_attributes(auth_object = nil)
-      column_names
-    end
+  # Declare searchable attributes
+  def self.ransackable_attributes(auth_object = nil)
+    column_names
+  end
 
-    # Declare searchable associations
-    def self.ransackable_associations(auth_object = nil)
-      reflect_on_all_associations.map { |a| a.name.to_s }
-    end
+  # Declare searchable associations
+  def self.ransackable_associations(auth_object = nil)
+    reflect_on_all_associations.map { |a| a.name.to_s }
+  end
 
-    # Declare scopes for search
-    def self.ransackable_scopes(auth_object = nil)
-      super + [:with_status]
-    end
+  # Declare scopes for search
+  def self.ransackable_scopes(auth_object = nil)
+    super + [:with_status]
+  end
 
-    # Assigns a number to the invoice:
-    # - nil, if draft
-    # - already assigned number, if any and not draft
-    # - next_number of the already assigned series
-    # Returns nothing.
-    def assign_invoice_number
-  		# wrap in a transaction to prevent race conditions
-      Invoice.transaction do
-        if draft
-          self.number = nil
-        elsif self.number.nil?
-          self.number = series.next_number
-        end
-        yield
+  # Assigns a number to the invoice:
+  # - nil, if draft
+  # - already assigned number, if any and not draft
+  # - next_number of the already assigned series
+  # Returns nothing.
+  def assign_invoice_number
+    # wrap in a transaction to prevent race conditions
+    Invoice.transaction do
+      if draft
+        self.number = nil
+      elsif number.nil?
+        self.number = series.next_number
       end
+      yield
     end
+  end
 
-    # make sure every soft-deleted payment is really deleted
-    def purge_payments
-      payments.only_deleted.delete_all
-    end
+  # make sure every soft-deleted payment is really deleted
+  def purge_payments
+    payments.only_deleted.delete_all
+  end
 
   private
 
-    # attributes fitted for serialization
-    def serializable_attribute_names
-      [:id, :name, :identification, :email, :currency, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :net_amount, :gross_amount, :paid_amount, :issue_date, :due_date, :days_to_due]
-    end
+  # attributes fitted for serialization
+  def serializable_attribute_names
+    [:id, :name, :identification, :email, :currency, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :net_amount, :gross_amount, :paid_amount, :issue_date, :due_date, :days_to_due]
+  end
 end

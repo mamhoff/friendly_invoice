@@ -76,5 +76,4 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
       expect(Tax.find_by_id(@vat.id)).to be_nil
     end
   end
-
 end

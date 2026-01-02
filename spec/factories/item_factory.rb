@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :item do
     description { "Invoicing App Development" }
     unitary_cost { 10000 }
@@ -21,5 +20,4 @@ FactoryBot.define do
       unitary_cost { Faker::Commerce.price * 10 }
     end
   end
-
 end

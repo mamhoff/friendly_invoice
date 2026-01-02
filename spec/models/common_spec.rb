@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Common, :type => :model do
-
+RSpec.describe Common, type: :model do
   def build_common(**kwargs)
     kwargs[:name] = "A Customer" unless kwargs.has_key? :name
     kwargs[:identification] = "123456789Z" unless kwargs.has_key? :identification
@@ -24,7 +23,7 @@ RSpec.describe Common, :type => :model do
   it "is not valid without a series" do
     c = build_common(series: nil)
     expect(c).not_to be_valid
-    expect(c.errors.messages.has_key? :series).to be true
+    expect(c.errors.messages.has_key?(:series)).to be true
   end
 
   it "is not valid with at least a name or an identification" do
@@ -61,13 +60,13 @@ RSpec.describe Common, :type => :model do
 
     expect(c).not_to be_valid
     expect(c.errors.messages.length).to eq 1
-    expect(c.errors.messages.has_key? :email).to be true
+    expect(c.errors.messages.has_key?(:email)).to be true
 
     c.email = "paquito@example"
 
     expect(c).not_to be_valid
     expect(c.errors.messages.length).to eq 1
-    expect(c.errors.messages.has_key? :email).to be true
+    expect(c.errors.messages.has_key?(:email)).to be true
   end
 
   it "round total taxes according to currency" do
@@ -91,5 +90,4 @@ RSpec.describe Common, :type => :model do
     expect(c.gross_amount).to eq 0.234
     expect(c.net_amount).to eq 0.18
   end
-
 end

@@ -1,11 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Series, :type => :model do
-
+RSpec.describe Series, type: :model do
   it "is not valid without a value" do
-    series = Series.new()
+    series = Series.new
     expect(series).not_to be_valid
-    expect(series.errors.messages.has_key? :value).to be true
+    expect(series.errors.messages.has_key?(:value)).to be true
   end
 
   it "gets 1 as first_number if none specified" do
@@ -18,7 +17,7 @@ RSpec.describe Series, :type => :model do
     series = Series.new(value: "A")
     customer = FactoryBot.create(:ncustomer)
     series.commons << Invoice.new(name: customer.name, customer: customer,
-                                  issue_date: Date.current)
+      issue_date: Date.current)
     series.save
     expect(series.destroy).to be false
   end
@@ -32,7 +31,7 @@ RSpec.describe Series, :type => :model do
     series = Series.new(value: "A", first_number: 2)
     customer = FactoryBot.create(:ncustomer)
     series.commons << Invoice.new(name: customer.name, customer: customer,
-                                  issue_date: Date.current)
+      issue_date: Date.current)
     series.save
 
     expect(series.next_number).to eq 3
@@ -58,5 +57,4 @@ RSpec.describe Series, :type => :model do
   it "returns nil if no default series" do
     expect(Series.default).to be nil
   end
-
 end

@@ -7,8 +7,8 @@ feature "Recurring Invoices:" do
     visit recurring_invoices_path
 
     within "#js-list-form" do
-      expect(find(:xpath, ".//tbody/tr[1]")['data-itemid']).to eq "2"
-      expect(find(:xpath, ".//tbody/tr[2]")['data-itemid']).to eq "1"
+      expect(find(:xpath, ".//tbody/tr[1]")["data-itemid"]).to eq "2"
+      expect(find(:xpath, ".//tbody/tr[2]")["data-itemid"]).to eq "1"
     end
   end
 end

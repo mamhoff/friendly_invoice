@@ -1,6 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-
-#  force_ssl unless: proc { Rails.env.development? || Rails.env.testing? }
+  #  force_ssl unless: proc { Rails.env.development? || Rails.env.testing? }
   protect_from_forgery with: :null_session
 
   before_action :destroy_session
@@ -16,15 +15,15 @@ class Api::V1::BaseController < ApplicationController
   # handle errors
   def render_error exception
     case exception.class.name
-    when 'ActiveRecord::RecordNotFound' then
-      error_info = { error: 'Resource Not Found' }
+    when "ActiveRecord::RecordNotFound"
+      error_info = {error: "Resource Not Found"}
       status = 404
     else
       error_info = {
-        error: 'Oops!! Internal Server Error',
+        error: "Oops!! Internal Server Error",
         exception: "#{exception.class.name} : #{exception.message}"
       }
-      error_info[:trace] = exception.backtrace[0,10] if Rails.env.development?
+      error_info[:trace] = exception.backtrace[0, 10] if Rails.env.development?
       status = 500
     end
     render json: error_info, status: status
@@ -54,7 +53,6 @@ class Api::V1::BaseController < ApplicationController
     request.session_options[:skip] = true
   end
 
-
   def authenticate
     authenticate_token || render_unauthorized
   end
@@ -68,8 +66,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def render_unauthorized
-    self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-    render json: 'Bad credentials', status: 401
+    headers["WWW-Authenticate"] = 'Token realm="Application"'
+    render json: "Bad credentials", status: 401
   end
-
 end

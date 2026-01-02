@@ -1,5 +1,4 @@
 class Api::V1::PaymentsController < Api::V1::BaseController
-
   before_action :set_payment, only: [:show, :update, :destroy]
 
   # GET /api/v1/invoices/:invoice_id/payments
@@ -37,9 +36,8 @@ class Api::V1::PaymentsController < Api::V1::BaseController
   def destroy
     @payment = Payment.find params[:id]
     @payment.destroy
-    
-    render json: {"message": "content deleted"}, status: :no_content
-    
+
+    render json: {message: "content deleted"}, status: :no_content
   end
 
   private
@@ -49,7 +47,6 @@ class Api::V1::PaymentsController < Api::V1::BaseController
   end
 
   def payment_params
-    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
-
 end

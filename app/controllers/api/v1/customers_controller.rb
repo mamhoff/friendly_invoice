@@ -44,7 +44,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
   def destroy
     if @customer.destroy
-      render json: { message: "Content deleted" }, status: :no_content
+      render json: {message: "Content deleted"}, status: :no_content
     else
       render json: @customer.errors, status: :unprocessable_entity
     end
@@ -57,7 +57,6 @@ class Api::V1::CustomersController < Api::V1::BaseController
   end
 
   def customer_params
-    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
-
 end

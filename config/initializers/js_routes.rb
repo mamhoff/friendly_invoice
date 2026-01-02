@@ -3,7 +3,7 @@
 # Setting module_type to nil with a namespace makes it expose Routes as a global variable
 JsRoutes.setup do |config|
   config.module_type = nil
-  config.namespace = 'Routes'
+  config.namespace = "Routes"
   config.exclude = []
   config.compact = false
 end

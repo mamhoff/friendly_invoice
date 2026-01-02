@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Customers", type: :request do
-
   before do
     FactoryBot.create :token
     FactoryBot.create :user
@@ -25,8 +24,8 @@ RSpec.describe "Customers", type: :request do
     it "GET /api/v1/customers/:id/invoices shows filtered invoices" do
       # create extra invoice for another customer
       alt_customer = FactoryBot.create(:customer, name: "Alt Customer")
-      alt_invoice = FactoryBot.create :invoice, customer: alt_customer
-      print_template = FactoryBot.create :template, print_default: true, name: "print default", template: "invoice"
+      FactoryBot.create :invoice, customer: alt_customer
+      FactoryBot.create :template, print_default: true, name: "print default", template: "invoice"
       get api_v1_customer_invoices_path(@invoice.customer), headers: @headers
       expect(response).to be_successful
       expect(json["data"].length).to eql 1 # only @invoice, not alt_invoice
@@ -76,7 +75,7 @@ RSpec.describe "Customers", type: :request do
       }
       put api_v1_customer_url(@invoice.customer), params: mod.to_json, headers: @headers
       expect(response).to be_successful
-      #name modified
+      # name modified
       expect(json["data"]["attributes"]["name"]).to eql "modified NAME"
       # the rest not
       expect(json["data"]["attributes"]["email"]).to eql @invoice.customer.email
@@ -92,5 +91,4 @@ RSpec.describe "Customers", type: :request do
       expect(Customer.find_by_id(@invoice.customer.id)).to be_nil
     end
   end
-
 end

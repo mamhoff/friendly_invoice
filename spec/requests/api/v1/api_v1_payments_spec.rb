@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
       get api_v1_payment_path(@payment), headers: @headers
       expect(response).to be_successful
       # invoice reference
-     # expect(json["data"]["relationships"]["invoice"]["data"]["links"]["related"]).to eql api_v1_invoice_url(@invoice)
+      # expect(json["data"]["relationships"]["invoice"]["data"]["links"]["related"]).to eql api_v1_invoice_url(@invoice)
       expect(json["data"]["attributes"]["amount"]).to eql "10600.0"
     end
   end
@@ -39,7 +39,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
       invoice = FactoryBot.create(:invoice)
 
       payment = {
-        "data"=> {
+        "data" => {
           "type" => "payments",
           "attributes" => {
             "notes" => "new notes",
@@ -67,7 +67,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
       mod = {
         "data" => {
           "attributes" => {
-          "notes" => "modified NOTES"
+            "notes" => "modified NOTES"
           }
         }
       }
@@ -89,5 +89,4 @@ RSpec.describe "Api::V1::Payments:", type: :request do
       expect(Payment.find_by_id(@payment.id)).to be_nil
     end
   end
-
 end

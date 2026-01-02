@@ -12,16 +12,15 @@ class CommonsController < ApplicationController
   def print_template
     @invoice = Invoice.find(params[:invoice_id])
     @print_template = Template.find(params[:id])
-    html = render_to_string :inline => @print_template.template,
-      :locals => {:invoice => @invoice, :settings => Settings}
+    html = render_to_string inline: @print_template.template,
+      locals: {invoice: @invoice, settings: Settings}
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do
         pdf = @invoice.pdf(html)
         send_data(pdf,
-          :filename    => "#{@invoice}.pdf",
-          :disposition => 'attachment'
-        )
+          filename: "#{@invoice}.pdf",
+          disposition: "attachment")
       end
     end
   end
@@ -29,7 +28,7 @@ class CommonsController < ApplicationController
   # GET /commons
   # GET /customers/:customer_id/commons --> filter by customer
   def index
-    @tags = tags_for('Common')
+    @tags = tags_for("Common")
 
     # To redirect to the index with the current search params
     set_redirect_address(request.original_fullpath, @type)
@@ -40,8 +39,8 @@ class CommonsController < ApplicationController
     #   key1, ... (if you only search for invoices having key1 no matter value)
     if params[:meta]
       conditions = []
-      params[:meta].split(',').each do |condition_string|
-        condition_list = condition_string.split ':'
+      params[:meta].split(",").each do |condition_string|
+        condition_list = condition_string.split ":"
         if condition_list.length == 1
           conditions.push("meta_attributes::text ilike '%#{condition_list[0]}%'")
         elsif condition_list.length == 2
@@ -54,7 +53,7 @@ class CommonsController < ApplicationController
     set_listing @results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
-      format.html { render sti_template(@type, action_name), layout: 'infinite-scrolling' }
+      format.html { render sti_template(@type, action_name), layout: "infinite-scrolling" }
       format.csv do
         set_csv_headers("#{@type.underscore.downcase.pluralize}.csv")
         self.response_body = model.csv @results
@@ -68,22 +67,21 @@ class CommonsController < ApplicationController
   def create
     set_instance model.new(type_params)
     respond_to do |format|
-
       if get_instance.customer.nil?
         get_instance.customer = Customer.find_by(
-          :name => type_params[:name],
-          :identification => type_params[:identification]
+          name: type_params[:name],
+          identification: type_params[:identification]
         )
       end
 
       if get_instance.customer.nil?
         get_instance.customer = Customer.new(
-          :name => type_params[:name],
-          :identification => type_params[:identification],
-          :email => type_params[:email],
-          :contact_person => type_params[:contact_person],
-          :invoicing_address => type_params[:invoicing_address],
-          :shipping_address => type_params[:shipping_address]
+          name: type_params[:name],
+          identification: type_params[:identification],
+          email: type_params[:email],
+          contact_person: type_params[:contact_person],
+          invoicing_address: type_params[:invoicing_address],
+          shipping_address: type_params[:shipping_address]
         )
       end
 
@@ -146,13 +144,12 @@ class CommonsController < ApplicationController
     end
   end
 
-
   private
 
   # Private: sets templates and tags for some actions
   def set_extra_stuff
     @templates = Template.all
-    @tags = tags_for('Common')
+    @tags = tags_for("Common")
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts
@@ -162,7 +159,7 @@ class CommonsController < ApplicationController
         :quantity,
         :unitary_cost,
         :discount,
-        {:tax_ids => []},
+        {tax_ids: []},
         :_destroy
       ],
       payments_attributes: [
@@ -194,13 +191,11 @@ class CommonsController < ApplicationController
         :quantity,
         :unitary_cost,
         :discount,
-        {:tax_ids => []},
+        {tax_ids: []},
         :_destroy
       ],
 
       tag_list: []
     ]
   end
-
-
 end

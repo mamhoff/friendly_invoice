@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-
   # CSRF attacks: raise an exception.
   protect_from_forgery with: :exception
 
   include SessionsHelper
+
   # demand authentification everywhere
   before_action :authenticate, :set_locale
 
@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    unless current_user || controller_name.eql?('sessions')
+    unless current_user || controller_name.eql?("sessions")
       redirect_to login_url # halts request cycle
     end
   end
@@ -74,5 +74,4 @@ class ApplicationController < ActionController::Base
     # Rack::ETag 2.2.x no longer respects 'Cache-Control'
     headers["Last-Modified"] = Time.current.httpdate
   end
-
 end

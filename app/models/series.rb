@@ -1,6 +1,6 @@
 class Series < ActiveRecord::Base
   acts_as_paranoid
-  has_many :commons, :dependent => :restrict_with_error
+  has_many :commons, dependent: :restrict_with_error
   validates :value, presence: true
 
   # Public: Get a string representation of this object
@@ -17,7 +17,7 @@ class Series < ActiveRecord::Base
   end
 
   def next_number
-    invoice = commons.where.not(number: nil).where(type: 'Invoice', draft: false).order(:number).last
+    invoice = commons.where.not(number: nil).where(type: "Invoice", draft: false).order(:number).last
     if invoice
       invoice.number + 1
     else
@@ -26,11 +26,11 @@ class Series < ActiveRecord::Base
   end
 
   def self.default
-    self.where(enabled: true, default: true).first
+    where(enabled: true, default: true).first
   end
 
   def self.enabled
-    self.where(enabled: true)
+    where(enabled: true)
   end
 
   def self.ransackable_attributes(auth_object = nil)
