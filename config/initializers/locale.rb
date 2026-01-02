@@ -1,2 +1,2 @@
-# Whitelist locales available for the application
-I18n.available_locales = [:en, :ja]
+# Safelist locales available for the application
+I18n.available_locales = [:en, :ja, :de]
