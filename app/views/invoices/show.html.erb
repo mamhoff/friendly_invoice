@@ -2,7 +2,7 @@
 <!-- the 770px width fits well with A4 paper size. TODO: see other options -->
 <div class="row">
   <div class="col-lg-6 offset-lg-3">
-    <iframe class="invoice-preview" src="<%= print_invoice_path(@invoice) %>"></iframe>
+    <iframe class="invoice-preview" src="<%= print_invoice_path(@invoice) %>" title="<%= t('invoice_preview') %>"></iframe>
   </div>
 </div>
 <div class="action-buttons" data-role="action-buttons">

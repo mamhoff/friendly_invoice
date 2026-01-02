@@ -192,10 +192,14 @@ class Invoice < Common
     save
   end
 
+  # returns the hexapdf doc
+  def hexapdf
+    InvoiceDocument.new(self).render
+  end
+
   # Returns the pdf file
-  def pdf(html)
-    WickedPdf.new.pdf_from_string(html,
-      margin: {top: "20mm", bottom: 0, left: 0, right: 0})
+  def pdf
+    hexapdf.write_to_string
   end
 
   # Duplicate invoice and its items

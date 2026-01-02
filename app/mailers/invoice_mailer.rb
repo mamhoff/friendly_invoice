@@ -8,20 +8,12 @@ class InvoiceMailer < ApplicationMailer
     body_template = email_template.template
     subject_template = email_template.subject
 
-    # Getting pdf templates
-    print_template = if @invoice.print_template
-      @invoice.print_template.template
-    else
-      Template.find_by(print_default: true).template
-    end
     # Rendering the and composing mail content
-    pdf_html = render_to_string inline: print_template,
-      locals: {invoice: @invoice, settings: Settings}
     email_subject = render_to_string inline: subject_template,
       locals: {invoice: @invoice, settings: Settings}
     email_body = render_to_string inline: body_template,
       locals: {invoice: @invoice, settings: Settings}
-    attachments["#{@invoice}.pdf"] = @invoice.pdf(pdf_html)
+    attachments["#{@invoice}.pdf"] = @invoice.pdf
 
     # Sending the email
     mail(

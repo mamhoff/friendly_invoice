@@ -71,8 +71,7 @@ class InvoicesController < CommonsController
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do
-        pdf = @invoice.pdf(html)
-        send_data(pdf,
+        send_data(@invoice.pdf,
           filename: "#{@invoice}.pdf",
           disposition: "attachment")
       end
@@ -101,16 +100,13 @@ class InvoicesController < CommonsController
         end
         flash[:info] = "Successfully set as paid #{total} invoices."
       when "pdf"
-        html = ""
-        invoices.each do |inv|
-          @invoice = inv
-          html += render_to_string \
-            inline: inv.get_print_template.template,
-            locals: {invoice: @invoice,
-                     settings: Settings}
-          html += '<div class="page-break" style="page-break-after:always;"></div>'
+        merged_doc = HexaPDF::Document.new
+        invoices.each do |invoice|
+          invoice.hexapdf.pages.each do |page|
+            merged_doc.pages << merged_doc.import(page)
+          end
         end
-        send_data(@invoice.pdf(html),
+        send_data(merged_doc.write_to_string,
           filename: "invoices.pdf",
           disposition: "attachment")
         return
