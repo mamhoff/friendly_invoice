@@ -1,8 +1,0 @@
-- content_for :content do
-  = yield
-  #js-infinite-scrolling.hide
-    - if @objects
-      = will_paginate @objects
-    - else
-      = will_paginate
-= render template: "layouts/application"

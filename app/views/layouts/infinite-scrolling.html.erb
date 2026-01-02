@@ -1,0 +1,11 @@
+<% content_for :content do %>
+  <%= yield %>
+  <div class="hide" id="js-infinite-scrolling">
+    <% if @objects %>
+      <%= will_paginate @objects %>
+    <% else %>
+      <%= will_paginate %>
+    <% end %>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>

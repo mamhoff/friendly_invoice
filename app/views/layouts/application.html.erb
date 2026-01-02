@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="ie=edge" http-equiv="x-ua-compatible"/>
+    <title>
+      <%= content_for?(:title) ? yield(:title) : "Siwapp" %>
+    </title>
+    <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_importmap_tags %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render partial: 'shared/navbar' %>
+    <div class="container-fluid main-body" role="main">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>">
+          <%= message %>
+        </div>
+      <% end %>
+      <%= content_for?(:content) ? yield(:content) : yield %>
+    </div>
+  </body>
+</html>
