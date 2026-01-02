@@ -66,14 +66,13 @@ class InvoicesController < CommonsController
   # Renders a common's template in html and pdf formats
   def print
     @invoice = Invoice.find(params[:id])
-    html = render_to_string inline: @invoice.get_print_template.template,
-      locals: {invoice: @invoice, settings: Settings}
     respond_to do |format|
-      format.html { render inline: html }
       format.pdf do
-        send_data(@invoice.pdf,
+        send_data(
+          @invoice.pdf,
           filename: "#{@invoice}.pdf",
-          disposition: "attachment")
+          disposition: "inline"
+        )
       end
     end
   end

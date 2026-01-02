@@ -19,11 +19,6 @@ feature "Invoices:" do
     expect(pdf_link[:href]).to include(".pdf")
   end
 
-  scenario "Template url shows template", :js do
-    visit print_invoice_path(invoice)
-    expect(page).to have_content("Billed:")
-  end
-
   scenario "User can access the edit page from the print preview page", :js do
     visit invoice_path(invoice)
     click_on "Edit"
