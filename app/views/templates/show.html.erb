@@ -1,0 +1,10 @@
+<p>
+  <%= @template.name %>
+</p>
+<p>
+  <%= @template.template %>
+</p>
+<div class="action-buttons" data-role="action-buttons">
+  <%= link_to 'Edit', edit_template_path(@template) %>
+  <%= link_to t("back"), :back %>
+</div>
