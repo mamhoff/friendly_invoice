@@ -1,0 +1,76 @@
+<h1>
+  <%= "#{t("tags")}" %>
+</h1>
+<div class="row">
+  <%= form_tag settings_tags_path, method: :put, id: 'tag-settings' do %>
+    <div class="col-sm">
+      <div class="table-responsive">
+        <h2>
+          <%= "#{t("invoice")} #{t("tags")}" %>
+        </h2>
+        <table class="table table-hover table-stripped table-bordered">
+          <thead>
+            <tr>
+              <th class="no-wrap">
+                <%= "#{t("tag")}#{t("name")}" %>
+              </th>
+              <th class="no-wrap">
+                <%= "#{t("delete")}?" %>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @common_tags.each do |tag| %>
+              <tr>
+                <td class="no-wrap">
+                  <%= hidden_field_tag "tag_ids[]", tag.id %>
+                  <%= text_field_tag "tags[#{tag.id}][name]", tag.name, class: 'form-control' %>
+                </td>
+                <td class="text-center" data-role="select">
+                  <%= check_box_tag "tags[#{tag.id}][_delete]", tag.id %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="table-responsive">
+        <h2>
+          <%= "#{t("customer")} #{t("tags")}" %>
+        </h2>
+        <table class="table table-hover table-stripped table-bordered">
+          <thead>
+            <tr>
+              <th class="no-wrap">
+                <%= "#{t("tag")}#{t("name")}" %>
+              </th>
+              <th class="no-wrap">
+                <%= "#{t("delete")}?" %>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customer_tags.each do |tag| %>
+              <tr>
+                <td class="no-wrap">
+                  <%= hidden_field_tag "tag_ids[]", tag.id %>
+                  <%= text_field_tag "tags[#{tag.id}][name]", tag.name, class: 'form-control' %>
+                </td>
+                <td class="text-center" data-role="select">
+                  <%= check_box_tag "tags[#{tag.id}][_delete]", tag.id %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="action-buttons" data-role="action-buttons">
+  <button class="btn btn-success" data-role="submit-form" data-target="form" type="button">
+    <%= t("apply changes") %>
+  </button>
+</div>

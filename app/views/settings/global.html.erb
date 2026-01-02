@@ -1,0 +1,69 @@
+<h1>
+  <%= t("global settings") %>
+</h1>
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-xl-4">
+    <%= form_for @global_settings, url: settings_global_path, method: :put, :html => {id: 'global-settings'}  do |f| %>
+      <% if @global_settings.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize @global_settings.errors.count, "error" %>
+            prohibited these settings from being saved:
+          </h2>
+          <ul>
+            <% @global_settings.errors.full_messages.each do |message| %>
+              <li>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="mb-3">
+        <%= f.label :company_name, "#{t("company")}:" %>
+        <%= f.text_field :company_name, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :company_vat_id, "#{t("company")} vat id:" %>
+        <%= f.text_field :company_vat_id, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :company_address, "#{t("company")} #{t("address")}:" %>
+        <%= f.text_area :company_address, class: 'form-control autosize', rows: '3' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :company_phone, "#{t("company")} #{t("phone")}:" %>
+        <%= f.text_field :company_phone, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :company_email, "#{t("company")} #{t("email")}:" %>
+        <%= f.email_field :company_email, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :company_url, "#{t("company")} #{t("website")}:" %>
+        <%= f.url_field :company_url, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :company_logo, "#{t("company")} #{t("logo")}:" %>
+        <%= f.url_field :company_logo, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :currency, "#{t("currency")}:" %>
+        <%= f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'} %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :legal_terms, "#{t("legal terms")}:" %>
+        <%= f.text_area :legal_terms, class: 'form-control autosize', rows: '3' %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :days_to_due, "#{t("days to due")}:" %>
+        <%= f.number_field :days_to_due, class: 'form-control' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="action-buttons" data-role="action-buttons">
+  <button class="btn btn-success" data-role="submit-form" data-target="form" type="button">
+    <%= t("save") %>
+  </button>
+</div>

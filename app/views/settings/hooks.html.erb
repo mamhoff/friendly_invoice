@@ -1,0 +1,58 @@
+<h1>
+  <%= t("hooks") %>
+</h1>
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-xl-4">
+    <%= form_for @hooks_settings, url: settings_hooks_path, method: :put, html: {id: 'hooks-settings'} do |f| %>
+      <% if @hooks_settings.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize @hooks_settings.errors.count, "error" %>
+            prohibited these settings from being saved:
+          </h2>
+          <ul>
+            <%= @hooks_settings.errors.full_messages.each do |message| %>
+              <li>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="mb-3">
+        <%= f.label :event_invoice_generation_url, t(".url to post") %>
+        <%= f.url_field :event_invoice_generation_url, class: 'form-control' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-xl-4">
+    <% @logs.each do |log| %>
+      <p class="<%= log[:level] == 'error' ? 'alert alert-danger' : 'alert alert-info' %>">
+        <%= log %>
+      </p>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-xl-4">
+    <ul class="pager">
+      <% if @logs.previous_page %>
+        <li>
+          <%= link_to "Previous", settings_hooks_path(page: @logs.previous_page) %>
+        </li>
+      <% end %>
+      <% if @logs.next_page %>
+        <li>
+          <%= link_to "Next", settings_hooks_path(page: @logs.next_page) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="action-buttons" data-role="action-buttons">
+  <button class="btn btn-success" data-role="submit-form" data-target="form" type="button">
+    <%= t("save") %>
+  </button>
+</div>

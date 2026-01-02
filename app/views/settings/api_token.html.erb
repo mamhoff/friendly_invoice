@@ -1,0 +1,21 @@
+<h1>
+  <%= t("api token") %>
+</h1>
+<% if @api_token %>
+  <p>
+    <%= t(".authenticate api token") %>
+    <code class="active">
+      <%= @api_token %>
+    </code>
+  </p>
+  <div class="action-buttons" data-role="action-buttons">
+    <%= link_to "#{t("generate")} #{t("token")}", settings_api_token_path, method: :post, "data-confirm" => "Are you sure? This will invalidate any existing token!", class: "btn btn-success float-end no-margin" %>
+  </div>
+<% else %>
+  <p>
+    <%= t(".press api token") %>
+  </p>
+  <div class="action-buttons" data-role="action-buttons">
+    <%= link_to "#{t("generate")} #{t("token")}", settings_api_token_path, method: :post, class: "btn btn-success float-end no-margin" %>
+  </div>
+<% end %>
