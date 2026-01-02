@@ -1,0 +1,183 @@
+de:
+  account:                 Einstellungen
+  activerecord:
+    attributes:
+      customer:
+        contact_person:    Ansprechpartner
+        email:             E-Mail
+        identification:    USt-IdNr.
+        invoicing_address: Rechnungsadresse
+        name:              Name
+        shipping_address:  Lieferadresse
+        tag_list:          Tag-Liste
+      invoice:
+        contact_person:    Ansprechpartner
+        due_date:          Fälligkeitsdatum
+        email:             E-Mail
+        email_template_id: E-Mail-Vorlage
+        identification:    USt-IdNr.
+        invoicing_address: Rechnungsadresse
+        issue_date:        Rechnungsdatum
+        name:              Name
+        notes:             Notizen
+        number:            Nummer
+        print_template_id: PDF-Vorlage
+        series_id:         Serie
+        shipping_address:  Lieferadresse
+        tag_list:          Tag-Liste
+        terms:             Zahlungsbedingungen
+      item:
+        description:       Artikelnummer / Bezeichnung
+        discount:          Rabatt
+        net_amount:        Betrag
+        quantity:          Menge
+        unitary_cost:      Stückpreis
+      payment:
+        amount:            Betrag
+        date:              Datum
+        invoice:           Rechnung
+        notes:             Notizen
+      recurring_invoice:
+        contact_person:    Ansprechpartner
+        days_to_due:       Zahlungsfrist (Tage)
+        email:             E-Mail
+        finishing_date:    Enddatum
+        identification:    USt-IdNr.
+        invoicing_address: Rechnungsadresse
+        issue_date:        Rechnungsdatum
+        max_occurrences:   Maximale Anzahl
+        name:              Name
+        notes:             Notizen
+        number:            Nummer
+        period:            Wiederholungsintervall
+        period_type:       Intervalleinheit
+        series:            Serie
+        series_id:         Serie
+        shipping_address:  Lieferadresse
+        starting_date:     Startdatum
+        tag_list:          Tag-Liste
+        terms:             Zahlungsbedingungen
+      series:
+        first_number:      Startnummer
+        name:              Name
+        value:             Seriencode
+      tax:
+        name:              Steuername
+        value:             Wert
+      template:
+        name:              Name
+        subject:           Betreff
+        template:          Vorlage
+    errors:
+      models:
+        invoice:
+          attributes:
+            series:
+              blank:       darf nicht leer sein
+        series:
+          attributes:
+            value:
+              blank:       darf nicht leer sein
+    models:
+      customer:            Kunde
+      invoice:             Rechnung
+      recurring_invoice:   Wiederkehrende Rechnung
+      series:              Serie
+      settings:            Einstellungen
+      tax:                 Steuer
+      template:            Vorlage
+  add line:                Zeile hinzufügen
+  add payment:             Zahlung hinzufügen
+  address:                 Adresse
+  api token:               API-Token
+  apply changes:           Änderungen anwenden
+  apply to new items by default: Standardmäßig auf neue Positionen anwenden
+  authentication:          Authentifizierung
+  available language:      Verfügbare Sprache
+  back:                    Zurück
+  company:                 Unternehmen
+  configuration:           Konfiguration
+  confirmation:            Bestätigung
+  currency:                Währung
+  customer:                Kunde
+  customer name:           Kundenname
+  customers:               Kunden
+  dashboard:               Dashboard
+  date:                    Datum
+  days to due:             Tage bis zur Fälligkeit
+  default:                 Standard
+  delete:                  Löschen
+  details:                 Details
+  download pdf:            PDF herunterladen
+  due:                     Fällig
+  edit:                    Bearbeiten
+  email:                   E-Mail
+  enable:                  Aktivieren
+  enabled:                 Aktiviert
+  export to csv:           Als CSV exportieren
+  first number:            Startnummer
+  form_fields:
+    copy invoicing address: Rechnungsadresse übernehmen
+  found:                   Gefunden
+  frecuency:               Häufigkeit
+  generate:                Generieren
+  global settings:         Globale Einstellungen
+  hooks:                   Hooks
+  identification:          ID
+  invoice:                 Rechnung
+  invoices:                Rechnungen
+  legal terms:             Zahlungsbedingungen
+  log out:                 Abmelden
+  logo:                    Logo
+  my:                      Meine
+  my account:              Mein Konto
+  name:                    Name
+  new:                     Neu
+  new invoice:             Neue Rechnung
+  number:                  Nummer
+  old:                     Alt
+  password:                Passwort
+  past due invoices:       Überfällige Rechnungen
+  payment collection failed: Zahlungseinzug fehlgeschlagen
+  payments:                Zahlungen
+  pending:                 Offen
+  phone:                   Telefonnummer
+  profile:                 Profil
+  recurring invoices:      Wiederkehrende Rechnungen
+  recurring_invoices:
+    form:
+      auto_send:           E-Mail beim Erstellen der Rechnung automatisch senden
+      enable_invoice:      Diese wiederkehrende Rechnung aktivieren
+    index:
+      build pending invoices: Offene Rechnungen erstellen
+  save:                    Speichern
+  save as draft:           Als Entwurf speichern
+  search:                  Suchen
+  select template for e-mail: E-Mail-Vorlage auswählen
+  select template to print: Druckvorlage auswählen
+  send email:              E-Mail senden
+  sent:                    Gesendet
+  series:                  Serie
+  server:                  Server
+  set paid:                Als bezahlt markieren
+  settings:
+    api_token:
+      authenticate api token: 'Bitte verwenden Sie diesen Token zur Authentifizierung von API-Anfragen:'
+      press api token:     Drücken Sie die Schaltfläche unten, um einen API-Token zu generieren.
+    hooks:
+      url to post:         'URL, an die per POST gesendet wird, wenn eine Rechnung automatisch erstellt wird:'
+  status:                  Status
+  subtotal:                Zwischensumme
+  tag:                     Tag
+  tags:                    Tags
+  tax:                     Steuer
+  tax name:                Steuername
+  taxes:                   Steuereinstellungen
+  templates:               Vorlagen
+  token:                   Token
+  total:                   Gesamtbetrag
+  value:                   Wert
+  website:                 Website
+  host:                    Host
+  port:                    Port
+  domain:                  Domain
