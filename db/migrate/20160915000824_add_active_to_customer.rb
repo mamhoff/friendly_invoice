@@ -7,5 +7,4 @@ class AddActiveToCustomer < ActiveRecord::Migration[4.2]
   def down
     remove_column :customers, :active
   end
-
 end

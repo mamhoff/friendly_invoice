@@ -1,1 +1,1 @@
-json.(@date_totals, *(@date_totals.keys))
+json.call(@date_totals, *@date_totals.keys)

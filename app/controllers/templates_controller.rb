@@ -29,7 +29,7 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       if @template.save
-        format.html { redirect_to templates_url, notice: 'Template was successfully created.' }
+        format.html { redirect_to templates_url, notice: "Template was successfully created." }
       else
         format.html { render :new }
       end
@@ -54,7 +54,7 @@ class TemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @template.update(template_params)
-        format.html { redirect_to templates_url, notice: 'Template was successfully updated.' }
+        format.html { redirect_to templates_url, notice: "Template was successfully updated." }
       else
         format.html { render :edit }
       end
@@ -66,18 +66,19 @@ class TemplatesController < ApplicationController
   def destroy
     @template.destroy
     respond_to do |format|
-      format.html { redirect_to templates_url, notice: 'Template was successfully destroyed.' }
+      format.html { redirect_to templates_url, notice: "Template was successfully destroyed." }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_template
-      @template = Template.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def template_params
-      params.require(:template).permit(:name, :template, :subject)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_template
+    @template = Template.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def template_params
+    params.require(:template).permit(:name, :template, :subject)
+  end
 end

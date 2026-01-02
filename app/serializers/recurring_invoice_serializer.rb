@@ -12,17 +12,17 @@ class RecurringInvoiceSerializer < ActiveModel::Serializer
     :tag_list, :meta
 
   meta do |serializer|
-    object.meta_attributes ? object.meta_attributes : {}
+    object.meta_attributes || {}
   end
 
   belongs_to :customer, url: true
   has_many :items
 
   link(:self) { api_v1_recurring_invoice_path(object.id) }
-  link(:customer){ api_v1_customer_path(object.customer_id) }
-  link(:items){ api_v1_recurring_invoice_items_path(recurring_invoice_id: object.id) }
+  link(:customer) { api_v1_customer_path(object.customer_id) }
+  link(:items) { api_v1_recurring_invoice_items_path(recurring_invoice_id: object.id) }
 
-  def initialize(object, options={})
+  def initialize(object, options = {})
     super
     object.set_amounts
   end
@@ -30,9 +30,9 @@ class RecurringInvoiceSerializer < ActiveModel::Serializer
   def items
     customized_items = []
     object.items.each do |item|
-      custom_item = {"attributes": item.attributes}
+      custom_item = {attributes: item.attributes}
       customized_items.push(custom_item)
     end
-    return customized_items
+    customized_items
   end
 end

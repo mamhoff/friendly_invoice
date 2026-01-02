@@ -1,7 +1,6 @@
 module ApplicationHelper
   include StiHelper
 
-
   def title(*parts)
     unless parts.empty?
       content_for :title do
@@ -12,7 +11,7 @@ module ApplicationHelper
 
   # To put class=active into the menu links
   def active_link(link)
-    link.split(',').each do |value|
+    link.split(",").each do |value|
       if value.strip == params[:controller]
         "active"
       end
@@ -20,12 +19,12 @@ module ApplicationHelper
     ""
   end
 
-  def display_money(amount, currency=Settings.currency)
+  def display_money(amount, currency = Settings.currency)
     currency = Money::Currency.find currency
     format = currency.symbol_first? ? "%u %n" : "%n %u"
     number_to_currency amount, precision: currency.exponent, unit: currency.symbol,
-    separator: currency.separator, delimiter: currency.delimiter, format: format,
-    negative_format: "(#{format})"
+      separator: currency.separator, delimiter: currency.delimiter, format: format,
+      negative_format: "(#{format})"
   end
 
   def set_redirect_address(address, type)
@@ -46,5 +45,4 @@ module ApplicationHelper
     end
     url_for(options)
   end
-
 end

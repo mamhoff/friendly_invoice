@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
-
-	# GET /items/amount
+  # GET /items/amount
   #
   # Calculates the net amount for an item
   def amount

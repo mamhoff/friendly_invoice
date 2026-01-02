@@ -1,11 +1,11 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
-require 'spec_helper'
-require File.expand_path('../config/environment', __dir__)
-require 'rspec/rails'
+ENV["RAILS_ENV"] ||= "test"
+require "spec_helper"
+require File.expand_path("../config/environment", __dir__)
+require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
 
-require 'shoulda/matchers'
+require "shoulda/matchers"
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -34,7 +34,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{Rails.root.join('spec/fixtures')}"
+  config.fixture_path = "#{Rails.root.join("spec/fixtures")}"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -66,8 +66,8 @@ RSpec.configure do |config|
   end
 
   config.before do |example|
-    Settings.currency = 'usd'
-    Rails.cache.delete('rails_settings_cached:currency')
+    Settings.currency = "usd"
+    Rails.cache.delete("rails_settings_cached:currency")
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
   end
@@ -78,9 +78,9 @@ RSpec.configure do |config|
       user = FactoryBot.create :user
 
       visit login_path
-      fill_in 'session_email', with: user.email
-      fill_in 'session_password', with: user.password
-      click_on 'Log in'
+      fill_in "session_email", with: user.email
+      fill_in "session_password", with: user.password
+      click_on "Log in"
       sleep 0.1
     end
   end

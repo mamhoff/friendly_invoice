@@ -1,5 +1,4 @@
 module CommonsControllerMixin
-
   protected
 
   # Protected: configures search
@@ -10,7 +9,7 @@ module CommonsControllerMixin
   def configure_search
     @search = model.ransack(params[:q])
 
-    @results = @search.result().order(issue_date: :desc).order(id: :desc)
+    @results = @search.result.order(issue_date: :desc).order(id: :desc)
 
     if params[:tag_list].present?
       @results = @results.tagged_with(params[:tag_list].split(/\s*,\s*/))
@@ -34,14 +33,14 @@ module CommonsControllerMixin
   def configure_chart_search
     @search = model.ransack(params[:q])
 
-    @results = @search.result(distinct: true)\
+    @results = @search.result(distinct: true)
       .order(issue_date: :desc).order(id: :desc)
 
     # Another query without distinct to get the sums right
     # This is because the query with distinct looks like:
     # SELECT SUM(DISTINCT "commons"."net_amount") FROM "commons" INNER JOIN "items" ...
     # and does not make the right sum
-    @totals = @search.result()
+    @totals = @search.result
 
     if params[:tag_list].present?
       @results = @results.tagged_with(params[:tag_list].split(/\s*,\s*/))
@@ -130,5 +129,4 @@ module CommonsControllerMixin
   def set_model_instance
     set_instance model.find(params[:id])
   end
-
 end

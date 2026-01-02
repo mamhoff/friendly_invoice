@@ -19,8 +19,8 @@ FactoryBot.define do
   end
 
   factory :nseries, class: Series do
-    sequence(:name, "A")  { |n| "#{n}- Series" }
-    sequence(:value, "A") { |n| "#{n}-"        }
-    sequence(:default)    { |n| n === 1        }
+    sequence(:name, "A") { |n| "#{n}- Series" }
+    sequence(:value, "A") { |n| "#{n}-" }
+    sequence(:default) { |n| n === 1 }
   end
 end

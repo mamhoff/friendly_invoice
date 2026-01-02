@@ -16,8 +16,8 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 # Helper methods for RSpec
-require './spec/support/helpers'
-require './spec/support/wait_for_ajax'
+require "./spec/support/helpers"
+require "./spec/support/wait_for_ajax"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -90,19 +90,19 @@ RSpec.configure do |config|
   config.include Requests::JsonHelpers, type: :request
 end
 
-require 'capybara/rspec'
-require 'capybara/cuprite'
+require "capybara/rspec"
+require "capybara/cuprite"
 
 Capybara.configure do |config|
   config.default_max_wait_time = 5
-  config.server = :puma, { Silent: true }
+  config.server = :puma, {Silent: true}
   config.javascript_driver = :cuprite
 end
 
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app,
-                                window_size: [1200, 800],
-                                browser_options: {},
-                                # This line replaces your block_url config:
-                                blocked_urls: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'])
+    window_size: [1200, 800],
+    browser_options: {},
+    # This line replaces your block_url config:
+    blocked_urls: ["https://fonts.googleapis.com", "https://fonts.gstatic.com"])
 end

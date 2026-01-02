@@ -4,7 +4,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
 
   # GET /api/v1/series
   def index
-    @series = Series.all  
+    @series = Series.all
     render json: @series
   end
 
@@ -18,7 +18,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
   def create
     @series = Series.new(series_params)
     if @series.save
-      render json: @series, status: :created, location: api_v1_series_url(@series) 
+      render json: @series, status: :created, location: api_v1_series_url(@series)
     else
       render json: {errors: @series.errors}, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
   # PATCH/PUT /api/v1/series/1
   def update
     if @series.update(series_params)
-      render json: @series, status: :ok, location: api_v1_series_url(@series) 
+      render json: @series, status: :ok, location: api_v1_series_url(@series)
     else
       render json: {errors: @series.errors}, status: :unprocessable_entity
     end
@@ -36,17 +36,18 @@ class Api::V1::SeriesController < Api::V1::BaseController
   # DELETE /api/v1/series/1
   def destroy
     @series.destroy
-    render json: { message: "Content deleted" }, status: :no_content
+    render json: {message: "Content deleted"}, status: :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_series
-      @series = Series.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def series_params
-      res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_series
+    @series = Series.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def series_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+  end
 end

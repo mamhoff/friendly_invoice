@@ -29,7 +29,7 @@ module StiHelper
   # - "edit_invoice"
   # - "invoices"
   def sti_format(type, action, instance)
-    action || instance ? "#{sti_format_action(action)}#{type.underscore}" : "#{type.underscore.pluralize}"
+    (action || instance) ? "#{sti_format_action(action)}#{type.underscore}" : "#{type.underscore.pluralize}"
   end
 
   def sti_format_action(action)

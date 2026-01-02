@@ -22,16 +22,16 @@ class Tax < ActiveRecord::Base
   end
 
   def self.default
-    self.where(active: true, default: true)
+    where(active: true, default: true)
   end
 
   def self.enabled
-    self.where(active: true)
+    where(active: true)
   end
 
   def to_jbuilder
     Jbuilder.new do |json|
-      json.(self, *(attribute_names - ["deleted_at"]))
+      json.call(self, *(attribute_names - ["deleted_at"]))
     end
   end
 
@@ -42,5 +42,4 @@ class Tax < ActiveRecord::Base
   def self.ransackable_associations(auth_object = nil)
     reflect_on_all_associations.map { |a| a.name.to_s }
   end
-
 end

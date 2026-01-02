@@ -20,7 +20,7 @@ class TaxesController < ApplicationController
 
     respond_to do |format|
       if @tax.save
-        format.html { redirect_to taxes_url, notice: 'Tax was successfully created.' }
+        format.html { redirect_to taxes_url, notice: "Tax was successfully created." }
       else
         flash[:alert] = "Tax has not been created."
         format.html { render :new }
@@ -33,7 +33,7 @@ class TaxesController < ApplicationController
   def update
     respond_to do |format|
       if @tax.update(tax_params)
-        format.html { redirect_to taxes_url, notice: 'Tax was successfully updated.' }
+        format.html { redirect_to taxes_url, notice: "Tax was successfully updated." }
       else
         format.html { render :edit }
       end
@@ -45,7 +45,7 @@ class TaxesController < ApplicationController
   def destroy
     respond_to do |format|
       if @tax.destroy
-        format.html { redirect_to taxes_url, notice: 'Tax was successfully deleted.' }
+        format.html { redirect_to taxes_url, notice: "Tax was successfully deleted." }
       else
         flash[:alert] = @tax.errors.full_messages.join(" ")
         format.html { redirect_to edit_tax_path(@tax) }
@@ -56,7 +56,7 @@ class TaxesController < ApplicationController
   def set_default
     Tax.where(id: params["default_tax"]).update_all(default: true)
     Tax.where.not(id: params["default_tax"]).update_all(default: false)
-    redirect_to(:action => 'index')
+    redirect_to(action: "index")
   end
 
   def get_defaults
@@ -64,13 +64,14 @@ class TaxesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tax
-      @tax = Tax.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tax_params
-      params.require(:tax).permit(:name, :value, :active, :default)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tax
+    @tax = Tax.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tax_params
+    params.require(:tax).permit(:name, :value, :active, :default)
+  end
 end

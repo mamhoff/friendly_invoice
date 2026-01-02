@@ -72,7 +72,6 @@ namespace :siwapp do
     client.query("ALTER TABLE customer ADD deleted_at datetime DEFAULT NULL")
     client.query("ALTER TABLE customer ADD meta_attributes TEXT")
 
-
     client.query("ALTER TABLE item CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE item CHANGE common_id common_id INT")
     client.query("ALTER TABLE item CHANGE product_id product_id INT")
@@ -93,7 +92,7 @@ namespace :siwapp do
     client.query("ALTER TABLE payment ADD created_at datetime")
     client.query("ALTER TABLE payment ADD updated_at datetime")
     client.query("ALTER TABLE payment ADD deleted_at datetime DEFAULT NULL")
-    current_date = DateTime.current.strftime('%Y/%m/%d %H:%M:%S')
+    current_date = DateTime.current.strftime("%Y/%m/%d %H:%M:%S")
     client.query("UPDATE payment SET created_at = '" << current_date << "', updated_at = '" << current_date << "'")
     client.query("ALTER TABLE payment CHANGE created_at created_at datetime NOT NULL")
     client.query("ALTER TABLE payment CHANGE updated_at updated_at datetime NOT NULL")
@@ -121,13 +120,12 @@ namespace :siwapp do
     client.query("ALTER TABLE series ADD COLUMN `default` TINYINT(1) DEFAULT FALSE ")
     client.query("ALTER TABLE series ADD deleted_at datetime DEFAULT NULL")
 
-
     # Get max invoice number for each series and set the series next_number
     # field accordingly.
     series_info = client.query("SELECT `series_id`, MAX(`number`) AS `current_number` FROM `common` WHERE `type` = 'Invoice' AND `series_id` IS NOT NULL GROUP BY `series_id`")
     series_info.each do |info|
-      series_id = info['series_id']
-      next_number = info['current_number'] + 1
+      series_id = info["series_id"]
+      next_number = info["current_number"] + 1
       client.query("UPDATE `series` SET `next_number` = #{next_number} WHERE `id` = #{series_id};")
     end
 
@@ -160,15 +158,15 @@ namespace :siwapp do
     client.query("ALTER TABLE `tagging` ADD INDEX `index_taggings_on_taggable_id_and_taggable_type_and_context` (`taggable_id`, `taggable_type`, `context`)")
     client.query("RENAME TABLE `tagging` TO `taggings`")
 
-    client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.current.strftime('%Y/%m/%d %H:%M:%S') << "'")
+    client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.current.strftime("%Y/%m/%d %H:%M:%S") << "'")
 
     # Update taggings_count
 
     tags = client.query("SELECT `tag_id` AS `id`, COUNT(`tag_id`) AS `taggings_count` FROM `taggings` GROUP BY `tag_id`")
     tags.each do |tag|
-       id = tag['id']
-       taggings_count = tag['taggings_count']
-       client.query("UPDATE `tags` SET `taggings_count` = #{taggings_count} WHERE `id` = #{id}")
+      id = tag["id"]
+      taggings_count = tag["taggings_count"]
+      client.query("UPDATE `tags` SET `taggings_count` = #{taggings_count} WHERE `id` = #{id}")
     end
 
     # Taxes
@@ -215,9 +213,9 @@ namespace :siwapp do
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")
 
     # Load data seed
-    Rake::Task['db:seed'].invoke
+    Rake::Task["db:seed"].invoke
 
     # Iterate saving each invoice to update status
-    Invoice.all.each {|invoice| invoice.save}
+    Invoice.all.each { |invoice| invoice.save }
   end
 end

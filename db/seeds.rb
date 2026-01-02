@@ -19,10 +19,10 @@ Settings.legal_terms = ""
 Settings.currency = "usd"
 
 Template.create(name: "Print Default",
-                template: File.read(Rails.root.join('db', 'fixtures', 'print_default.html.erb')).strip(),
-                print_default: true)
+  template: File.read(Rails.root.join("db", "fixtures", "print_default.html.erb")).strip,
+  print_default: true)
 
 Template.create(name: "Email Default",
-                template: File.read(Rails.root.join('db', 'fixtures', 'email_default.html.erb')).strip(),
-                subject: "Payment Confirmation: <%= invoice %>",
-                email_default: true)
+  template: File.read(Rails.root.join("db", "fixtures", "email_default.html.erb")).strip,
+  subject: "Payment Confirmation: <%= invoice %>",
+  email_default: true)

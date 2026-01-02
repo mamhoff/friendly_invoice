@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-
   acts_as_paranoid
   belongs_to :common, optional: true
   has_and_belongs_to_many :taxes
@@ -8,7 +7,7 @@ class Item < ActiveRecord::Base
 
   # Gets items for autocomplete, returning an id, a description and unitary cost
   # for the specified search term
-  def Item.autocomplete_by_description(term)
+  def self.autocomplete_by_description(term)
     t = arel_table
     q = t
       .project(t[:id].maximum.as("id"), t[:description], t[:unitary_cost])
@@ -35,7 +34,7 @@ class Item < ActiveRecord::Base
   end
 
   def to_s
-    description? ? description : 'No description'
+    description? ? description : "No description"
   end
 
   # Returns a hash where keys are the tax object
@@ -48,9 +47,8 @@ class Item < ActiveRecord::Base
 
   def to_jbuilder
     Jbuilder.new do |json|
-      json.(self, :quantity, :discount, :description, :unitary_cost)
-      json.taxes  taxes.collect { |tax| tax.to_jbuilder.attributes!}
+      json.call(self, :quantity, :discount, :description, :unitary_cost)
+      json.taxes taxes.collect { |tax| tax.to_jbuilder.attributes! }
     end
   end
-
 end

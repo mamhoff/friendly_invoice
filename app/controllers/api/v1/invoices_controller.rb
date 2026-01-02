@@ -1,5 +1,4 @@
 class Api::V1::InvoicesController < Api::V1::CommonsController
-
   set_pagination_headers :invoices, only: [:index]
 
   # Renders invoice template in pdf
@@ -7,12 +6,12 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   def template
     @invoice = Invoice.find(params[:invoice_id])
     @template = Template.find(params[:id])
-    html = render_to_string :inline => @template.template,
-      :locals => {invoice: @invoice, settings: Settings}
+    html = render_to_string inline: @template.template,
+      locals: {invoice: @invoice, settings: Settings}
     respond_to do |format|
       format.pdf do
         pdf = @invoice.pdf(html)
-        send_data(pdf, :filename => "#{@invoice}.pdf", :disposition => 'attachment')
+        send_data(pdf, filename: "#{@invoice}.pdf", disposition: "attachment")
       end
     end
   end
@@ -25,22 +24,21 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     end
     begin
       @invoice.send_email
-      render json: {"message": "E-mail succesfully sent."}, status: :ok
-
+      render json: {message: "E-mail succesfully sent."}, status: :ok
     rescue Exception => e
-      render json: {"message": e.message}, status: :error
+      render json: {message: e.message}, status: :error
     end
   end
 
   def stats
     date_from, date_to = get_stats_dates_values params
-    currency = (params[:q].nil? or params[:q][:currency].nil?) ? '' : params[:q][:currency].downcase
+    currency = (params[:q].nil? or params[:q][:currency].nil?) ? "" : params[:q][:currency].downcase
 
-    scope = Invoice.where(draft: false, failed: false).\
-      where("issue_date >= :date_from AND issue_date <= :date_to",
-            {date_from: date_from, date_to: date_to})
+    scope = Invoice.where(draft: false, failed: false)
+      .where("issue_date >= :date_from AND issue_date <= :date_to",
+        {date_from: date_from, date_to: date_to})
     scope = scope.where("currency like :currency", {currency: currency}) if !currency.empty?
-    scope = scope.select("to_char(issue_date, 'YYYY-MM') as date, currency, sum(gross_amount) as total_gross, sum(net_amount) as total_net, count(id) as count").group('date, currency')
+    scope = scope.select("to_char(issue_date, 'YYYY-MM') as date, currency, sum(gross_amount) as total_gross, sum(net_amount) as total_net, count(id) as count").group("date, currency")
     scope = scope.order("date")
 
     # build all keys
@@ -70,7 +68,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   end
 
   def invoice_params
-    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+    ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
 
   private
@@ -79,7 +77,6 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     date_from = (params[:q].nil? or params[:q][:issue_date_gteq].nil?) ? Date.current.beginning_of_year : Date.parse(params[:q][:issue_date_gteq])
     date_to = (params[:q].nil? or params[:q][:issue_date_lteq].nil?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
 
-    return date_from, date_to
+    [date_from, date_to]
   end
-
 end

@@ -12,11 +12,11 @@ class Customer < ActiveRecord::Base
 
   # Validation
   validate :valid_customer_identification
-  validates_uniqueness_of :name,  scope: :identification
-  validates :invoicing_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
-    message: "Wrong address format" }
-  validates :shipping_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
-    message: "Wrong address format" }
+  validates_uniqueness_of :name, scope: :identification
+  validates :invoicing_address, format: {without: /<(.*)>.*?|<(.*) \/>/,
+                                         message: "Wrong address format"}
+  validates :shipping_address, format: {without: /<(.*)>.*?|<(.*) \/>/,
+                                        message: "Wrong address format"}
 
   # Behaviors
   acts_as_taggable
@@ -31,7 +31,7 @@ class Customer < ActiveRecord::Base
 
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
-    where('name ILIKE :terms OR email ILIKE :terms OR identification ILIKE :terms', terms: '%' + terms + '%')
+    where("name ILIKE :terms OR email ILIKE :terms OR identification ILIKE :terms", terms: "%" + terms + "%")
   }
 
   scope :only_active, ->(boolean = true) {
@@ -59,13 +59,13 @@ class Customer < ActiveRecord::Base
     elsif email?
       email
     else
-      'Customer'
+      "Customer"
     end
   end
 
   def to_jbuilder
     Jbuilder.new do |json|
-      json.(self, *(attribute_names - ["name_slug", "deleted_at"]))
+      json.call(self, *(attribute_names - ["name_slug", "deleted_at"]))
     end
   end
 
@@ -74,11 +74,10 @@ class Customer < ActiveRecord::Base
     csv_stream(results, self::CSV_FIELDS, results.meta_attributes_keys)
   end
 
-
-private
+  private
 
   def check_invoices
-    if self.total > self.paid
+    if total > paid
       errors[:base] << "This customer can't be deleted because it has unpaid invoices"
       throw(:abort)
     end
@@ -101,5 +100,4 @@ private
       errors.add :base, "Name or identification is required."
     end
   end
-
 end

@@ -57,13 +57,12 @@ RSpec.describe "Api::V1::Items:", type: :request do
   end
 
   describe "Item updating" do
-
     before do
       @taxes = Tax.all
     end
 
     it "PUT /api/v1/items/:id" do
-      mod = {"data"=> {"attributes" => {"quantity"=>33, "tax_ids"=>[@taxes[1].id]}}}
+      mod = {"data" => {"attributes" => {"quantity" => 33, "tax_ids" => [@taxes[1].id]}}}
       put api_v1_item_path(@item), params: mod.to_json, headers: @headers
       expect(response).to have_http_status :ok
       expect(json["data"]["attributes"]["quantity"]).to eql "33.0"
@@ -75,7 +74,6 @@ RSpec.describe "Api::V1::Items:", type: :request do
   end
 
   describe "Item deletion" do
-
     it "DELETE /api/v1/items/:id" do
       delete api_v1_item_path(@item), headers: @headers
       expect(response).to have_http_status :no_content

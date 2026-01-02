@@ -6,7 +6,7 @@ class RecurringInvoice < Common
   validates :starting_date, presence: true
   validates :period_type, presence: true
   validates :period, presence: true,
-            numericality: {only_integer: true, greater_than: 0}
+    numericality: {only_integer: true, greater_than: 0}
   validate :valid_date_range
 
   PERIOD_TYPES = [
@@ -33,7 +33,7 @@ class RecurringInvoice < Common
 
   # Returns the issue date of the next invoice that must be generated
   def next_invoice_date
-    self.invoices.length > 0 ? self.invoices.order(:id).last.issue_date + period.send(period_type) : starting_date
+    (invoices.length > 0) ? invoices.order(:id).last.issue_date + period.send(period_type) : starting_date
   end
 
   # Returns the list of issue dates for all pending invoices
@@ -44,7 +44,7 @@ class RecurringInvoice < Common
     next_date = next_invoice_date
     max_date = [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min
 
-    while next_date <= max_date and (max_occurrences.nil? or occurrences < max_occurrences) do
+    while next_date <= max_date and (max_occurrences.nil? or occurrences < max_occurrences)
       result.append(next_date)
       occurrences += 1
       next_date += period.send period_type
@@ -56,15 +56,15 @@ class RecurringInvoice < Common
   # Returns a list of (not-yet-saved) pending invoices for this instance.
   def build_pending_invoices
     next_occurrences.map do |issue_date|
-      invoice = self.becomes(Invoice).dup
-      
+      invoice = becomes(Invoice).dup
+
       invoice.period = nil
       invoice.period_type = nil
       invoice.starting_date = nil
       invoice.finishing_date = nil
       invoice.max_occurrences = nil
 
-      self.items.each do |item|
+      items.each do |item|
         nitem = Item.new(item.attributes)
         nitem.id = nil
         item.taxes.each do |tax|
@@ -80,9 +80,9 @@ class RecurringInvoice < Common
       invoice.meta_attributes = meta_attributes
 
       invoice.items.each do |item|
-        item.description.sub! "$(issue_date)", invoice.issue_date.strftime('%Y-%m-%d')
-        item.description.sub! "$(issue_date - period)", (invoice.issue_date - period.send(period_type)).strftime('%Y-%m-%d')
-        item.description.sub! "$(issue_date + period)", (invoice.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
+        item.description.sub! "$(issue_date)", invoice.issue_date.strftime("%Y-%m-%d")
+        item.description.sub! "$(issue_date - period)", (invoice.issue_date - period.send(period_type)).strftime("%Y-%m-%d")
+        item.description.sub! "$(issue_date + period)", (invoice.issue_date + period.send(period_type)).strftime("%Y-%m-%d")
       end
 
       invoice
@@ -94,7 +94,7 @@ class RecurringInvoice < Common
   def self.build_pending_invoices!
     invoices = []
 
-    where(:enabled => true).where("starting_date <= ?", Date.current).each do |r_inv|
+    where(enabled: true).where("starting_date <= ?", Date.current).each do |r_inv|
       invoices += r_inv.build_pending_invoices
     end
 
@@ -115,12 +115,12 @@ class RecurringInvoice < Common
   end
 
   def self.any_invoices_to_be_built?
-    where(:enabled => true).where("starting_date <= ?", Date.current).each do |r_inv|
+    where(enabled: true).where("starting_date <= ?", Date.current).each do |r_inv|
       if r_inv.next_occurrences.length > 0
         return true
       end
     end
-    return false
+    false
   end
 
   private

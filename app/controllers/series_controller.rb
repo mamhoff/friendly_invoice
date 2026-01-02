@@ -30,7 +30,7 @@ class SeriesController < ApplicationController
 
     respond_to do |format|
       if @series.save
-        format.html { redirect_to series_index_url, notice: 'Series was successfully created.' }
+        format.html { redirect_to series_index_url, notice: "Series was successfully created." }
       else
         format.html { render :new }
       end
@@ -42,7 +42,7 @@ class SeriesController < ApplicationController
   def update
     respond_to do |format|
       if @series.update(series_params)
-        format.html { redirect_to series_index_url, notice: 'Series was successfully updated.' }
+        format.html { redirect_to series_index_url, notice: "Series was successfully updated." }
       else
         format.html { render :edit }
       end
@@ -55,7 +55,7 @@ class SeriesController < ApplicationController
     Series.where(id: params["default_series"]).update_all(default: true)
     Series.where.not(id: params["default_series"]).update_all(default: false)
 
-    redirect_to(:action => 'index')
+    redirect_to(action: "index")
   end
 
   # DELETE /series/1
@@ -63,22 +63,23 @@ class SeriesController < ApplicationController
   def destroy
     respond_to do |format|
       if @series.destroy
-       format.html { redirect_to series_index_url, notice: 'Series was successfully destroyed.' }
-	  else
-	    flash[:alert] = "Series has invoices and can not be destroyed."
+        format.html { redirect_to series_index_url, notice: "Series was successfully destroyed." }
+      else
+        flash[:alert] = "Series has invoices and can not be destroyed."
         format.html { redirect_to edit_series_path(@series) }
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_series
-      @series = Series.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def series_params
-      params.require(:series).permit(:name, :value, :enabled, :first_number)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_series
+    @series = Series.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def series_params
+    params.require(:series).permit(:name, :value, :enabled, :first_number)
+  end
 end

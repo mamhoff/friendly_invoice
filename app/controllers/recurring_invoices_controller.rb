@@ -1,5 +1,4 @@
 class RecurringInvoicesController < CommonsController
-
   def generate
     # Generates pending invoices up to today
     RecurringInvoice.build_pending_invoices!
@@ -56,7 +55,6 @@ class RecurringInvoicesController < CommonsController
     render
   end
 
-
   protected
 
   def set_listing(instances)
@@ -83,5 +81,4 @@ class RecurringInvoicesController < CommonsController
       :sent_by_email
     ]
   end
-
 end
