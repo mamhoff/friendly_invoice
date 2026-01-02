@@ -1,0 +1,51 @@
+<h1>
+  <%= t("series") %>
+</h1>
+<%= form_tag url_for(:controller => "series", :action => "set_default"), :method => :post, :class => "change_default" do %>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <th class="table-select text-nowrap">
+          <%= t("default") %>
+        </th>
+        <th>
+          <%= t("name") %>
+        </th>
+        <th>
+          <%= t("value") %>
+        </th>
+        <th>
+          <%= t("first number") %>
+        </th>
+        <th class="text-center">
+          <%= t("enabled") %>
+        </th>
+      </thead>
+      <tbody>
+        <% @series.each do |series| %>
+          <tr>
+            <td class="table-select">
+              <%= radio_button_tag 'default_series', series.id, checked=series.default, {"data-role" => "select-default"} %>
+            </td>
+            <td>
+              <%= link_to series.name, edit_series_path(series) %>
+            </td>
+            <td>
+              <%= series.value %>
+            </td>
+            <td>
+              <%= series.first_number %>
+            </td>
+            <td class="text-center">
+              <% if series.enabled %>
+                <%= material_icon.shape(:done).css_class('green') %>
+              <% else %>
+                <%= material_icon.shape(:clear).css_class('red') %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

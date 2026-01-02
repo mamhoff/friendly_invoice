@@ -1,0 +1,35 @@
+<%= form_for(@series) do |f| %>
+  <% if @series.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@series.errors.count, "error") %>
+        prohibited this series from being saved:
+      </h2>
+      <ul>
+        <% @series.errors.full_messages.each do |message| %>
+          <li>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :value %>
+    <%= f.text_field :value, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :first_number %>
+    <%= f.number_field :first_number, class: 'form-control' %>
+  </div>
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :enabled %>
+      Enabled
+    </label>
+  </div>
+<% end %>
