@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_03_144724) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_03_185633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_144724) do
     t.integer "email_template_id"
     t.integer "deleted_number"
     t.string "currency", limit: 3
+    t.bigint "seller_id", null: false
     t.index ["contact_person"], name: "cntct_idx"
     t.index ["customer_id"], name: "customer_id_idx"
     t.index ["email"], name: "cstml_idx"
@@ -59,6 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_144724) do
     t.index ["issue_date", "id"], name: "index_commons_on_issue_date_and_id", order: :desc
     t.index ["name"], name: "cstnm_idx"
     t.index ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id"
+    t.index ["seller_id"], name: "index_commons_on_seller_id"
     t.index ["series_id", "deleted_number"], name: "common_deleted_number_idx"
     t.index ["series_id", "number"], name: "common_unique_number_idx", unique: true
     t.index ["series_id"], name: "series_id_idx"
@@ -205,4 +207,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_144724) do
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 
+  add_foreign_key "commons", "commons", column: "seller_id", validate: false
 end
