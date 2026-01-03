@@ -13,7 +13,7 @@ development:
   password: <%= ENV['POSTGRES_PASSWORD'] || ENV['RAILS_DATABASE_PASSWORD'] || ''%>
   pool: <%= (ENV['DB_CONNECTION_POOL_SIZE'] || "5").to_i %>
   encoding: unicode
-  database: siwapp
+  database: friendly_invoice
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,7 +27,7 @@ test:
   password: <%= ENV['POSTGRES_PASSWORD'] || ENV['RAILS_DATABASE_PASSWORD'] || ''%>
   pool: <%= (ENV['DB_CONNECTION_POOL_SIZE'] || "5").to_i %>
   encoding: unicode
-  database: siwapp_test
+  database: friendly_invoice_test
 
 production:
   adapter: postgresql

@@ -1,6 +1,6 @@
 # Siwapp
 
-[API Documentation](https://github.com/pikislabis/siwapp/blob/master/API_DOC.md)
+[API Documentation](https://github.com/mamhoff/friendly_invoice/blob/master/API_DOC.md)
 
 ## SMTP Configuration
 
@@ -18,17 +18,17 @@ SMTP_ENABLE_STARTTLS_AUTO (set to 1 to enable it)
 
 ## How to Install on Heroku
 
-First clone the siwapp repository into your computer:
+First clone the friendly_invoice repository into your computer:
 
-    $ git clone https://github.com/siwapp/siwapp.git
-    $ cd siwapp
+    $ git clone https://github.com/friendly_invoice/friendly_invoice.git
+    $ cd friendly_invoice
 
 Create the app in heroku (we suppose in the terminal your are logged
-in heroku). Here we call the app "siwapp-demo", but choose whatever
+in heroku). Here we call the app "friendly_invoice-demo", but choose whatever
 you like.
 
-    $ heroku apps:create siwapp-demo
-    $ heroku apps:create --region eu --buildpack heroku/ruby siwapp-demo
+    $ heroku apps:create friendly_invoice-demo
+    $ heroku apps:create --region eu --buildpack heroku/ruby friendly_invoice-demo
     $ heroku addons:create heroku-postgresql
     $ heroku addons:create scheduler:standard
 
@@ -39,14 +39,14 @@ Push the code to heroku, and setup database.
 
 Finally create an user to be able to login into the app.
 
-    $ heroku run "rake siwapp:user:create['demo','demo@example.com','secret_password']"
+    $ heroku run "rake friendly_invoice:user:create['demo','demo@example.com','secret_password']"
 
 If you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
 
     $ heroku addons:open scheduler
 
-Add a new job, and put "rake siwapp:generate_invoices"
+Add a new job, and put "rake friendly_invoice:generate_invoices"
 
-That's it! You can enjoy siwapp now entering on your heroku app url.
+That's it! You can enjoy friendly_invoice now entering on your heroku app url.
 
     $ heroku apps:open
