@@ -28,7 +28,7 @@ class RecurringInvoice < Common
   end
 
   def to_s
-    "#{name}"
+    name.to_s
   end
 
   # Returns the issue date of the next invoice that must be generated
@@ -44,7 +44,7 @@ class RecurringInvoice < Common
     next_date = next_invoice_date
     max_date = [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min
 
-    while next_date <= max_date and (max_occurrences.nil? or occurrences < max_occurrences)
+    while (next_date <= max_date) && (max_occurrences.nil? || (occurrences < max_occurrences))
       result.append(next_date)
       occurrences += 1
       next_date += period.send period_type

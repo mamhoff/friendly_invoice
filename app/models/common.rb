@@ -176,7 +176,7 @@ class Common < ActiveRecord::Base
   private
 
   def valid_customer_identification
-    unless name? or identification?
+    unless name? || identification?
       errors.add :base, "Customer name or identification is required."
     end
   end

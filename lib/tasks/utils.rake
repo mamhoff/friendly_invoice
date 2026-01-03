@@ -57,7 +57,7 @@ namespace :siwapp do
         setup_demo
       else
         puts "\n This will remove all data in database. Are you sure? [y/N]"
-        answer = STDIN.gets.chomp
+        answer = $stdin.gets.chomp
         if answer == "y"
           setup_demo
         else

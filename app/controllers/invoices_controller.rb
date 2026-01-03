@@ -32,8 +32,8 @@ class InvoicesController < CommonsController
   # Returns a json with dates as keys and sums of the invoices
   # as values. Uses the same parameters as search.
   def chart_data
-    date_from = (params[:q].nil? or params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
-    date_to = (params[:q].nil? or params[:q][:issue_date_lteq].empty?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
+    date_from = (params[:q].nil? || params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
+    date_to = (params[:q].nil? || params[:q][:issue_date_lteq].empty?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
 
     scope = @search.result.where(draft: false, failed: false)
       .where("issue_date >= :date_from AND issue_date <= :date_to",

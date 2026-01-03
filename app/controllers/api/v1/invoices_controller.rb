@@ -30,7 +30,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
   def stats
     date_from, date_to = get_stats_dates_values params
-    currency = (params[:q].nil? or params[:q][:currency].nil?) ? "" : params[:q][:currency].downcase
+    currency = (params[:q].nil? || params[:q][:currency].nil?) ? "" : params[:q][:currency].downcase
 
     scope = Invoice.where(draft: false, failed: false)
       .where("issue_date >= :date_from AND issue_date <= :date_to",
@@ -72,8 +72,8 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   private
 
   def get_stats_dates_values params
-    date_from = (params[:q].nil? or params[:q][:issue_date_gteq].nil?) ? Date.current.beginning_of_year : Date.parse(params[:q][:issue_date_gteq])
-    date_to = (params[:q].nil? or params[:q][:issue_date_lteq].nil?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
+    date_from = (params[:q].nil? || params[:q][:issue_date_gteq].nil?) ? Date.current.beginning_of_year : Date.parse(params[:q][:issue_date_gteq])
+    date_to = (params[:q].nil? || params[:q][:issue_date_lteq].nil?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
 
     [date_from, date_to]
   end

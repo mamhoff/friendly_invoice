@@ -47,7 +47,7 @@ class SettingsController < ApplicationController
   # PUT /settings/profile
   def profile_update
     @user = current_user
-    if !params[:user][:password].blank? and !@user.authenticate(params[:old_password])
+    if !params[:user][:password].blank? && !@user.authenticate(params[:old_password])
       @user.errors.add(:base, :invalid_old_password, message: "Incorrect old password")
       test = false
     else

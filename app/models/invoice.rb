@@ -129,7 +129,7 @@ class Invoice < Common
   # invoice status.
   #
   def set_paid
-    if !draft and (unpaid_amount > 0 and !paid)
+    if !draft && (unpaid_amount > 0) && !paid
       payments << Payment.new(date: Date.current, amount: unpaid_amount)
       check_paid
       true

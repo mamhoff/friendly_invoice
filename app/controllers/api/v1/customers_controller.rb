@@ -19,7 +19,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
       # Check if there is any meta_attribute
       if params[:meta_attributes]
         @customer.set_meta_multi params[:meta_attributes]
-      elsif params[:invoice] and params[:invoice][:meta_attributes]
+      elsif params[:invoice] && params[:invoice][:meta_attributes]
         @customer.set_meta_multi params[:invoice][:meta_attributes]
       end
       render json: @customer, status: :created, location: api_v1_customer_url(@customer)
@@ -33,7 +33,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
       # Check if there is any meta_attribute
       if params[:meta_attributes]
         @customer.set_meta_multi params[:meta_attributes]
-      elsif params[:invoice] and params[:invoice][:meta_attributes]
+      elsif params[:invoice] && params[:invoice][:meta_attributes]
         @customer.set_meta_multi params[:invoice][:meta_attributes]
       end
       render json: @customer, status: :ok, location: api_v1_customer_url(@customer)
