@@ -13,11 +13,7 @@ services:
     entrypoint: ['./entrypoint.sh']
     depends_on:
       - db
-    image: siwapp/siwapp
-    networks:
-      default:
-        aliases:
-        - siwapp-ror
+    image: friendly_invoice/friendly_invoice
     ports:
       - 3000:3000
     volumes:

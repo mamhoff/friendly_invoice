@@ -1,6 +1,6 @@
 require "factory_bot_rails"
 
-namespace :siwapp do
+namespace :friendly_invoice do
   namespace :random do
     desc "Create random invoices for testing and development."
     task :invoices, [:number, :due] => :environment do |t, args|
@@ -22,13 +22,13 @@ namespace :siwapp do
 
     desc "Create a basic set of series, taxes, invoices and recurring invoices."
     task :all do
-      Rake::Task["siwapp:random:invoices"].invoke
-      Rake::Task["siwapp:random:recurring_invoices"].invoke
+      Rake::Task["friendly_invoice:random:invoices"].invoke
+      Rake::Task["friendly_invoice:random:recurring_invoices"].invoke
     end
   end
 
   namespace :user do
-    desc "Creates user account with given credentials: rake siwapp:user:create[name,email,pass]"
+    desc "Creates user account with given credentials: rake friendly_invoice:user:create[name,email,pass]"
     # environment is required to have access to Rails models
     task :create, [:name, :email, :pass] => :environment do |t, args|
       puts "creating user account..."
@@ -50,8 +50,8 @@ namespace :siwapp do
       args.with_defaults(noinput: false)
       def setup_demo
         Rake::Task["db:seed"].invoke
-        Rake::Task["siwapp:random:all"].invoke
-        Rake::Task["siwapp:user:create"].invoke("demo", "demo@example.com", "secret")
+        Rake::Task["friendly_invoice:random:all"].invoke
+        Rake::Task["friendly_invoice:user:create"].invoke("demo", "demo@example.com", "secret")
       end
       if args[:noinput] == "noinput"
         setup_demo

@@ -46,10 +46,10 @@
 
 ## Authentication
 
-  * Generate your security token in you siwapp web application, on the 'My Account/API Token' section.
+  * Generate your security token in you friendly_invoice web application, on the 'My Account/API Token' section.
   * Send that token in every api request as the "Authorization" header:
   `Authorization': 'Token token="abc"'`
-  * You can only access the siwapp API through `https` protocol
+  * You can only access the friendly_invoice API through `https` protocol
 
 ## Recurring Invoices
 
@@ -1115,7 +1115,7 @@ Content-Type: application/json; charset=utf-8
 
 ## Stats
 ### Get
-Get invoices aggregates stats. This method returns a monthly accumulated invoice gross amount by currency. 
+Get invoices aggregates stats. This method returns a monthly accumulated invoice gross amount by currency.
 By default, this stats returns from the first day of the current year for all currencies to today.
 
 You can filter by date and currency with the next keys:
