@@ -13,7 +13,7 @@
 // jQuery & Utils
 //
 //= require jquery2
-//= require jquery_ujs
+//= require rails-ujs
 //= require jquery-ui/widgets/autocomplete
 //= require waypoints/jquery.waypoints
 //= require waypoints/shortcuts/infinite
