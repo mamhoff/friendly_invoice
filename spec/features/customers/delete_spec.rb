@@ -32,7 +32,7 @@ feature "Customers:" do
   end
 
   scenario "User can't delete a customer with pending invoices", :js do
-    invoice = FactoryBot.create(:invoice)
+    invoice = FactoryBot.create(:invoice, :pending)
 
     visit edit_customer_path(invoice.customer)
 

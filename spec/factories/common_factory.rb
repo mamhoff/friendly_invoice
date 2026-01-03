@@ -31,12 +31,19 @@ FactoryBot.define do
       issue_date { Date.current }
 
       trait :paid do
+        draft { false }
+
         after :build do |invoice|
           invoice.set_paid
         end
       end
 
+      trait :pending do
+        draft { false }
+      end
+
       factory :due_invoice do
+        draft { false }
         transient do
           first_day { Date.current - 30 }
         end
@@ -48,6 +55,7 @@ FactoryBot.define do
 
       # WARNING: DON'T USE FOR TESTS!!!
       factory :demo_invoice do
+        draft { false }
         transient do
           first_day { Date.current }
         end
@@ -66,6 +74,7 @@ FactoryBot.define do
     end
 
     factory :recurring_invoice, class: RecurringInvoice do
+      draft { false }
       starting_date { Date.current }
       period_type { "month" }
       period { 1 }

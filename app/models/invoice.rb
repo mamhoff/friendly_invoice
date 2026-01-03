@@ -13,6 +13,7 @@ class Invoice < Common
   # Events
   around_save :assign_invoice_number
   after_save :update_paid
+  before_destroy :abort_if_number_assigned!
 
   after_initialize :init
 
@@ -228,6 +229,13 @@ class Invoice < Common
         self.number = series.next_number
       end
       yield
+    end
+  end
+
+  def abort_if_number_assigned!
+    if number
+      errors[:base] << :has_number_assigned
+      throw(:abort)
     end
   end
 

@@ -4,7 +4,7 @@ feature "Invoices:" do
   background do
     Rails.application.load_seed
 
-    @unpaid_invoice = FactoryBot.create(:invoice)              # 3
+    @unpaid_invoice = FactoryBot.create(:invoice, :pending)              # 3
     @paid_invoice = FactoryBot.create(:invoice, :paid)         # 2
     @draft_invoice = FactoryBot.create(:invoice, draft: true)  # 1
   end
@@ -32,7 +32,7 @@ feature "Invoices:" do
     expect(page.current_path).to eql invoice_path(@paid_invoice)
   end
 
-  scenario "User can delete all invoices at the same time", :js do
+  scenario "User can delete all draft invoices at the same time", :js do
     visit invoices_path
 
     find_field("select_all").click
@@ -43,7 +43,7 @@ feature "Invoices:" do
     end
 
     expect(page.current_path).to eql invoices_path
-    expect(Invoice.count).to eql 0
+    expect(Invoice.count).to eql 2
   end
 
   scenario "User can mark invoices as paid from the invoices list", :js do

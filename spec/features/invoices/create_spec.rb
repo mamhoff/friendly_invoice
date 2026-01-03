@@ -7,6 +7,8 @@ feature "Invoices:" do
 
     visit new_invoice_path
 
+    uncheck "Save as draft"
+
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"
     fill_in "invoice_email", with: "another@customer.com"

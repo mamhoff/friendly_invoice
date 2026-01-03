@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Invoices:" do
-  let!(:invoice) { FactoryBot.create(:invoice, items: items, payments: payments) }
+  let!(:invoice) { FactoryBot.create(:invoice, draft: false, items: items, payments: payments) }
   let(:items) { [] }
   let(:payments) { [] }
 

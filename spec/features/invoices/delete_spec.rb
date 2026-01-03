@@ -5,7 +5,7 @@ feature "Invoices:" do
     invoice = FactoryBot.create(:invoice)
 
     visit edit_invoice_path(invoice)
-    accept_confirm do
+    accept_confirm(wait: 5) do
       click_on "Delete"
     end
 

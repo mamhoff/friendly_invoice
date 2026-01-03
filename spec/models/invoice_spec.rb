@@ -1,9 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Invoice, type: :model do
+  let(:a_series) { FactoryBot.build(:series, value: "A") }
+  let(:b_series) { FactoryBot.build(:series, value: "B") }
   def build_invoice(**kwargs)
     kwargs[:issue_date] = Date.current unless kwargs.has_key? :issue_date
-    kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
+    kwargs[:series] = a_series unless kwargs.has_key? :series
 
     customer = FactoryBot.create(:ncustomer)
     invoice = Invoice.new(name: customer.name, identification: customer.identification,
@@ -25,9 +27,9 @@ RSpec.describe Invoice, type: :model do
 
   it "gets an invoice number after saving if it's not a draft" do
     series = Series.new(value: "A", first_number: 5)
-    invoice1 = build_invoice(series: series)
+    invoice1 = build_invoice(series: series, draft: false)
     invoice1.save
-    invoice2 = build_invoice(series: series)
+    invoice2 = build_invoice(series: series, draft: false)
     invoice2.save
 
     expect(invoice1.number).to eq 5
@@ -35,10 +37,10 @@ RSpec.describe Invoice, type: :model do
   end
 
   it "may have the same number as another invoice from a different series" do
-    invoice1 = build_invoice(series: Series.new(value: "A"))
+    invoice1 = build_invoice(series: a_series, draft: false)
     invoice1.save
 
-    invoice2 = build_invoice(series: Series.new(value: "B"))
+    invoice2 = build_invoice(series: b_series, draft: false)
     invoice2.save
 
     expect(invoice1.number).to eq 1
@@ -46,95 +48,75 @@ RSpec.describe Invoice, type: :model do
   end
 
   it "can't have the same number as another invoice from the same series" do
-    invoice1 = build_invoice
+    invoice1 = build_invoice(draft: false)
     expect(invoice1.save).to be true
 
-    invoice2 = build_invoice(series: invoice1.series, number: invoice1.number)
+    invoice2 = build_invoice(draft: false, series: invoice1.series, number: invoice1.number)
     expect(invoice2.save).to be false
   end
 
   it "retains the same number after saving" do
-    invoice = build_invoice(number: 2)
+    invoice = build_invoice(number: 2, draft: false)
     invoice.save
 
     expect(invoice.number).to eq 2
   end
 
-  it "loses the number on deletion" do
-    invoice = build_invoice
+  it "cannot be deleted if it has a number" do
+    invoice = build_invoice(draft: false)
     invoice.save
 
     expect(invoice.number).to eq 1
 
-    invoice.discard
+    expect { invoice.destroy! }.to raise_exception(ActiveRecord::RecordNotDestroyed)
     invoice.reload
 
-    expect(invoice.discarded?).to be true
-    expect(invoice.number).to be_nil
-  end
-
-  it "can coexist, when deleted, with other deleted invoices in the same series" do
-    invoice1 = build_invoice
-    expect(invoice1.save).to be true
-
-    invoice2 = build_invoice(series: invoice1.series)
-    expect(invoice2.save).to be true
-
-    expect(invoice1.destroy).not_to be false
-    expect(invoice2.destroy).not_to be false
-  end
-
-  it "when deleted stores number_was" do
-    invoice = build_invoice
-    invoice.save
-    number = invoice.number
-    invoice.destroy
-    invoice.reload
-    expect(invoice.deleted_number).to eq number
-  end
-
-  it "is restored as draft" do
-    invoice = build_invoice
-    invoice.save
-
-    expect(invoice.destroy).not_to be false
-    expect(invoice.deleted?).to be true
-
-    invoice.restore(recursive: true)
-    expect(invoice.deleted?).to be false
-    expect(invoice.draft).to be true
+    expect(invoice.destroyed?).to be false
   end
 
   #
   # Status
   #
 
-  it "returns the right status: draft" do
-    invoice = build_invoice(draft: true)
-    expect(invoice.get_status).to eq :draft
-  end
+  describe "#status" do
+    let(:invoice) { FactoryBot.build(:invoice) }
+    subject { invoice.get_status }
 
-  it "returns the right status: failed" do
-    invoice = build_invoice(failed: true)
-    expect(invoice.get_status).to eq :failed
-  end
+    it "returns the right status: draft" do
+      expect(invoice.get_status).to eq :draft
+    end
 
-  it "returns the right status: pending" do
-    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)], due_date: Date.current + 1)
-    expect(invoice.get_status).to eq :pending
-  end
+    context "when invoice has failed" do
+      let(:invoice) { FactoryBot.build(:invoice, draft: false, failed: true) }
 
-  it "returns the right status: past due" do
-    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)],
-      due_date: Date.current)
-    expect(invoice.get_status).to eq :past_due
-  end
+      it { is_expected.to eq(:failed) }
+    end
 
-  it "returns the right status: paid" do
-    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)],
-      payments: [Payment.new(amount: 10, date: Date.current)])
-    invoice.check_paid
-    expect(invoice.get_status).to eq :paid
+    context "when invoice is pending" do
+      let(:invoice) { FactoryBot.build(:invoice, draft: false, items: [Item.new(quantity: 1, unitary_cost: 10)], due_date: Date.current + 1) }
+
+      it { is_expected.to eq(:pending) }
+    end
+
+    context "when invoice is past due" do
+      let(:invoice) { FactoryBot.build(:invoice, draft: false, items: [Item.new(quantity: 1, unitary_cost: 10)], due_date: Date.current) }
+
+      it { is_expected.to eq(:past_due) }
+    end
+
+    context "when invoice is paid" do
+      let(:invoice) do
+        FactoryBot.build(
+          :invoice,
+          draft: false,
+          items: [Item.new(quantity: 1, unitary_cost: 10)],
+          due_date: Date.current + 1,
+          payments: [Payment.new(amount: 10, date: Date.current)]
+        ).tap { |i| i.check_paid }
+      end
+
+      it { is_expected.to eq(:paid) }
+    end
   end
 
   #

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_03_142954) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_03_144724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_142954) do
     t.decimal "gross_amount", precision: 53, scale: 15, default: "0.0"
     t.decimal "paid_amount", precision: 53, scale: 15, default: "0.0"
     t.string "type", limit: 255
-    t.boolean "draft", default: false
+    t.boolean "draft", default: true
     t.boolean "paid", default: false
     t.boolean "sent_by_email", default: false
     t.integer "number"
