@@ -5,6 +5,7 @@ RSpec.describe Customer, type: :model do
     invoice = Invoice.new(
       name: "A Customer",
       issue_date: Date.current,
+      draft: false,
       **kwargs
     )
     invoice.set_amounts
@@ -56,10 +57,10 @@ RSpec.describe Customer, type: :model do
     expect(customer.persisted?).to be true
   end
 
-  it "is deleted, draft or failed invoices don't prevent deletion" do
+  it "deleted, draft or failed invoices also prevent deletion" do
     series = Series.new(value: "A")
     customer = Customer.new(name: "A Customer")
-    customer.invoices << build_invoice(series: series,
+    invoice_1 = customer.invoices << build_invoice(series: series,
       items: [Item.new(quantity: 1, unitary_cost: 10)],
       failed: true)
     customer.invoices << build_invoice(series: series,
@@ -67,7 +68,8 @@ RSpec.describe Customer, type: :model do
       draft: true)
     customer.save
 
-    expect(customer.destroy).not_to be false
-    expect(customer.deleted?).to be true
+    expect { customer.destroy! }.to raise_exception(ActiveRecord::RecordNotDestroyed)
+    expect(customer.destroyed?).to be false
+    expect(invoice_1).to be_present
   end
 end

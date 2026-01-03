@@ -10,7 +10,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @invoice = FactoryBot.create(:invoice, :paid)
+    @invoice = FactoryBot.create(:invoice, :paid, draft: false)
     @payment = @invoice.payments.first
   end
 

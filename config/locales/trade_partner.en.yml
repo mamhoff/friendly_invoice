@@ -1,0 +1,21 @@
+en:
+  activerecord:
+    models:
+      trade_partner: "Trade partner"
+    attributes:
+      trade_partner:
+        name: "Name"
+        legal_name: "Legal name"
+        street: "Street address"
+        address: Address
+        address_line_2: "Address line 2"
+        city: "City"
+        postal_code: "Postal code"
+        country_code: "Country code"
+        vat_id: "VAT ID"
+        tax_id: "Tax number"
+        global_id: "Global identifier"
+        global_id_scheme: "Global identifier scheme"
+        email: "Email address"
+        phone: "Phone number"
+        contact: Contact

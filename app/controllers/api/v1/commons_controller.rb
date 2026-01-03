@@ -98,7 +98,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
       get_instance.save
       render json: get_instance, status: :created
     else
-      render json: get_instance.errors, status: :unprocessable_entity
+      render json: get_instance.errors, status: :unprocessable_content
     end
   end
 
@@ -120,7 +120,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
       # Redirect to index
       render json: get_instance, status: :ok
     else
-      render json: get_instance.errors, status: :unprocessable_entity
+      render json: get_instance.errors, status: :unprocessable_content
     end
   end
 

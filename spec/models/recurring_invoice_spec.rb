@@ -18,6 +18,7 @@ RSpec.describe RecurringInvoice, type: :model do
     kwargs[:period_type] = "month" unless kwargs.has_key? :period_type
     kwargs[:period] = 1 unless kwargs.has_key? :period
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
+    kwargs[:draft] = false unless kwargs.has_key? :series
 
     customer = FactoryBot.create(:ncustomer)
     recurring_invoice = RecurringInvoice.new(
@@ -112,18 +113,5 @@ RSpec.describe RecurringInvoice, type: :model do
     expect(invoices[1].issue_date).to eq Date.new(2016, 5, 1)
     expect(invoices[2].issue_date).to eq Date.new(2016, 6, 1)
     expect(invoices[3].issue_date).to eq Date.new(2016, 6, 1)
-  end
-
-  it "is disabled when deleted and remains disabled when restored" do
-    r = build_recurring_invoice
-    r.save
-    expect(r.enabled).to be true
-
-    expect(r.destroy).not_to be false
-    expect(r.deleted?).to be true
-
-    r.restore(recursive: true)
-    expect(r.deleted?).to be false
-    expect(r.enabled).to be false
   end
 end

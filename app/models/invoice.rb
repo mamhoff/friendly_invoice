@@ -12,8 +12,8 @@ class Invoice < Common
 
   # Events
   around_save :assign_invoice_number
-  after_save :purge_payments
   after_save :update_paid
+  before_destroy :abort_if_number_assigned!
 
   after_initialize :init
 
@@ -52,22 +52,6 @@ class Invoice < Common
     rescue ActiveModel::MissingAttributeError
     end
     super
-  end
-
-  # acts_as_paranoid behavior
-  def paranoia_restore_attributes
-    {
-      deleted_at: nil,
-      draft: true
-    }
-  end
-
-  def paranoia_destroy_attributes
-    {
-      deleted_number: number,
-      deleted_at: current_time_from_proper_timezone,
-      number: nil
-    }
   end
 
   def to_jbuilder
@@ -214,8 +198,6 @@ class Invoice < Common
     new_invoice.save
   end
 
-  protected
-
   # Declare searchable attributes
   def self.ransackable_attributes(auth_object = nil)
     column_names
@@ -230,6 +212,8 @@ class Invoice < Common
   def self.ransackable_scopes(auth_object = nil)
     super + [:with_status]
   end
+
+  private
 
   # Assigns a number to the invoice:
   # - nil, if draft
@@ -248,12 +232,12 @@ class Invoice < Common
     end
   end
 
-  # make sure every soft-deleted payment is really deleted
-  def purge_payments
-    payments.only_deleted.delete_all
+  def abort_if_number_assigned!
+    if number
+      errors[:base] << :has_number_assigned
+      throw(:abort)
+    end
   end
-
-  private
 
   # attributes fitted for serialization
   def serializable_attribute_names

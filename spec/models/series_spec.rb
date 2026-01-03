@@ -31,19 +31,19 @@ RSpec.describe Series, type: :model do
     series = Series.new(value: "A", first_number: 2)
     customer = FactoryBot.create(:ncustomer)
     series.commons << Invoice.new(name: customer.name, customer: customer,
-      issue_date: Date.current)
+      issue_date: Date.current, draft: false)
     series.save
 
     expect(series.next_number).to eq 3
 
-    invoice = FactoryBot.create(:invoice, series: series)
+    invoice = FactoryBot.create(:invoice, draft: false, series: series)
 
     expect(invoice.number).to eq 3
     expect(series.next_number).to eq 4
 
-    invoice.destroy
+    expect { invoice.destroy! }.to raise_exception(ActiveRecord::RecordNotDestroyed)
 
-    expect(series.next_number).to eq 3
+    expect(series.next_number).to eq 4
   end
 
   it "returns the default series properly" do

@@ -5,8 +5,7 @@ class Customer < ActiveRecord::Base
 
   serialize :meta_attributes, coder: JSON
 
-  acts_as_paranoid
-  has_many :invoices
+  has_many :invoices, dependent: :restrict_with_error
   has_many :estimates
   has_many :recurring_invoices
 
@@ -20,8 +19,6 @@ class Customer < ActiveRecord::Base
 
   # Behaviors
   acts_as_taggable
-
-  before_destroy :check_invoices
 
   CSV_FIELDS = [
     "id", "name", "identification", "email", "contact_person",
@@ -75,13 +72,6 @@ class Customer < ActiveRecord::Base
   end
 
   private
-
-  def check_invoices
-    if total > paid
-      errors[:base] << "This customer can't be deleted because it has unpaid invoices"
-      throw(:abort)
-    end
-  end
 
   def self.ransackable_attributes(auth_object = nil)
     column_names

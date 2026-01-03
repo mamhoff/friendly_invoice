@@ -88,8 +88,7 @@ gem "sentry-rails"
 gem "sentry-ruby"
 gem "valid_url"
 gem "will_paginate"
-# to prevent records from being actually deleted
-gem "paranoia"
+
 # to allow async jobs in wisper.
 gem "wisper-celluloid"
 ## to make http POST requests
