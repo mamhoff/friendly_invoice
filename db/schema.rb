@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_03_142954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,7 +46,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.date "finishing_date"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.datetime "deleted_at", precision: nil
     t.integer "print_template_id"
     t.jsonb "meta_attributes"
     t.boolean "failed", default: false
@@ -55,7 +54,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.string "currency", limit: 3
     t.index ["contact_person"], name: "cntct_idx"
     t.index ["customer_id"], name: "customer_id_idx"
-    t.index ["deleted_at"], name: "index_commons_on_deleted_at"
     t.index ["email"], name: "cstml_idx"
     t.index ["identification"], name: "cstid_idx"
     t.index ["issue_date", "id"], name: "index_commons_on_issue_date_and_id", order: :desc
@@ -64,7 +62,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.index ["series_id", "deleted_number"], name: "common_deleted_number_idx"
     t.index ["series_id", "number"], name: "common_unique_number_idx", unique: true
     t.index ["series_id"], name: "series_id_idx"
-    t.index ["type", "deleted_at"], name: "index_commons_on_type_and_deleted_at"
     t.index ["type"], name: "common_type_idx"
     t.index ["type"], name: "type_and_status_idx"
   end
@@ -77,10 +74,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.string "contact_person", limit: 100
     t.text "invoicing_address"
     t.text "shipping_address"
-    t.datetime "deleted_at", precision: nil
     t.text "meta_attributes"
     t.boolean "active", default: true
-    t.index ["deleted_at"], name: "index_customers_on_deleted_at"
     t.index ["name_slug"], name: "cstm_slug_idx", unique: true
   end
 
@@ -91,9 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.string "description", limit: 20000
     t.decimal "unitary_cost", precision: 53, scale: 15, default: "0.0", null: false
     t.integer "product_id"
-    t.datetime "deleted_at", precision: nil
     t.index ["common_id"], name: "common_id_idx"
-    t.index ["deleted_at"], name: "index_items_on_deleted_at"
     t.index ["description"], name: "desc_idx"
     t.index ["product_id"], name: "item_product_id_idx"
   end
@@ -110,8 +103,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.datetime "deleted_at", precision: nil
-    t.index ["deleted_at"], name: "index_payments_on_deleted_at"
     t.index ["invoice_id"], name: "invoice_id_idx"
   end
 
@@ -121,8 +112,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.decimal "price", precision: 53, scale: 15, default: "0.0", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.datetime "deleted_at", precision: nil
-    t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
   create_table "series", force: :cascade do |t|
@@ -130,9 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.string "value", limit: 255
     t.boolean "enabled", default: true
     t.boolean "default", default: false
-    t.datetime "deleted_at", precision: nil
     t.integer "first_number", default: 1
-    t.index ["deleted_at"], name: "index_series_on_deleted_at"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -168,8 +155,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.decimal "value", precision: 53, scale: 2
     t.boolean "active", default: true
     t.boolean "default", default: false
-    t.datetime "deleted_at", precision: nil
-    t.index ["deleted_at"], name: "index_taxes_on_deleted_at"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -179,10 +164,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "models", limit: 200
     t.boolean "print_default", default: false
-    t.datetime "deleted_at", precision: nil
     t.boolean "email_default", default: false
     t.string "subject", limit: 200
-    t.index ["deleted_at"], name: "index_templates_on_deleted_at"
   end
 
   create_table "trade_partners", force: :cascade do |t|

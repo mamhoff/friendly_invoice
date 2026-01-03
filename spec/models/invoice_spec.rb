@@ -66,10 +66,10 @@ RSpec.describe Invoice, type: :model do
 
     expect(invoice.number).to eq 1
 
-    invoice.destroy
+    invoice.discard
     invoice.reload
 
-    expect(invoice.deleted?).to be true
+    expect(invoice.discarded?).to be true
     expect(invoice.number).to be_nil
   end
 

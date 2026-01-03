@@ -197,8 +197,6 @@ class Invoice < Common
     new_invoice.save
   end
 
-  protected
-
   # Declare searchable attributes
   def self.ransackable_attributes(auth_object = nil)
     column_names
@@ -213,6 +211,8 @@ class Invoice < Common
   def self.ransackable_scopes(auth_object = nil)
     super + [:with_status]
   end
+
+  private
 
   # Assigns a number to the invoice:
   # - nil, if draft
@@ -230,8 +230,6 @@ class Invoice < Common
       yield
     end
   end
-
-  private
 
   # attributes fitted for serialization
   def serializable_attribute_names
