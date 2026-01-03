@@ -6,7 +6,6 @@ class Common < ActiveRecord::Base
 
   # Behaviors
   acts_as_taggable
-  acts_as_paranoid
 
   # Relations
   belongs_to :customer, optional: true
@@ -37,7 +36,6 @@ class Common < ActiveRecord::Base
                                         message: "wrong format"}
 
   # Events
-  after_save :purge_items
   after_save :update_amounts
   after_initialize :init
 
@@ -103,11 +101,6 @@ class Common < ActiveRecord::Base
     taxes.values.reduce(0, :+)
   end
 
-  # restore if soft deleted, along with its items
-  def back_from_death
-    restore! recursive: true
-  end
-
   # Returns the invoice template if set, and the default otherwise
   def get_print_template
     print_template ||
@@ -131,11 +124,6 @@ class Common < ActiveRecord::Base
     set_amounts
     # Use update_columns to skip more callbacks
     update_columns(net_amount: net_amount, gross_amount: gross_amount)
-  end
-
-  # make sure every soft-deleted item is really destroyed
-  def purge_items
-    items.only_deleted.delete_all
   end
 
   # csv format

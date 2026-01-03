@@ -264,8 +264,6 @@ GEM
       racc (~> 1.4)
     openssl (4.0.0)
     parallel (1.27.0)
-    paranoia (3.0.1)
-      activerecord (>= 6, < 8.1)
     parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
@@ -530,7 +528,6 @@ DEPENDENCIES
   listen
   material_icons
   money
-  paranoia
   pg
   pry
   pry-nav

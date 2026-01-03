@@ -19,14 +19,6 @@ class RecurringInvoice < Common
     "max_occurrences", "must_occurrences", "period", "period_type",
     "starting_date", "finishing_date"]
 
-  # acts_as_paranoid behavior
-  def paranoia_destroy_attributes
-    {
-      deleted_at: current_time_from_proper_timezone,
-      enabled: false
-    }
-  end
-
   def to_s
     name.to_s
   end
