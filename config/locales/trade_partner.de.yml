@@ -6,6 +6,7 @@ de:
       trade_partner:
         name: "Name"
         legal_name: "Rechtlicher Name"
+        address: "Addresse"
         street: "Straße und Hausnummer"
         address_line_2: "Adresszusatz"
         city: "Ort"
@@ -17,3 +18,10 @@ de:
         global_id_scheme: "Schema der globalen Kennung"
         email: "E-Mail-Adresse"
         phone: "Telefonnummer"
+        identifications: Amtliche Daten
+        contact: Kontakt
+  trade_partners:
+    edit:
+      edit: Handelspartner bearbeiten
+    form:
+      update: Speichern

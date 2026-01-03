@@ -7,6 +7,7 @@ en:
         name: "Name"
         legal_name: "Legal name"
         street: "Street address"
+        address: Address
         address_line_2: "Address line 2"
         city: "City"
         postal_code: "Postal code"
@@ -17,3 +18,4 @@ en:
         global_id_scheme: "Global identifier scheme"
         email: "Email address"
         phone: "Phone number"
+        contact: Contact

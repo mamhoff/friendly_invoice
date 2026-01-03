@@ -7,6 +7,9 @@
   <% end %>
   <% if current_user %>
     <div class="siwapp-navbar-scroll">
+      <a class="nav-item nav-link <%= active_link('trade_partners') %>" href="<%= trade_partners_path %>">
+        <%= TradePartner.model_name.human.pluralize %>
+      </a>
       <a class="nav-item nav-link <%= active_link('invoices') %>" href="<%= invoices_path %>">
         <%= t("invoices") %>
       </a>

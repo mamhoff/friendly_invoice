@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-xs-12 col-xl-8">
+    <%= form_with(model: trade_partner) do |form| %>
+      <% if trade_partner.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(trade_partner.errors.count, "error") %> prohibited this trade_partner from being saved:</h2>
+
+          <ul>
+            <% trade_partner.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <%= form.label :legal_name %>
+            <%= form.text_field :legal_name, class: 'form-control' %>
+           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <fieldset class="mb-3 p-3 border rounded">
+            <legend>
+              <%= TradePartner.human_attribute_name(:address) %>
+            </legend>
+            <div class="mb-3">
+              <%= form.label :street %>
+              <%= form.text_field :street, class: 'form-control' %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :address_line_2 %>
+              <%= form.text_field :address_line_2, class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :city %>
+              <%= form.text_field :city, class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :postal_code %>
+              <%= form.text_field :postal_code, class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :country_code %>
+              <%= form.text_field :country_code, class: 'form-control' %>
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-6">
+          <fieldset class="mb-3 p-3 border rounded">
+            <legend>
+              <%= TradePartner.human_attribute_name(:identifications) %>
+            </legend>
+            <div class="mb-3">
+              <%= form.label :vat_id %>
+              <%= form.text_field :vat_id, class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :tax_id %>
+              <%= form.text_field :tax_id, class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :global_id %>
+              <%= form.text_field :global_id, class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+              <%= form.label :global_id_scheme %>
+              <%= form.text_field :global_id_scheme, class: 'form-control' %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <fieldset class="mb-3 p-3 border rounded">
+        <legend>
+          <%= TradePartner.human_attribute_name(:contact) %>
+        </legend>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <%= form.label :email %>
+              <%= form.email_field :email, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <%= form.label :phone %>
+              <%= form.phone_field :phone, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div>
+        <%= form.submit(t(".update"), class: "btn btn-success") %>
+      </div>
+    <% end %>
+  </div>
+</div>

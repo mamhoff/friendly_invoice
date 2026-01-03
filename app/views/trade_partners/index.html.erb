@@ -1,0 +1,28 @@
+<h1>
+  <%= TradePartner.model_name.human(count: 2) %>
+</h1>
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-bordered" id="trade_partners">
+    <thead>
+      <tr>
+        <th class="no-wrap">
+          <%= TradePartner.human_attribute_name(:name) %>
+        </th>
+        <th>
+          <%= TradePartner.human_attribute_name(:city) %>
+        </th>
+        <th>
+          <%= TradePartner.human_attribute_name(:email) %>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "trade_partner", collection: @trade_partners %>
+    </tbody>
+  </table>
+
+</div>
+
+<%= link_to "New trade partner", new_trade_partner_path %>
