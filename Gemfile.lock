@@ -544,6 +544,7 @@ DEPENDENCIES
   ransack
   route_translator (~> 14.1)
   rspec-rails
+  rubyzip (~> 2.4)
   selenium-webdriver
   sentry-rails
   sentry-ruby

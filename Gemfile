@@ -99,3 +99,5 @@ gem "dotenv-rails", groups: %i[development test]
 gem "route_translator", "~> 14.1"
 
 gem "hexapdf", "~> 1.5"
+
+gem "rubyzip", "~> 2.4"

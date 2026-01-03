@@ -1,3 +1,5 @@
+require "zip"
+
 class InvoicesController < CommonsController
   def show
     # Shows the template in an iframe
@@ -99,15 +101,12 @@ class InvoicesController < CommonsController
         end
         flash[:info] = "Successfully set as paid #{total} invoices."
       when "pdf"
-        merged_doc = HexaPDF::Document.new
-        invoices.each do |invoice|
-          invoice.hexapdf.pages.each do |page|
-            merged_doc.pages << merged_doc.import(page)
-          end
-        end
-        send_data(merged_doc.write_to_string,
-          filename: "invoices.pdf",
-          disposition: "attachment")
+        send_data(
+          zip_hexapdfs(invoices),
+          filename: "invoices.zip",
+          type: "application/zip",
+          disposition: "attachment"
+        )
         return
       when "duplicate"
         invoices.each do |inv|
@@ -154,5 +153,14 @@ class InvoicesController < CommonsController
         :_destroy
       ]
     ]
+  end
+
+  def zip_hexapdfs(invoices)
+    Zip::OutputStream.write_buffer do |zip|
+      invoices.each do |invoice|
+        zip.put_next_entry("#{invoice}.pdf")
+        zip.write(invoice.pdf)
+      end
+    end.string
   end
 end
