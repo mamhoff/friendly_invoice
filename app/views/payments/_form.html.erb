@@ -17,15 +17,15 @@
   <p>
     <%= f.label :invoice %>
     <%= f.collection_select :invoice_id, @invoices, :id, :to_s, {include_blank: true} %>
-    <br/>
+    <br>
     <%= f.label :date %>
     <%= f.date_field :date %>
     <%= f.label :amount %>
     <%= f.text_field :amount %>
-    <br/>
+    <br>
     <%= f.label :notes %>
     <%= f.text_area :notes %>
-    <br/>
+    <br>
   </p>
   <div class="actions">
     <%= f.submit %>

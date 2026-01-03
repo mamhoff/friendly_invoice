@@ -40,8 +40,8 @@ class Api::V1::CommonsController < Api::V1::BaseController
     set_instance instance
 
     # if there is no customer associated then create a new one
-    if api_type_params[:customer_id] == "" or !api_type_params.has_key? :customer_id # for API
-      if api_type_params[:identification] and api_type_params[:identification] != ""
+    if (api_type_params[:customer_id] == "") || !api_type_params.has_key?(:customer_id) # for API
+      if api_type_params[:identification] && (api_type_params[:identification] != "")
         # First check: by VAT_ID
         customer = Customer.find_by_identification api_type_params[:identification]
       elsif api_type_params[:name]
@@ -107,7 +107,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
   def update
     instance = get_instance
 
-    if params[:data] and instance.update(api_type_params)
+    if params[:data] && instance.update(api_type_params)
       # check for jsonapi compliant meta
       if params[:data][:meta]
         meta = instance.meta
