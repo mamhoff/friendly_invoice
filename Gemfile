@@ -87,9 +87,7 @@ gem "ransack"
 gem "sentry-rails"
 gem "sentry-ruby"
 gem "valid_url"
-gem "wicked_pdf"
 gem "will_paginate"
-gem "wkhtmltopdf-binary"
 # to prevent records from being actually deleted
 gem "paranoia"
 # to allow async jobs in wisper.
@@ -99,3 +97,7 @@ gem "http"
 # for translation
 gem "dotenv-rails", groups: %i[development test]
 gem "route_translator", "~> 14.1"
+
+gem "hexapdf", "~> 1.5"
+
+gem "rubyzip", "~> 2.4"

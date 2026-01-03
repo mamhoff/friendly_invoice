@@ -1,3 +1,5 @@
+require "zip"
+
 class InvoicesController < CommonsController
   def show
     # Shows the template in an iframe
@@ -66,15 +68,13 @@ class InvoicesController < CommonsController
   # Renders a common's template in html and pdf formats
   def print
     @invoice = Invoice.find(params[:id])
-    html = render_to_string inline: @invoice.get_print_template.template,
-      locals: {invoice: @invoice, settings: Settings}
     respond_to do |format|
-      format.html { render inline: html }
       format.pdf do
-        pdf = @invoice.pdf(html)
-        send_data(pdf,
+        send_data(
+          @invoice.pdf,
           filename: "#{@invoice}.pdf",
-          disposition: "attachment")
+          disposition: "inline"
+        )
       end
     end
   end
@@ -101,18 +101,12 @@ class InvoicesController < CommonsController
         end
         flash[:info] = "Successfully set as paid #{total} invoices."
       when "pdf"
-        html = ""
-        invoices.each do |inv|
-          @invoice = inv
-          html += render_to_string \
-            inline: inv.get_print_template.template,
-            locals: {invoice: @invoice,
-                     settings: Settings}
-          html += '<div class="page-break" style="page-break-after:always;"></div>'
-        end
-        send_data(@invoice.pdf(html),
-          filename: "invoices.pdf",
-          disposition: "attachment")
+        send_data(
+          zip_hexapdfs(invoices),
+          filename: "invoices.zip",
+          type: "application/zip",
+          disposition: "attachment"
+        )
         return
       when "duplicate"
         invoices.each do |inv|
@@ -159,5 +153,14 @@ class InvoicesController < CommonsController
         :_destroy
       ]
     ]
+  end
+
+  def zip_hexapdfs(invoices)
+    Zip::OutputStream.write_buffer do |zip|
+      invoices.each do |invoice|
+        zip.put_next_entry("#{invoice}.pdf")
+        zip.write(invoice.pdf)
+      end
+    end.string
   end
 end

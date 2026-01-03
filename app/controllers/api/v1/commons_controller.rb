@@ -140,8 +140,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do
-        pdf = @invoice.pdf(html)
-        send_data(pdf,
+        send_data(@invoice.pdf,
           filename: "#{@invoice}.pdf",
           disposition: "attachment")
       end

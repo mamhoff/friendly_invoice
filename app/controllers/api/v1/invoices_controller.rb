@@ -6,11 +6,9 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   def template
     @invoice = Invoice.find(params[:invoice_id])
     @template = Template.find(params[:id])
-    html = render_to_string inline: @template.template,
-      locals: {invoice: @invoice, settings: Settings}
     respond_to do |format|
       format.pdf do
-        pdf = @invoice.pdf(html)
+        pdf = @invoice.pdf
         send_data(pdf, filename: "#{@invoice}.pdf", disposition: "attachment")
       end
     end
