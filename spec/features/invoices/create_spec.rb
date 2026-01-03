@@ -9,6 +9,7 @@ feature "Invoices:" do
 
     uncheck "Save as draft"
 
+    select(TradePartner.first.name, from: "invoice_seller_id")
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"
     fill_in "invoice_email", with: "another@customer.com"
@@ -65,7 +66,6 @@ feature "Invoices:" do
 
   scenario "User can choose an existing customer via autocomplete", :js, skip: true do
     FactoryBot.create_list(:ncustomer, 5)
-
     visit new_invoice_path
 
     fill_in "Name", with: "hou"
@@ -80,13 +80,15 @@ feature "Invoices:" do
     visit new_invoice_path
     click_on "Save"
 
-    expect(page).to have_content "3 errors"
+    expect(page).to have_content "4 errors"
   end
 
   scenario "Saving a draft", :js do
     FactoryBot.create(:series, :default)
-
+    FactoryBot.create(:trade_partner)
     visit new_invoice_path
+
+    select(TradePartner.first.name, from: "invoice_seller_id")
 
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"

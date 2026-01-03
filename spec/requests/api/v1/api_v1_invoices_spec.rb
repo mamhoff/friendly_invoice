@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Invoices:", type: :request do
+  let(:customer) { FactoryBot.create(:customer) }
   let!(:template) { FactoryBot.create(:template) }
-  let(:invoice) { FactoryBot.create(:invoice) }
+  let(:invoice) { FactoryBot.create(:invoice, customer:) }
   let(:vat) { FactoryBot.create(:vat) }
 
   let(:headers) do
@@ -64,10 +65,13 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
   end
 
   describe "Invoice creation" do
+    let(:seller) { FactoryBot.create(:trade_partner) }
+
     it "basic invoice creation on POST request" do
       inv = {
         "data" => {
           "attributes" => {
+            "seller_id" => seller.id,
             "name" => "newly created",
             "email" => "test@email.com",
             "issue_date" => "2016-06-06",
@@ -93,6 +97,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       inv = {
         "data" => {
           "attributes" => {
+            "seller_id" => seller.id,
             "name" => "newly created",
             "email" => "test@email.com",
             "issue_date" => "2016-06-06",

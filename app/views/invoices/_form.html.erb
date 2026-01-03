@@ -34,6 +34,19 @@
       </div>
     <% end %>
   </div>
+  <div class="row">
+    <div class="col-xs-12 col-xl-8">
+      <fieldset class="m-b-2">
+        <legend class="m-b-1">
+          <%= Common.human_attribute_name(:seller) %>
+        </legend>
+        <div class="mb-3">
+          <%= f.label :seller %>
+          <%= f.collection_select :seller_id, TradePartner.all, :id, :name, {}, {multiple: false, class: "form-control"} %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
   <fieldset class="m-b-2">
     <legend class="m-b-1">
       <%= t("customer") %>

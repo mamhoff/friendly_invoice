@@ -3,23 +3,14 @@ require "rails_helper"
 RSpec.describe Invoice, type: :model do
   let(:a_series) { FactoryBot.build(:series, value: "A") }
   let(:b_series) { FactoryBot.build(:series, value: "B") }
-  def build_invoice(**kwargs)
-    kwargs[:issue_date] = Date.current unless kwargs.has_key? :issue_date
-    kwargs[:series] = a_series unless kwargs.has_key? :series
-
-    customer = FactoryBot.create(:ncustomer)
-    invoice = Invoice.new(name: customer.name, identification: customer.identification,
-      customer: customer, **kwargs)
-    invoice.set_amounts
-    invoice
-  end
+  let(:customer) { FactoryBot.create(:customer) }
 
   #
   # Invoice Number
   #
 
   it "has no invoice number if it's a draft" do
-    invoice = build_invoice(draft: true, number: 1)
+    invoice = FactoryBot.build(:invoice, draft: true, number: 1)
     invoice.save
 
     expect(invoice.number).to be_nil
@@ -27,43 +18,38 @@ RSpec.describe Invoice, type: :model do
 
   it "gets an invoice number after saving if it's not a draft" do
     series = Series.new(value: "A", first_number: 5)
-    invoice1 = build_invoice(series: series, draft: false)
-    invoice1.save
-    invoice2 = build_invoice(series: series, draft: false)
-    invoice2.save
+    invoice1 = FactoryBot.create(:invoice, customer:, series: series, draft: false)
+    invoice2 = FactoryBot.create(:invoice, customer:, series: series, draft: false)
 
     expect(invoice1.number).to eq 5
     expect(invoice2.number).to eq 6
   end
 
   it "may have the same number as another invoice from a different series" do
-    invoice1 = build_invoice(series: a_series, draft: false)
-    invoice1.save
-
-    invoice2 = build_invoice(series: b_series, draft: false)
-    invoice2.save
+    invoice1 = FactoryBot.create(:invoice, customer:, series: a_series, draft: false)
+    invoice2 = FactoryBot.create(:invoice, customer:, series: b_series, draft: false)
 
     expect(invoice1.number).to eq 1
     expect(invoice2.number).to eq invoice1.number
   end
 
   it "can't have the same number as another invoice from the same series" do
-    invoice1 = build_invoice(draft: false)
+    invoice1 = FactoryBot.build(:invoice, draft: false)
     expect(invoice1.save).to be true
 
-    invoice2 = build_invoice(draft: false, series: invoice1.series, number: invoice1.number)
+    invoice2 = FactoryBot.build(:invoice, draft: false, series: invoice1.series, number: invoice1.number)
     expect(invoice2.save).to be false
   end
 
   it "retains the same number after saving" do
-    invoice = build_invoice(number: 2, draft: false)
+    invoice = FactoryBot.build(:invoice, number: 2, draft: false)
     invoice.save
 
     expect(invoice.number).to eq 2
   end
 
   it "cannot be deleted if it has a number" do
-    invoice = build_invoice(draft: false)
+    invoice = FactoryBot.build(:invoice, draft: false)
     invoice.save
 
     expect(invoice.number).to eq 1
@@ -125,7 +111,7 @@ RSpec.describe Invoice, type: :model do
 
   it "computes payments right" do
     # No payment received
-    invoice = build_invoice(items: [Item.new(quantity: 5, unitary_cost: 10)])
+    invoice = FactoryBot.build(:invoice, items: [Item.new(quantity: 5, unitary_cost: 10)])
     # invoice.save
 
     invoice.check_paid
@@ -152,7 +138,7 @@ RSpec.describe Invoice, type: :model do
 
   it "sets paid right" do
     # A draft invoice can't be paid
-    invoice = build_invoice(items: [Item.new(quantity: 5, unitary_cost: 10)], draft: true)
+    invoice = FactoryBot.build(:invoice, items: [Item.new(quantity: 5, unitary_cost: 10)], draft: true)
 
     expect(invoice.set_paid).to be false
     expect(invoice.paid).to be false
@@ -181,7 +167,7 @@ RSpec.describe Invoice, type: :model do
         FactoryBot.create(:item, quantity: 5, unitary_cost: 10)
       end
 
-      @invoice = build_invoice(items: Item.all)
+      @invoice = FactoryBot.build(:invoice, items: Item.all)
       @invoice.save
     end
 

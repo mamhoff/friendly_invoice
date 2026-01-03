@@ -1,9 +1,9 @@
 require "rails_helper"
 
 feature "Customers:" do
-  scenario "User can delete a customer", :js do
-    customer = FactoryBot.create(:customer)
+  let(:customer) { FactoryBot.create(:customer) }
 
+  scenario "User can delete a customer", :js do
     visit edit_customer_path(customer)
 
     expect(page).to have_content("Test Customer")
@@ -18,7 +18,7 @@ feature "Customers:" do
   end
 
   scenario "User cannot delete a customer with any invoices", :js do
-    invoice = FactoryBot.create(:invoice, :paid)
+    invoice = FactoryBot.create(:invoice, :paid, customer:)
 
     visit edit_customer_path(invoice.customer)
 

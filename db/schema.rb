@@ -207,5 +207,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_03_185633) do
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 
-  add_foreign_key "commons", "commons", column: "seller_id", validate: false
+  add_foreign_key "commons", "trade_partners", column: "seller_id", validate: false
 end

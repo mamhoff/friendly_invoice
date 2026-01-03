@@ -172,7 +172,7 @@ class CommonsController < ApplicationController
     [
       :series_id,
       :currency,
-
+      :seller_id,
       :customer_id,
       :identification,
       :name,

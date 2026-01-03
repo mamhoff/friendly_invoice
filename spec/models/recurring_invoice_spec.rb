@@ -19,6 +19,7 @@ RSpec.describe RecurringInvoice, type: :model do
     kwargs[:period] = 1 unless kwargs.has_key? :period
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
     kwargs[:draft] = false unless kwargs.has_key? :series
+    kwargs[:seller] = TradePartner.first || FactoryBot.create(:trade_partner)
 
     customer = FactoryBot.create(:ncustomer)
     recurring_invoice = RecurringInvoice.new(
