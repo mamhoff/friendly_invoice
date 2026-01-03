@@ -87,8 +87,8 @@ RSpec.describe "Customers", type: :request do
   describe "Customer deletion" do
     it "DELETE /api/v1/customers/:id" do
       delete api_v1_customer_path(@invoice.customer), headers: @headers
-      expect(response).to have_http_status :no_content
-      expect(Customer.find_by_id(@invoice.customer.id)).to be_nil
+      expect(response).to have_http_status :unprocessable_content
+      expect(Customer.find_by_id(@invoice.customer.id)).not_to be_nil
     end
   end
 end

@@ -21,7 +21,7 @@ class Api::V1::TaxesController < Api::V1::BaseController
     if @tax.save
       render json: @tax, status: :created, location: api_v1_tax_url(@tax)
     else
-      render json: @tax.errors, status: :unprocessable_entity
+      render json: @tax.errors, status: :unprocessable_content
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::TaxesController < Api::V1::BaseController
     if @tax.update(tax_params)
       render json: @tax, status: :ok, location: api_v1_tax_url(@tax)
     else
-      render json: @tax.errors, status: :unprocessable_entity
+      render json: @tax.errors, status: :unprocessable_content
     end
   end
 

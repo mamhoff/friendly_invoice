@@ -24,7 +24,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
       end
       render json: @customer, status: :created, location: api_v1_customer_url(@customer)
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: @customer.errors, status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
       end
       render json: @customer, status: :ok, location: api_v1_customer_url(@customer)
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: @customer.errors, status: :unprocessable_content
     end
   end
 
@@ -46,7 +46,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
     if @customer.destroy
       render json: {message: "Content deleted"}, status: :no_content
     else
-      render json: @customer.errors, status: :unprocessable_entity
+      render json: @customer.errors, status: :unprocessable_content
     end
   end
 

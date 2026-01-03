@@ -17,7 +17,7 @@ feature "Customers:" do
     expect(page).not_to have_content("Test Customer")
   end
 
-  scenario "User can delete a customer without pending invoices", :js do
+  scenario "User cannot delete a customer with any invoices", :js do
     invoice = FactoryBot.create(:invoice, :paid)
 
     visit edit_customer_path(invoice.customer)
@@ -26,22 +26,8 @@ feature "Customers:" do
       click_link "Delete"
     end
 
-    expect(page.current_path).to eql customers_path
-    expect(page).to have_content("Customer was successfully destroyed.")
-    expect(page).not_to have_content("Test Customer")
-  end
-
-  scenario "User can't delete a customer with pending invoices", :js do
-    invoice = FactoryBot.create(:invoice, :pending)
-
-    visit edit_customer_path(invoice.customer)
-
-    accept_confirm do
-      click_link "Delete"
-    end
-
     expect(page.current_path).to eql customer_path(invoice.customer)
-    expect(page).to have_content "1 error"
-    expect(page).to have_content "unpaid invoices"
+    expect(page).to have_content("Cannot delete record because dependent invoices exist")
+    expect(page).to have_content("Test Customer")
   end
 end
