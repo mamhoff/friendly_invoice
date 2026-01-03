@@ -1,0 +1,19 @@
+de:
+  activerecord:
+    models:
+      trade_partner: "Handelspartner"
+    attributes:
+      trade_partner:
+        name: "Name"
+        legal_name: "Rechtlicher Name"
+        street: "Straße und Hausnummer"
+        address_line_2: "Adresszusatz"
+        city: "Ort"
+        postal_code: "Postleitzahl"
+        country_code: "Ländercode"
+        vat_id: "Umsatzsteuer-Identifikationsnummer"
+        tax_id: "Steuernummer"
+        global_id: "Globale Kennung"
+        global_id_scheme: "Schema der globalen Kennung"
+        email: "E-Mail-Adresse"
+        phone: "Telefonnummer"

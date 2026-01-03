@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_14_114308) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_03_092913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -183,6 +183,24 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_114308) do
     t.boolean "email_default", default: false
     t.string "subject", limit: 200
     t.index ["deleted_at"], name: "index_templates_on_deleted_at"
+  end
+
+  create_table "trade_partners", force: :cascade do |t|
+    t.string "name"
+    t.string "legal_name"
+    t.string "street"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "postal_code"
+    t.string "country_code"
+    t.string "vat_id"
+    t.string "tax_id"
+    t.string "global_id"
+    t.string "global_id_scheme"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
