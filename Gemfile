@@ -19,9 +19,6 @@ gem "dartsass-rails"
 gem "importmap-rails"
 gem "turbo-rails"
 
-gem "c3-rails", "~> 0.4.18"
-gem "d3-rails", "~> 3.5.0"
-
 # Use jquery as the JavaScript library (keeping temporarily for third-party libs)
 gem "jquery-rails"
 

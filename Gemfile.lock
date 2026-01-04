@@ -105,7 +105,6 @@ GEM
       popper_js (>= 2.11.8, < 3)
     builder (3.3.0)
     byebug (11.1.3)
-    c3-rails (0.4.18)
     capybara (3.40.0)
       addressable
       matrix
@@ -129,8 +128,6 @@ GEM
     cuprite (0.17)
       capybara (~> 3.0)
       ferrum (~> 0.17.0)
-    d3-rails (3.5.17)
-      railties (>= 3.1)
     dartsass-rails (0.5.1)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
@@ -502,10 +499,8 @@ DEPENDENCIES
   bootsnap
   bootstrap
   byebug
-  c3-rails (~> 0.4.18)
   cocoon
   cuprite
-  d3-rails (~> 3.5.0)
   dartsass-rails
   database_cleaner
   dotenv-rails
