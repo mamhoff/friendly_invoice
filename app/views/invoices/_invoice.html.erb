@@ -3,7 +3,11 @@
     <%= check_box_tag "invoice_ids[]", invoice.id, false, {"data-role" => "select-row", "id" => "invoice_ids_#{invoice.id}"} %>
   </td>
   <td class="no-wrap">
-    <%= link_to invoice, invoice %>
+    <% if invoice.draft? %>
+      <%= link_to invoice, edit_invoice_path(invoice) %>
+    <% else %>
+      <%= link_to invoice, invoice %>
+    <% end %>
   </td>
   <td class="no-wrap">
     <%= invoice.name %>

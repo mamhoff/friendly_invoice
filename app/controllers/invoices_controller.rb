@@ -2,13 +2,6 @@ require "zip"
 
 class InvoicesController < CommonsController
   def show
-    # Shows the template in an iframe
-    if @invoice.get_status != :paid
-      # Redirect to edit if invoice not closed
-      redirect_to action: :edit
-    else
-      render
-    end
   end
 
   # GET /invoices/new
