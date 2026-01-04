@@ -4,7 +4,7 @@ FactoryBot.define do
     identification { "12345" }
     email { "customer@example.com" }
     currency { "usd" }
-    association(:seller, factory: :trade_partner)
+    association(:seller, factory: :trade_party)
     association(:customer, factory: :ncustomer)
     series { Series.find_by(default: true) || create(:series, :default) }
 

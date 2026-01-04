@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :seller do
-    trade_partner
+    trade_party
   end
 end

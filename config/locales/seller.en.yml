@@ -6,7 +6,7 @@ en:
         other: Sellers
     attributes:
       seller:
-        trade_partner: Trade Partner
+        trade_party: Trade Partner
   sellers:
     edit:
       edit: Edit Seller

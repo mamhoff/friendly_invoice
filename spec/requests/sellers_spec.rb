@@ -13,7 +13,7 @@ require "rails_helper"
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/sellers", type: :request do
-  let(:trade_partner) { FactoryBot.create(:trade_partner) }
+  let(:trade_party) { FactoryBot.create(:trade_party) }
   let(:user) { FactoryBot.create(:user) }
 
   before do
@@ -23,11 +23,11 @@ RSpec.describe "/sellers", type: :request do
   # Seller. As you add validations to Seller, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {trade_partner_id: trade_partner.id}
+    {trade_party_id: trade_party.id}
   }
 
   let(:invalid_attributes) {
-    {trade_partner_id: nil}
+    {trade_party_id: nil}
   }
 
   describe "GET /index" do
@@ -90,17 +90,17 @@ RSpec.describe "/sellers", type: :request do
   end
 
   describe "PATCH /update" do
-    let(:other_trade_partner) { FactoryBot.create(:trade_partner) }
+    let(:other_trade_party) { FactoryBot.create(:trade_party) }
     context "with valid parameters" do
       let(:new_attributes) {
-        {trade_partner_id: other_trade_partner.id}
+        {trade_party_id: other_trade_party.id}
       }
 
       it "updates the requested seller" do
         seller = Seller.create! valid_attributes
         patch seller_url(seller), params: {seller: new_attributes}
         seller.reload
-        expect(seller.trade_partner).to eq(other_trade_partner)
+        expect(seller.trade_party).to eq(other_trade_party)
       end
 
       it "redirects to the seller" do

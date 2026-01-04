@@ -14,7 +14,7 @@ RSpec.describe "sellers/edit", type: :view do
 
     assert_select "form[action=?][method=?]", seller_path(seller), "post" do
 
-      assert_select "select[name=?]", "seller[trade_partner_id]"
+      assert_select "select[name=?]", "seller[trade_party_id]"
     end
   end
 end
