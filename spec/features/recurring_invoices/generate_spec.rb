@@ -5,7 +5,7 @@ feature "Recurring Invoices:" do
     FactoryBot.create(:recurring_invoice)
 
     visit recurring_invoices_path
-    click_link "Build Pending Invoices"
+    click_button "Build Pending Invoices"
 
     expect(page.current_path).to eql invoices_path
     expect(page).to have_content "A-1"

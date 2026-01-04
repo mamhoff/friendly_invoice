@@ -56,7 +56,11 @@
             <%= t("hooks") %>
           </a>
           <div class="dropdown-divider"></div>
-          <%= link_to t("log out"), logout_path, method: "delete", class: "dropdown-item" %>
+          <%= button_to t("log out"),
+                logout_path,
+                method: :delete,
+                form: { class: "d-inline" },
+                class: "dropdown-item" %>
         </div>
       </div>
     </div>
