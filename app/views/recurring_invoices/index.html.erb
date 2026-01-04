@@ -76,7 +76,10 @@
 <% end %>
 <div class="action-buttons build-pending-invoices">
   <% if @any_invoices_to_be_built %>
-    <%= link_to t(".build pending invoices"), generate_recurring_invoices_path, :method => :post, class: "btn btn-primary" %>
+  <%= button_to t(".build pending invoices"),
+      generate_recurring_invoices_path,
+      method: :post,
+      class: "btn btn-primary" %>
   <% else %>
     <span class="btn btn-secondary disabled">
       <%= t(".build pending invoices") %>
