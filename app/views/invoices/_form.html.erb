@@ -42,7 +42,7 @@
         </legend>
         <div class="mb-3">
           <%= f.label :seller %>
-          <%= f.collection_select :seller_id, TradeParty.all, :id, :name, {}, {multiple: false, class: "form-control"} %>
+          <%= f.collection_select :seller_id, Seller.all, :id, :name, {}, {multiple: false, class: "form-control"} %>
         </div>
       </fieldset>
     </div>
