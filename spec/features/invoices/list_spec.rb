@@ -4,9 +4,9 @@ feature "Invoices:" do
   background do
     Rails.application.load_seed
 
-    @unpaid_invoice = FactoryBot.create(:invoice, :pending)              # 3
-    @paid_invoice = FactoryBot.create(:invoice, :paid)         # 2
-    @draft_invoice = FactoryBot.create(:invoice, draft: true)  # 1
+    @unpaid_invoice = FactoryBot.create(:invoice, :pending, draft: false)
+    @paid_invoice = FactoryBot.create(:invoice, :paid, draft: false)
+    @draft_invoice = FactoryBot.create(:invoice, draft: true)
   end
 
   scenario "User can see a list of invoices, most recent first", :js do
@@ -22,28 +22,15 @@ feature "Invoices:" do
 
   scenario "User gets redirected to edit page after clicking on an unpaid invoice", :js do
     visit invoices_path
-    find(:xpath, ".//tbody/tr[3]").click
+    click_link(@unpaid_invoice.to_s)
+
     expect(page.current_path).to eql edit_invoice_path(@unpaid_invoice)
   end
 
-  scenario "User gets redirected to preview page after clicking on a paid invoice", :js do
+  scenario "User gets redirected to preview page after clicking on a paid invoice" do
     visit invoices_path
-    find(:xpath, ".//tbody/tr[2]").click
+    click_link(@paid_invoice.to_s)
     expect(page.current_path).to eql invoice_path(@paid_invoice)
-  end
-
-  scenario "User can delete all draft invoices at the same time", :js do
-    visit invoices_path
-
-    find_field("select_all").click
-    expect(page).to have_checked_field("invoice_ids[]", count: 3)
-
-    accept_confirm do
-      click_on "Delete"
-    end
-
-    expect(page.current_path).to eql invoices_path
-    expect(Invoice.count).to eql 2
   end
 
   scenario "User can mark invoices as paid from the invoices list", :js do

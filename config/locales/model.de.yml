@@ -1,6 +1,6 @@
 de:
   activerecord:
-    models:
+    attributes:
       customer:
         contact_person:    Ansprechpartner
         email:             E-Mail
@@ -67,14 +67,23 @@ de:
         name:              Name
         subject:           Betreff
         template:          Vorlage
-      seller:
-        one: Verkäufer
-        other: Verkäufer
-    attributes:
-      seller:
-        trade_party: Handelspartner
-  sellers:
-    edit:
-      edit: Handelspartner bearbeiten
-    form:
-      update: Speichern
+    errors:
+      models:
+        invoice:
+          attributes:
+            series:
+              blank:       darf nicht leer sein
+        series:
+          attributes:
+            value:
+              blank:       darf nicht leer sein
+    models:
+      customer:            Kunde
+      invoice:
+        one: Rechnung
+        other: Rechnungen
+      recurring_invoice:   Wiederkehrende Rechnung
+      series:              Serie
+      settings:            Einstellungen
+      tax:                 Steuer
+      template:            Vorlage

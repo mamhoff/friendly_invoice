@@ -7,7 +7,7 @@ feature "Series:" do
     visit edit_series_path(series)
 
     accept_confirm do
-      click_link "Delete"
+      click_button "Delete"
     end
 
     expect(page.current_path).to eql(series_index_path)
@@ -21,7 +21,7 @@ feature "Series:" do
 
     visit edit_series_path(series)
     accept_confirm do
-      click_link "Delete"
+      click_button "Delete"
     end
 
     expect(page.current_path).to eql(edit_series_path(series))

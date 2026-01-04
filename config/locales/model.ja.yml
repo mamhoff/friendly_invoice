@@ -162,8 +162,8 @@ ja:
   set paid:                支払済にする
   settings:
     api_token:
-      authenticate api token: 'このトークンをAPIリクエストを認証するために使用してください:'
-      press api token:     APIトークンを生成するには、下のボタンを押してください。
+      authenticate_api_token: 'このトークンをAPIリクエストを認証するために使用してください:'
+      press_api_token:     APIトークンを生成するには、下のボタンを押してください。
     hooks:
       url to post:         '請求書が自動発行された際にPOSTするURL:'
   status:                  状態

@@ -58,9 +58,6 @@ class InvoicesController < CommonsController
     if ids.is_a?(Array) && ids.length > 0
       invoices = Invoice.where(id: params["#{model.name.underscore}_ids"])
       case params["bulk_action"]
-      when "delete"
-        invoices.destroy_all
-        flash[:info] = "Successfully deleted #{ids.length} invoices."
       when "send_email"
         begin
           invoices.each { |inv| inv.send_email }
