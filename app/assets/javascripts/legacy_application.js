@@ -14,11 +14,10 @@
 //
 //= require jquery2
 //= require jquery-ui/widgets/autocomplete
-//= require waypoints/jquery.waypoints
-//= require waypoints/shortcuts/infinite
 //= require autosize
 //= require behave
 //= require select2
+//= require commons
 //
 // Bootstrap 5
 //
@@ -28,15 +27,3 @@
 //= require_tree .
 //= require cocoon
 //= require js-routes
-//
-// Custom
-//= require bothinfinite
-
-
-jQuery(document).ready(($) => {
-  $('.code-editor').each(function() {
-    const editor = new Behave({textarea: this});
-  });
-
-  autosize($('textarea.autosize'));
-});

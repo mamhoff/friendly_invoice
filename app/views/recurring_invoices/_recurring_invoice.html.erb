@@ -6,7 +6,7 @@
     <%= recurring_invoice.series.value if recurring_invoice.series %>
   </td>
   <td class="no-wrap">
-    <%= recurring_invoice %>
+    <%= link_to recurring_invoice, edit_recurring_invoice_path(recurring_invoice) %>
   </td>
   <td class="no-wrap">
     <%= recurring_invoice.period %>

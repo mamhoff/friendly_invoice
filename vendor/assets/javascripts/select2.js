@@ -369,7 +369,7 @@ var requirejs, require, define;
                 //callback in this case is really relName
                 return handlers[deps](callback);
             }
-            //Just return the module wanted. In this scenario, the
+            //Just return the module wanted. In this specify, the
             //deps arg is the module name, and second arg (if passed)
             //is just the relName.
             //Normalize module name, if it contains . or ..

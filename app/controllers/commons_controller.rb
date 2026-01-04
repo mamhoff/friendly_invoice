@@ -52,7 +52,7 @@ class CommonsController < ApplicationController
     set_listing @results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
-      format.html { render sti_template(@type, action_name), layout: "infinite-scrolling" }
+      format.html { render sti_template(@type, action_name) }
       format.csv do
         set_csv_headers("#{@type.underscore.downcase.pluralize}.csv")
         self.response_body = model.csv @results

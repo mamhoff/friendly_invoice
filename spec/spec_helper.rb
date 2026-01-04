@@ -89,20 +89,3 @@ RSpec.configure do |config|
   # add helpers for requests tests
   config.include Requests::JsonHelpers, type: :request
 end
-
-require "capybara/rspec"
-require "capybara/cuprite"
-
-Capybara.configure do |config|
-  config.default_max_wait_time = 5
-  config.server = :puma, {Silent: true}
-  config.javascript_driver = :cuprite
-end
-
-Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app,
-    window_size: [1200, 800],
-    browser_options: {},
-    # This line replaces your block_url config:
-    blocked_urls: ["https://fonts.googleapis.com", "https://fonts.gstatic.com"])
-end

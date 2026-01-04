@@ -11,10 +11,6 @@ gem "sprockets-rails"
 # Modern Dart Sass for stylesheets
 gem "dartsass-rails"
 
-# CoffeeScript removed - using modern JavaScript instead
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Turbo and importmaps for modern JavaScript
 gem "importmap-rails"
 gem "turbo-rails"
@@ -29,13 +25,9 @@ gem "jbuilder"
 gem "bcrypt"
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "byebug"
-
   gem "listen"
 
   # To start toying with BDD
-  gem "rspec-rails"
   gem "shoulda-matchers"
 
   gem "timecop"
@@ -44,21 +36,16 @@ group :development, :test do
   gem "standard", require: false
   gem "standard-rails", require: false
   gem "standard-rspec", require: false
-
-  gem "pry"
-  gem "pry-nav"
-  gem "pry-rails"
-  gem "pry-rescue"
-  gem "pry-stack_explorer"
 end
 
 # Access an IRB console on exception pages or by using <%= console %> in views
 gem "web-console", group: :development
 
 group :test do
-  gem "cuprite"
+  gem "rspec-rails"
   gem "database_cleaner"
   gem "selenium-webdriver"
+  gem "capybara"
 end
 
 gem "active_model_serializers"
@@ -95,3 +82,5 @@ gem "route_translator", "~> 14.1"
 gem "hexapdf", "~> 1.5"
 
 gem "rubyzip", "~> 2.4"
+
+gem "capybara-screenshot", "~> 1.0"

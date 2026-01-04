@@ -19,7 +19,7 @@ class CustomersController < ApplicationController
       format.html do
         @customers = @customers.paginate(page: params[:page],
           per_page: 20)
-        render :index, layout: "infinite-scrolling"
+        render :index
       end
       format.csv do
         set_csv_headers("customers.csv")
@@ -87,7 +87,7 @@ class CustomersController < ApplicationController
   end
 
   # GET /customers/autocomplete.json
-  # View to get the customer autocomplete feature editing invoices.
+  # View to get the customer autocomplete describe editing invoices.
   def autocomplete
     @customers = Customer.order(:name).where("name ILIKE ? and active = ?", "%#{params[:term]}%", true)
     respond_to do |format|
