@@ -65,7 +65,7 @@
       </div>
     </div>
   <% end %>
-  <div class="d-none d-xl-block" id="js-navbar">
+  <div class="d-xl-block" id="js-navbar">
     <% if current_user %>
       <% if @type %>
         <%= link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary " %>

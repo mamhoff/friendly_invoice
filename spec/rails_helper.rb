@@ -4,6 +4,8 @@ require "spec_helper"
 require File.expand_path("../config/environment", __dir__)
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
+require "capybara/rails"
+require "capybara-screenshot/rspec"
 
 require "shoulda/matchers"
 Shoulda::Matchers.configure do |config|
@@ -26,7 +28,7 @@ end
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -53,8 +55,6 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  Capybara.javascript_driver = :cuprite
-
   # Configuration of database_cleaner
   # see https://github.com/DatabaseCleaner/database_cleaner
   # and https://github.com/jnicklas/capybara#transactions-and-database-setup
@@ -69,25 +69,26 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  # log in before every feature example
-  config.before :each, type: :feature do |example|
-    unless example.metadata[:not_logged]
-      user = FactoryBot.create :user
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
 
-      visit login_path
-      fill_in "session_email", with: user.email
-      fill_in "session_password", with: user.password
-      click_on "Log in"
-      sleep 0.1
+  config.before(:each, type: :system, js: true) do |example|
+    screen_size = example.metadata[:screen_size] || [1280, 800]
+    driven_by(:selenium, using: :headless_firefox, screen_size: screen_size) do |capabilities|
+      capabilities.add_preference("intl.accept_languages", "en-GB")
     end
   end
 
-  # generate zauth token before every api request example
-  # config.before :each, type: :request do |example|
-  #   factory_name = example.metadata[:not_authorized]
-  #   return if factory_name
+  config.before :each, type: :system, logged_in: true do |example|
+    user = FactoryBot.create :user
 
-  # end
+    visit login_path
+    fill_in "session_email", with: user.email
+    fill_in "session_password", with: user.password
+    click_on "Log in"
+    sleep 0.1
+  end
 
   config.after do
     DatabaseCleaner.clean
