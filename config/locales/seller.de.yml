@@ -1,0 +1,14 @@
+de:
+  activerecord:
+    models:
+      seller:
+        one: Verkäufer
+        other: Verkäufer
+    attributes:
+      seller:
+        trade_partner: Handelspartner
+  sellers:
+    edit:
+      edit: Handelspartner bearbeiten
+    form:
+      update: Speichern

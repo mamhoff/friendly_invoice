@@ -1,0 +1,22 @@
+<h1>
+  <%= Seller.model_name.human(count: 2) %>
+</h1>
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-bordered" id="sellers">
+    <thead>
+      <tr>
+        <th class="no-wrap">
+          <%= Seller.human_attribute_name(:name) %>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "seller", collection: @sellers %>
+    </tbody>
+  </table>
+
+</div>
+
+<%= link_to t(".new"), new_seller_path %>

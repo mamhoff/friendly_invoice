@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12 col-xl-8">
+    <%= form_with(model: seller) do |form| %>
+      <% if seller.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(seller.errors.count, "error") %> prohibited this seller from being saved:</h2>
+
+          <ul>
+            <% seller.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <fieldset class="m-b-2">
+        <legend class="m-b-1">
+          <%= Common.human_attribute_name(:seller) %>
+        </legend>
+        <div class="mb-3">
+          <%= form.label :trade_partner %>
+          <%= form.collection_select :trade_partner_id, TradePartner.all, :id, :name, {}, {multiple: false, class: "form-control"} %>
+        </div>
+      </fieldset>
+
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
