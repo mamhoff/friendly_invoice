@@ -338,8 +338,8 @@
                           <br><%= settings.company_vat_id %>
                         <% end %>
                       </p>
-                      <p style="Margin: 0; Margin-bottom: 10px; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; margin-bottom: 0; padding: 0; padding-bottom: 8px; text-align: right"><%= format_address settings.company_address %></p>
-                      <p style="Margin: 0; Margin-bottom: 10px; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; margin-bottom: 0; padding: 0; padding-bottom: 8px; text-align: right"><%= settings.company_email %><br><%= settings.company_url %></p>
+                      <p style="Margin: 0; Margin-bottom: 10px; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; margin-bottom: 0; padding: 0; padding-bottom: 8px; text-align: right"><%== invoice.seller.address.join("<br>") %></p>
+                      <p style="Margin: 0; Margin-bottom: 10px; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; margin-bottom: 0; padding: 0; padding-bottom: 8px; text-align: right"><%= invoice.seller.email %><br><%= settings.company_url %></p>
                     </div>
                   </th></tr></table></th>
                 </tr></tbody></table>

@@ -29,10 +29,10 @@ RSpec.describe Series, type: :model do
 
   it "properly returns the next number" do
     series = Series.new(value: "A", first_number: 2)
+    series.save!
     customer = FactoryBot.create(:ncustomer)
-    series.commons << Invoice.new(name: customer.name, customer: customer,
+    series.commons << FactoryBot.create(:invoice, series:, name: customer.name, customer: customer,
       issue_date: Date.current, draft: false)
-    series.save
 
     expect(series.next_number).to eq 3
 

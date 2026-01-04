@@ -1,48 +1,37 @@
 require "rails_helper"
 
 RSpec.describe Common, type: :model do
-  def build_common(**kwargs)
-    kwargs[:name] = "A Customer" unless kwargs.has_key? :name
-    kwargs[:identification] = "123456789Z" unless kwargs.has_key? :identification
-    kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
-
-    common = Common.new(**kwargs, currency: "usd")
-    common.set_amounts
-    common
-  end
-
+  let(:tax1) { Tax.new(value: 10) }
+  let(:tax2) { Tax.new(value: 40) }
+  let(:item1) { Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1]) }
+  let(:item2) { Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1, tax2]) }
   def new_common
-    tax1 = Tax.new(value: 10)
-    tax2 = Tax.new(value: 40)
-    item1 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1])
-    item2 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1, tax2])
-
-    build_common(items: [item1, item2])
+    FactoryBot.build(:common, items: [item1, item2])
   end
 
   it "is not valid without a series" do
-    c = build_common(series: nil)
+    c = FactoryBot.build(:common, customer: nil, series: nil)
     expect(c).not_to be_valid
     expect(c.errors.messages.has_key?(:series)).to be true
   end
 
   it "is not valid with at least a name or an identification" do
-    c = build_common(name: nil, identification: nil)
+    c = FactoryBot.build(:common, customer: nil, name: nil, identification: nil)
     expect(c).not_to be_valid
   end
 
   it "is valid with at least a name" do
-    c = build_common(identification: nil)
+    c = FactoryBot.build(:common, identification: nil)
     expect(c).to be_valid
   end
 
   it "is valid with at least an identification" do
-    c = build_common(name: nil)
+    c = FactoryBot.build(:common, name: nil)
     expect(c).to be_valid
   end
 
   it "is valid with valid emails" do
-    c = build_common(email: "test@test.t10.de")
+    c = FactoryBot.build(:common, email: "test@test.t10.de")
     expect(c).to be_valid
 
     c.email = "test+test@example.com"
@@ -56,7 +45,9 @@ RSpec.describe Common, type: :model do
   end
 
   it "is not valid with bad e-mails" do
-    c = build_common(email: "paquito")
+    email = "paquito"
+    customer = FactoryBot.build(:customer, email:)
+    c = FactoryBot.build(:common, customer:, email:)
 
     expect(c).not_to be_valid
     expect(c.errors.messages.length).to eq 1

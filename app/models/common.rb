@@ -8,6 +8,7 @@ class Common < ActiveRecord::Base
   acts_as_taggable
 
   # Relations
+  belongs_to :seller, class_name: "TradePartner"
   belongs_to :customer, optional: true
   belongs_to :series
   belongs_to :print_template,

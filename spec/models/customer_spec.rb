@@ -1,17 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Customer, type: :model do
-  def build_invoice(**kwargs)
-    invoice = Invoice.new(
-      name: "A Customer",
-      issue_date: Date.current,
-      draft: false,
-      **kwargs
-    )
-    invoice.set_amounts
-    invoice
-  end
-
   it "is not valid without a name or identification" do
     c = Customer.new
     expect(c).not_to be_valid
@@ -30,14 +19,14 @@ RSpec.describe Customer, type: :model do
     customer = Customer.create(name: "A Customer")
     series = Series.create(value: "A")
 
-    customer.invoices << build_invoice(series: series,
+    customer.invoices << FactoryBot.build(:invoice, series: series,
       items: [Item.new(quantity: 1, unitary_cost: 10)],
-      payments: [Payment.new(amount: 5, date: Date.current)])
-    customer.invoices << build_invoice(series: series,
+      payments: [Payment.new(amount: 5, date: Date.current)], draft: false)
+    customer.invoices << FactoryBot.build(:invoice, series: series,
       items: [Item.new(quantity: 1, unitary_cost: 20)],
       payments: [Payment.new(amount: 10, date: Date.current)],
       draft: true)
-    customer.invoices << build_invoice(series: series,
+    customer.invoices << FactoryBot.build(:invoice, series: series,
       items: [Item.new(quantity: 1, unitary_cost: 20)],
       payments: [Payment.new(amount: 10, date: Date.current)],
       failed: true)
@@ -50,7 +39,7 @@ RSpec.describe Customer, type: :model do
 
   it "is not deleted if there are pending invoices" do
     customer = Customer.new(name: "A Customer")
-    customer.invoices << build_invoice(series: Series.new(value: "A"),
+    customer.invoices << FactoryBot.build(:invoice, series: Series.new(value: "A"),
       items: [Item.new(quantity: 1, unitary_cost: 10)])
     customer.save
     expect(customer.destroy).to be_falsey
@@ -60,10 +49,10 @@ RSpec.describe Customer, type: :model do
   it "deleted, draft or failed invoices also prevent deletion" do
     series = Series.new(value: "A")
     customer = Customer.new(name: "A Customer")
-    invoice_1 = customer.invoices << build_invoice(series: series,
+    invoice_1 = customer.invoices << FactoryBot.build(:invoice, series: series,
       items: [Item.new(quantity: 1, unitary_cost: 10)],
       failed: true)
-    customer.invoices << build_invoice(series: series,
+    customer.invoices << FactoryBot.build(:invoice, series: series,
       items: [Item.new(quantity: 1, unitary_cost: 10)],
       draft: true)
     customer.save

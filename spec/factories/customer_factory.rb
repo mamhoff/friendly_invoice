@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :customer do
     name { "Test Customer" }
-    name_slug { name.gsub(/^[^\w]+|[^\w]+$/i, "").gsub(/[^\w]+/i, "-").downcase.to_s }
+    name_slug { name&.gsub(/^[^\w]+|[^\w]+$/i, "")&.gsub(/[^\w]+/i, "-")&.downcase&.to_s }
     identification { "12345" }
     email { "customer@example.com" }
 

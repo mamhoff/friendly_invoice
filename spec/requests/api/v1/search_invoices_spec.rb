@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Invoices Search", type: :request do
+  let(:test_customer) { FactoryBot.create(:customer) }
   before do
     FactoryBot.create :token
     FactoryBot.create :user
@@ -10,7 +11,7 @@ RSpec.describe "Invoices Search", type: :request do
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    FactoryBot.create(:invoice)
+    FactoryBot.create(:invoice, customer: test_customer)
     FactoryBot.create(:invoice,
       name: "Pete",
       issue_date: "2016-01-06",

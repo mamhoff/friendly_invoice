@@ -213,16 +213,16 @@
   <div class="row">
     <% if settings.company_logo != "" %>
     <div class="section-lg">
-      <img class="logo" src="<%= settings.company_logo %>" alt="<%= settings.company_name %>">
+      <img class="logo" src="<%= settings.company_logo %>" alt="<%= invoice.seller.name %>">
     </div>
     <% end %>
     <div>
       <ul class="company text-right">
-        <li class="company__name"><%= settings.company_name %></li>
-        <li class="company__id"><%= settings.company_vat_id %></li>
-        <li class="company__address"><%= format_address settings.company_address %></li>
-        <li><%= settings.company_email %></li>
-        <li><%= settings.company_url %></li>
+        <li class="company__name"><%= invoice.seller.legal_name %></li>
+        <li class="company__id"><%= invoice.seller.vat_id %></li>
+        <li class="company__address"><%= format_address invoice.seller.company_address %></li>
+        <li><%= invoice.seller.company_email %></li>
+        <li><%= invoice.seller.company_url %></li>
       </ul>
     </div>
   </div>

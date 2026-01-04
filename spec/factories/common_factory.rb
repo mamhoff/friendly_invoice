@@ -4,23 +4,17 @@ FactoryBot.define do
     identification { "12345" }
     email { "customer@example.com" }
     currency { "usd" }
+    association(:seller, factory: :trade_partner)
+    association(:customer, factory: :ncustomer)
+    series { Series.find_by(default: true) || create(:series, :default) }
 
     after :build do |common|
-      common.series = common.series || Series.find_by(default: true) || create(:series, :default)
-
       if common.customer
-        common.name = common.customer.name
-        common.identification = common.customer.identification
-        common.email = common.customer.email
-        common.contact_person = common.customer.contact_person
-        common.invoicing_address = common.customer.invoicing_address
-      else
-        common.customer = Customer.find_by(identification: common.identification) || create(
-          :customer,
-          name: common.name,
-          identification: common.identification,
-          email: common.email
-        )
+        common.name ||= common.customer.name
+        common.identification ||= common.customer&.identification
+        common.email = common&.customer&.email
+        common.contact_person = common&.customer&.contact_person
+        common.invoicing_address = common&.customer&.invoicing_address
       end
 
       common.items << build(:item) if common.items.empty?

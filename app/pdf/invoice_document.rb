@@ -57,9 +57,9 @@ class InvoiceDocument
   def render_sender
     composer.box(:container, style: :top_box) do |container|
       container.formatted_text([
-        {text: settings.company_name, font: "Lato bold"},
+        {text: invoice.seller.name, font: "Lato bold"},
         "\n",
-        settings.company_address.gsub("\r\n", " - ")
+        invoice.seller.address.join(" - ")
       ], style: :top)
     end
   end
@@ -129,8 +129,12 @@ class InvoiceDocument
 
     l = composer.document.layout
     cells = [
-      [l.text(settings.company_name, style: :footer_heading),
-        l.text(settings.company_address, style: :footer_text)],
+      [
+        l.text(invoice.seller.legal_name, style: :footer_heading),
+        l.text(invoice.seller.street, style: :footer_text),
+        invoice.seller.address_line_2 && l.text(invoice.seller.address_line_2, style: :footer_text),
+        l.text(invoice.seller.address_line_3, style: :footer_text)
+      ].compact,
       [l.text("Contact", style: :footer_heading),
         l.text("owner@samplecorp.com\nOwner: Me, Myself, And I", style: :footer_text)],
       [l.text("Bank Account", style: :footer_heading),

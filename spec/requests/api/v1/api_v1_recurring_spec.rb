@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
-  let!(:recurring) { FactoryBot.create(:recurring_invoice) }
+  let(:customer) { FactoryBot.create(:customer) }
+  let!(:recurring) { FactoryBot.create(:recurring_invoice, customer:) }
   let(:vat) { FactoryBot.create(:vat) }
 
   let(:headers) do
@@ -63,10 +64,13 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
   end
 
   describe "Recurring Invoice creation" do
+    let(:seller) { FactoryBot.create(:trade_partner) }
+
     it "basic invoice creation on POST request" do
       inv = {
         "data" => {
           "attributes" => {
+            "seller_id" => seller.id,
             "name" => "newly created",
             "email" => "test@email.com",
             "starting_date" => "2016-06-06",
@@ -95,6 +99,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
       inv = {
         "data" => {
           "attributes" => {
+            "seller_id" => seller.id,
             "name" => "newly created",
             "email" => "test@email.com",
             "starting_date" => "2016-06-06",
