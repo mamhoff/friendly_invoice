@@ -9,7 +9,7 @@ feature "Invoices:" do
 
     uncheck "Save as draft"
 
-    select(TradePartner.first.name, from: "invoice_seller_id")
+    select(TradeParty.first.name, from: "invoice_seller_id")
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"
     fill_in "invoice_email", with: "another@customer.com"
@@ -85,10 +85,10 @@ feature "Invoices:" do
 
   scenario "Saving a draft", :js do
     FactoryBot.create(:series, :default)
-    FactoryBot.create(:trade_partner)
+    FactoryBot.create(:trade_party)
     visit new_invoice_path
 
-    select(TradePartner.first.name, from: "invoice_seller_id")
+    select(TradeParty.first.name, from: "invoice_seller_id")
 
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"

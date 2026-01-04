@@ -65,7 +65,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
   end
 
   describe "Invoice creation" do
-    let(:seller) { FactoryBot.create(:trade_partner) }
+    let(:seller) { FactoryBot.create(:trade_party) }
 
     it "basic invoice creation on POST request" do
       inv = {

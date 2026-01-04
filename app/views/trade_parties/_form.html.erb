@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-xs-12 col-xl-8">
-    <%= form_with(model: trade_partner) do |form| %>
-      <% if trade_partner.errors.any? %>
+    <%= form_with(model: trade_party) do |form| %>
+      <% if trade_party.errors.any? %>
         <div style="color: red">
-          <h2><%= pluralize(trade_partner.errors.count, "error") %> prohibited this trade_partner from being saved:</h2>
+          <h2><%= pluralize(trade_party.errors.count, "error") %> prohibited this trade_party from being saved:</h2>
 
           <ul>
-            <% trade_partner.errors.each do |error| %>
+            <% trade_party.errors.each do |error| %>
               <li><%= error.full_message %></li>
             <% end %>
           </ul>
@@ -31,7 +31,7 @@
         <div class="col-md-6">
           <fieldset class="mb-3 p-3 border rounded">
             <legend>
-              <%= TradePartner.human_attribute_name(:address) %>
+              <%= TradeParty.human_attribute_name(:address) %>
             </legend>
             <div class="mb-3">
               <%= form.label :street %>
@@ -59,7 +59,7 @@
         <div class="col-md-6">
           <fieldset class="mb-3 p-3 border rounded">
             <legend>
-              <%= TradePartner.human_attribute_name(:identifications) %>
+              <%= TradeParty.human_attribute_name(:identifications) %>
             </legend>
             <div class="mb-3">
               <%= form.label :vat_id %>
@@ -83,7 +83,7 @@
 
       <fieldset class="mb-3 p-3 border rounded">
         <legend>
-          <%= TradePartner.human_attribute_name(:contact) %>
+          <%= TradeParty.human_attribute_name(:contact) %>
         </legend>
         <div class="row">
           <div class="col-md-6">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_04_090029) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_04_095925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,10 +117,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_04_090029) do
   end
 
   create_table "sellers", force: :cascade do |t|
-    t.bigint "trade_partner_id", null: false
+    t.bigint "trade_party_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["trade_partner_id"], name: "index_sellers_on_trade_partner_id"
+    t.index ["trade_party_id"], name: "index_sellers_on_trade_party_id"
   end
 
   create_table "series", force: :cascade do |t|
@@ -177,7 +177,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_04_090029) do
     t.string "subject", limit: 200
   end
 
-  create_table "trade_partners", force: :cascade do |t|
+  create_table "trade_parties", force: :cascade do |t|
     t.string "name"
     t.string "legal_name"
     t.string "street"
@@ -214,6 +214,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_04_090029) do
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 
-  add_foreign_key "commons", "trade_partners", column: "seller_id", validate: false
-  add_foreign_key "sellers", "trade_partners"
+  add_foreign_key "commons", "trade_parties", column: "seller_id", validate: false
+  add_foreign_key "sellers", "trade_parties"
 end

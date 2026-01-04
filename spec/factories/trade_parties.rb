@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :trade_partner do
+  factory :trade_party do
     name { "Example Trading GmbH" }
     legal_name { "Example Trading Gesellschaft mit beschränkter Haftung" }
 

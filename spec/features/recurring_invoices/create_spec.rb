@@ -5,11 +5,11 @@ feature "Recurring Invoices:" do
     FactoryBot.create(:series, :default)
     FactoryBot.create(:vat)
     FactoryBot.create(:retention)
-    FactoryBot.create(:trade_partner)
+    FactoryBot.create(:trade_party)
 
     visit new_recurring_invoice_path
 
-    select(TradePartner.first.name, from: "recurring_invoice_seller_id")
+    select(TradeParty.first.name, from: "recurring_invoice_seller_id")
     fill_in "recurring_invoice_name", with: "Test Customer"
     fill_in "recurring_invoice_identification", with: "12345"
     fill_in "recurring_invoice_email", with: "test@customer.com"

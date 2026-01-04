@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "sellers/new", type: :view do
   before(:each) do
     assign(:seller, Seller.new(
-      trade_partner: nil
+      trade_party: nil
     ))
   end
 
@@ -12,7 +12,7 @@ RSpec.describe "sellers/new", type: :view do
 
     assert_select "form[action=?][method=?]", sellers_path, "post" do
 
-      assert_select "select[name=?]", "seller[trade_partner_id]"
+      assert_select "select[name=?]", "seller[trade_party_id]"
     end
   end
 end

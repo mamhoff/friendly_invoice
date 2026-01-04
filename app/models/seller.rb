@@ -1,5 +1,5 @@
 class Seller < ApplicationRecord
-  belongs_to :trade_partner
+  belongs_to :trade_party
 
-  delegate :name, to: :trade_partner
+  delegate :name, to: :trade_party, allow_nil: true
 end

@@ -1,9 +1,9 @@
 de:
   activerecord:
     models:
-      trade_partner: "Handelspartner"
+      trade_party: Unternehmen
     attributes:
-      trade_partner:
+      trade_party:
         name: "Name"
         legal_name: "Rechtlicher Name"
         address: "Addresse"
@@ -20,8 +20,8 @@ de:
         phone: "Telefonnummer"
         identifications: Amtliche Daten
         contact: Kontakt
-  trade_partners:
+  trade_parties:
     edit:
-      edit: Handelspartner bearbeiten
+      edit: Unternehmen bearbeiten
     form:
       update: Speichern

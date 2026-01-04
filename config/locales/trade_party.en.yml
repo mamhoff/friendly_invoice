@@ -1,9 +1,9 @@
 en:
   activerecord:
     models:
-      trade_partner: "Trade partner"
+      trade_party: Company
     attributes:
-      trade_partner:
+      trade_party:
         name: "Name"
         legal_name: "Legal name"
         street: "Street address"
@@ -19,6 +19,6 @@ en:
         email: "Email address"
         phone: "Phone number"
         contact: Contact
-  trade_partners:
+  trade_parties:
     form:
       update: Update

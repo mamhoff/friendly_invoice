@@ -18,8 +18,8 @@
           <%= Common.human_attribute_name(:seller) %>
         </legend>
         <div class="mb-3">
-          <%= form.label :trade_partner %>
-          <%= form.collection_select :trade_partner_id, TradePartner.all, :id, :name, {}, {multiple: false, class: "form-control"} %>
+          <%= form.label :trade_party %>
+          <%= form.collection_select :trade_party_id, TradeParty.all, :id, :name, {}, {multiple: false, class: "form-control"} %>
         </div>
       </fieldset>
 
