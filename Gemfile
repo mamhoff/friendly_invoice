@@ -15,10 +15,8 @@ gem "dartsass-rails"
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Hotwire: Turbo + Stimulus for modern JavaScript
-gem "hotwire-rails"
+# Turbo and importmaps for modern JavaScript
 gem "importmap-rails"
-gem "stimulus-rails"
 gem "turbo-rails"
 
 gem "c3-rails", "~> 0.4.18"
