@@ -29,7 +29,7 @@ feature "Settings:" do
     expect(page).to have_content "123token"
 
     accept_confirm do
-      click_link("Generate Token")
+      click_button "Generate Token"
     end
 
     expect(page.current_path).to eql settings_api_token_path

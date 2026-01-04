@@ -1,4 +1,4 @@
-<%= form_for(@tax) do |f| %>
+<%= form_forwith(model: @tax, id: dom_id(@tax)) do |f| %>
   <% if @tax.errors.any? %>
     <div id="error_explanation">
       <h2>

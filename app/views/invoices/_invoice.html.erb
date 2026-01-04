@@ -1,4 +1,4 @@
-<tr data-href="<%= invoice_path(invoice) %>" data-itemid="<%= invoice.id %>" data-page="<%= current_page %>" data-page_start="<%= invoice_counter.zero? %>">
+<tr data-itemid="<%= invoice.id %>" data-page="<%= current_page %>" data-page_start="<%= invoice_counter.zero? %>">
   <td class="table-select">
     <%= check_box_tag "invoice_ids[]", invoice.id, false, {"data-role" => "select-row", "id" => "invoice_ids_#{invoice.id}"} %>
   </td>

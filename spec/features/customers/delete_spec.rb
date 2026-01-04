@@ -9,7 +9,7 @@ feature "Customers:" do
     expect(page).to have_content("Test Customer")
 
     accept_confirm do
-      click_link "Delete"
+      click_button "Delete"
     end
 
     expect(page.current_path).to eql customers_path
@@ -23,10 +23,10 @@ feature "Customers:" do
     visit edit_customer_path(invoice.customer)
 
     accept_confirm do
-      click_link "Delete"
+      click_button "Delete"
     end
 
-    expect(page.current_path).to eql customer_path(invoice.customer)
+    expect(page.current_path).to eql edit_customer_path(invoice.customer)
     expect(page).to have_content("Cannot delete record because dependent invoices exist")
     expect(page).to have_content("Test Customer")
   end

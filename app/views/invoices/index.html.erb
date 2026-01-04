@@ -79,7 +79,6 @@
   </div>
 <% end %>
 <div class="action-buttons" data-role="action-buttons">
-  <%= link_to t("delete"), '#', class: 'btn btn-danger float-start', "data-confirm" => 'are you sure?', "data-role" => 'submit-form', "data-action" => 'delete', "data-target" => '#js-list-form' %>
   <%= link_to t("send email"), '#', class: 'btn btn-primary', "data-role" => 'submit-form', "data-action" => 'send_email', "data-target" => '#js-list-form' %>
   <%= link_to t("set paid"), '#', class: 'btn btn-primary', "data-role" => 'submit-form', "data-action" => 'set_paid', "data-target" => '#js-list-form' %>
   <%= link_to t("download pdf"), '#', class: 'btn btn-primary', "data-role" => 'submit-form', "data-action" => 'pdf', "data-target" => '#js-list-form' %>
