@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     post "bulk", on: :collection
     post "select_print_template", on: :member
     get "autocomplete", on: :collection
-    get "chart_data", on: :collection
     get "send_email", on: :member
     get "print", on: :member
   end
@@ -33,7 +32,6 @@ Rails.application.routes.draw do
   resources :recurring_invoices do
     post "generate", on: :collection
     delete "remove", on: :collection
-    get "chart_data", on: :collection
   end
 
   resources :customers do

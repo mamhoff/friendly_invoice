@@ -17,8 +17,6 @@
 //= require jquery-ui/widgets/autocomplete
 //= require waypoints/jquery.waypoints
 //= require waypoints/shortcuts/infinite
-//= require d3
-//= require c3
 //= require autosize
 //= require behave
 //= require select2

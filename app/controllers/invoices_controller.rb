@@ -28,33 +28,6 @@ class InvoicesController < CommonsController
     end
   end
 
-  # GET /invoices/chart_data.json
-  # Returns a json with dates as keys and sums of the invoices
-  # as values. Uses the same parameters as search.
-  def chart_data
-    date_from = (params[:q].nil? || params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
-    date_to = (params[:q].nil? || params[:q][:issue_date_lteq].empty?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
-
-    scope = @search.result.where(draft: false, failed: false)
-      .where("issue_date >= :date_from AND issue_date <= :date_to",
-        {date_from: date_from, date_to: date_to})
-    scope = scope.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
-    scope = scope.select("issue_date, sum(gross_amount) as total").group("issue_date")
-
-    # build all keys with 0 values for all
-    @date_totals = {}
-
-    (date_from..date_to).each do |day|
-      @date_totals[day.to_formatted_s(:db)] = 0
-    end
-
-    scope.each do |inv|
-      @date_totals[inv.issue_date.to_formatted_s(:db)] = inv.total
-    end
-
-    render
-  end
-
   def send_email
     @invoice = Invoice.find(params[:id])
     begin
