@@ -31,6 +31,9 @@
           <a class="dropdown-item" href="<%= settings_global_path %>">
             <%= t("global settings") %>
           </a>
+          <a class="dropdown-item" href="<%= sellers_path %>">
+            <%= Seller.model_name.human(count: 2) %>
+          </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="<%= series_index_path %>">
             <%= t("series") %>

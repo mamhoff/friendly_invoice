@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      seller:
+        one: Seller
+        other: Sellers
+    attributes:
+      seller:
+        trade_partner: Trade Partner
+  sellers:
+    edit:
+      edit: Edit Seller
+    form:
+      update: Save
