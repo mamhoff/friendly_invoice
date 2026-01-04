@@ -180,10 +180,6 @@ GEM
       geom2d (~> 0.4, >= 0.4.1)
       openssl (>= 2.2.1)
       strscan (>= 3.1.2)
-    hotwire-rails (0.1.3)
-      rails (>= 6.0.0)
-      stimulus-rails
-      turbo-rails
     http (5.3.1)
       addressable (~> 2.8)
       http-cookie (~> 1.0)
@@ -457,8 +453,6 @@ GEM
       rubocop-factory_bot (~> 2.27)
       rubocop-rspec (~> 3.5)
       rubocop-rspec_rails (~> 2.31)
-    stimulus-rails (1.3.4)
-      railties (>= 6.0.0)
     stringio (3.2.0)
     strscan (3.1.6)
     thor (1.4.0)
@@ -518,7 +512,6 @@ DEPENDENCIES
   factory_bot_rails
   faker
   hexapdf (~> 1.5)
-  hotwire-rails
   http
   importmap-rails
   jbuilder
@@ -550,7 +543,6 @@ DEPENDENCIES
   standard
   standard-rails
   standard-rspec
-  stimulus-rails
   timecop
   turbo-rails
   valid_url
