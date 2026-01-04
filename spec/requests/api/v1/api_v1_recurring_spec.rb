@@ -64,7 +64,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
   end
 
   describe "Recurring Invoice creation" do
-    let(:seller) { FactoryBot.create(:trade_party) }
+    let(:seller) { FactoryBot.create(:seller) }
 
     it "basic invoice creation on POST request" do
       inv = {

@@ -1,6 +1,7 @@
 require "rails_helper"
 
 feature "Invoices:" do
+  let!(:seller) { FactoryBot.create(:seller) }
   scenario "User can create an invoice. A customer is created.", :js do
     FactoryBot.create(:b_series)
     FactoryBot.create(:invoice, :paid)
@@ -9,7 +10,7 @@ feature "Invoices:" do
 
     uncheck "Save as draft"
 
-    select(TradeParty.first.name, from: "invoice_seller_id")
+    select(seller.name, from: "invoice_seller_id")
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"
     fill_in "invoice_email", with: "another@customer.com"
@@ -80,7 +81,7 @@ feature "Invoices:" do
     visit new_invoice_path
     click_on "Save"
 
-    expect(page).to have_content "4 errors"
+    expect(page).to have_content "3 errors"
   end
 
   scenario "Saving a draft", :js do
@@ -88,7 +89,7 @@ feature "Invoices:" do
     FactoryBot.create(:trade_party)
     visit new_invoice_path
 
-    select(TradeParty.first.name, from: "invoice_seller_id")
+    select(seller.name, from: "invoice_seller_id")
 
     fill_in "invoice_name", with: "Another Test Customer"
     fill_in "invoice_identification", with: "54321"

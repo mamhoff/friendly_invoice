@@ -1,15 +1,16 @@
 require "rails_helper"
 
 feature "Recurring Invoices:" do
+  let!(:seller) { FactoryBot.create(:seller) }
+
   scenario "User can create a recurring invoice. A Customer is created.", :js do
     FactoryBot.create(:series, :default)
     FactoryBot.create(:vat)
     FactoryBot.create(:retention)
-    FactoryBot.create(:trade_party)
 
     visit new_recurring_invoice_path
 
-    select(TradeParty.first.name, from: "recurring_invoice_seller_id")
+    select(seller.name, from: "recurring_invoice_seller_id")
     fill_in "recurring_invoice_name", with: "Test Customer"
     fill_in "recurring_invoice_identification", with: "12345"
     fill_in "recurring_invoice_email", with: "test@customer.com"
@@ -83,6 +84,6 @@ feature "Recurring Invoices:" do
     click_on "Save"
 
     expect(page.current_path).to eql recurring_invoices_path
-    expect(page).to have_content "7 errors"
+    expect(page).to have_content "6 errors"
   end
 end

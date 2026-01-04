@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_04_095925) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_04_102746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -214,6 +214,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_04_095925) do
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 
-  add_foreign_key "commons", "trade_parties", column: "seller_id", validate: false
+  add_foreign_key "commons", "sellers"
   add_foreign_key "sellers", "trade_parties"
 end
